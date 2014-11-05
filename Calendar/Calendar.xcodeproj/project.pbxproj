@@ -1,0 +1,268 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		86279BBD1A0ACFF200A5E6B5 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 86279BBC1A0ACFF200A5E6B5 /* main.c */; };
+		86279BCD1A0AD06100A5E6B5 /* Binary Search Tree.c in Sources */ = {isa = PBXBuildFile; fileRef = 86279BC31A0AD06100A5E6B5 /* Binary Search Tree.c */; };
+		86279BCE1A0AD06100A5E6B5 /* Events Tree.c in Sources */ = {isa = PBXBuildFile; fileRef = 86279BC51A0AD06100A5E6B5 /* Events Tree.c */; };
+		86279BCF1A0AD06100A5E6B5 /* Search Table.c in Sources */ = {isa = PBXBuildFile; fileRef = 86279BC81A0AD06100A5E6B5 /* Search Table.c */; };
+		86279BD01A0AD06100A5E6B5 /* Support Functions.c in Sources */ = {isa = PBXBuildFile; fileRef = 86279BCB1A0AD06100A5E6B5 /* Support Functions.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		86279BB71A0ACFF200A5E6B5 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		86279BB91A0ACFF200A5E6B5 /* Calendar */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Calendar; sourceTree = BUILT_PRODUCTS_DIR; };
+		86279BBC1A0ACFF200A5E6B5 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		86279BC31A0AD06100A5E6B5 /* Binary Search Tree.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "Binary Search Tree.c"; sourceTree = "<group>"; };
+		86279BC41A0AD06100A5E6B5 /* Binary Search Tree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Binary Search Tree.h"; sourceTree = "<group>"; };
+		86279BC51A0AD06100A5E6B5 /* Events Tree.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "Events Tree.c"; sourceTree = "<group>"; };
+		86279BC61A0AD06100A5E6B5 /* Events Tree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Events Tree.h"; sourceTree = "<group>"; };
+		86279BC71A0AD06100A5E6B5 /* Headers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Headers.h; sourceTree = "<group>"; };
+		86279BC81A0AD06100A5E6B5 /* Search Table.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "Search Table.c"; sourceTree = "<group>"; };
+		86279BC91A0AD06100A5E6B5 /* Search Table.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Search Table.h"; sourceTree = "<group>"; };
+		86279BCA1A0AD06100A5E6B5 /* Structs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Structs.h; sourceTree = "<group>"; };
+		86279BCB1A0AD06100A5E6B5 /* Support Functions.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "Support Functions.c"; sourceTree = "<group>"; };
+		86279BCC1A0AD06100A5E6B5 /* Support Functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Support Functions.h"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		86279BB61A0ACFF200A5E6B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		86279BB01A0ACFF200A5E6B5 = {
+			isa = PBXGroup;
+			children = (
+				86279BBB1A0ACFF200A5E6B5 /* Calendar */,
+				86279BBA1A0ACFF200A5E6B5 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		86279BBA1A0ACFF200A5E6B5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				86279BB91A0ACFF200A5E6B5 /* Calendar */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		86279BBB1A0ACFF200A5E6B5 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				86279BBC1A0ACFF200A5E6B5 /* main.c */,
+				86279BC31A0AD06100A5E6B5 /* Binary Search Tree.c */,
+				86279BC41A0AD06100A5E6B5 /* Binary Search Tree.h */,
+				86279BC51A0AD06100A5E6B5 /* Events Tree.c */,
+				86279BC61A0AD06100A5E6B5 /* Events Tree.h */,
+				86279BC71A0AD06100A5E6B5 /* Headers.h */,
+				86279BC81A0AD06100A5E6B5 /* Search Table.c */,
+				86279BC91A0AD06100A5E6B5 /* Search Table.h */,
+				86279BCA1A0AD06100A5E6B5 /* Structs.h */,
+				86279BCB1A0AD06100A5E6B5 /* Support Functions.c */,
+				86279BCC1A0AD06100A5E6B5 /* Support Functions.h */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		86279BB81A0ACFF200A5E6B5 /* Calendar */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 86279BC01A0ACFF200A5E6B5 /* Build configuration list for PBXNativeTarget "Calendar" */;
+			buildPhases = (
+				86279BB51A0ACFF200A5E6B5 /* Sources */,
+				86279BB61A0ACFF200A5E6B5 /* Frameworks */,
+				86279BB71A0ACFF200A5E6B5 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Calendar;
+			productName = Calendar;
+			productReference = 86279BB91A0ACFF200A5E6B5 /* Calendar */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		86279BB11A0ACFF200A5E6B5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "Universidade Federal De Alagoas";
+				TargetAttributes = {
+					86279BB81A0ACFF200A5E6B5 = {
+						CreatedOnToolsVersion = 6.1;
+					};
+				};
+			};
+			buildConfigurationList = 86279BB41A0ACFF200A5E6B5 /* Build configuration list for PBXProject "Calendar" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 86279BB01A0ACFF200A5E6B5;
+			productRefGroup = 86279BBA1A0ACFF200A5E6B5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				86279BB81A0ACFF200A5E6B5 /* Calendar */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		86279BB51A0ACFF200A5E6B5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				86279BCD1A0AD06100A5E6B5 /* Binary Search Tree.c in Sources */,
+				86279BCF1A0AD06100A5E6B5 /* Search Table.c in Sources */,
+				86279BD01A0AD06100A5E6B5 /* Support Functions.c in Sources */,
+				86279BCE1A0AD06100A5E6B5 /* Events Tree.c in Sources */,
+				86279BBD1A0ACFF200A5E6B5 /* main.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		86279BBE1A0ACFF200A5E6B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		86279BBF1A0ACFF200A5E6B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		86279BC11A0ACFF200A5E6B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		86279BC21A0ACFF200A5E6B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		86279BB41A0ACFF200A5E6B5 /* Build configuration list for PBXProject "Calendar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				86279BBE1A0ACFF200A5E6B5 /* Debug */,
+				86279BBF1A0ACFF200A5E6B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		86279BC01A0ACFF200A5E6B5 /* Build configuration list for PBXNativeTarget "Calendar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				86279BC11A0ACFF200A5E6B5 /* Debug */,
+				86279BC21A0ACFF200A5E6B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 86279BB11A0ACFF200A5E6B5 /* Project object */;
+}

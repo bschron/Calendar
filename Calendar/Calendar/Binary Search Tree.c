@@ -53,7 +53,18 @@ void insertEventBinarySearchTree (EventBinarySearchTree **root, EventBinarySearc
     
     EventBinarySearchTree **next = NULL;
     
-    if ((*root)->nameHash <= new->nameHash)
+    if ((*root)->nameHash == new->nameHash)
+    {
+        if ((*root)->event < new->event)
+        {
+            next = &(*root)->rightChild;
+        }
+        else
+        {
+            next = &(*root)->leftChild;
+        }
+    }
+    else if ((*root)->nameHash < new->nameHash)
     {
         next = &(*root)->rightChild;
     }
@@ -78,15 +89,19 @@ EventBinarySearchTree** searchEventBinarySearchTree (EventBinarySearchTree **roo
     
     if ((*root)->nameHash == wantedStaple->nameHash)
     {
-        if (strcmp((*root)->event->title, wantedStaple->event->title) == 0)
+        if ((*root)->event == wantedStaple->event)
+        {
+            return root;
+        }
+        else if ((*root)->event < wantedStaple->event)
         {
             free(wantedStaple);
-            return root;
+            return searchEventBinarySearchTree(&(*root)->rightChild, wanted);
         }
         else
         {
             free(wantedStaple);
-            return searchEventBinarySearchTree(&(*root)->rightChild, wanted);
+            return searchEventBinarySearchTree(&(*root)->leftChild, wanted);
         }
     }
     else if ((*root)->nameHash < wantedStaple->nameHash)

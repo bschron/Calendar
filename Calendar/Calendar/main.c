@@ -11,6 +11,7 @@
 int main(void)
 {
     Event *um = createEvent(10, 12, 2012, "teste", "teste01");
+    Event *um2 = createEvent(10, 12, 2012, "teste", "teste01");
     Event *dois = createEvent(10, 12, 2012, "teste", "teste02");
     Event *tres = createEvent(10, 12, 2012, "teste", "teste03");
     Event *quatro = createEvent(10, 12, 2012, "teste", "teste04");
@@ -21,6 +22,7 @@ int main(void)
     EventBinarySearchTree *tree = NULL;
     
     EventBinarySearchTree *teste01 = createEventBinarySearchTree(um);
+    EventBinarySearchTree *teste01_2 = createEventBinarySearchTree(um2);
     EventBinarySearchTree *teste02 = createEventBinarySearchTree(dois);
     EventBinarySearchTree *teste03 = createEventBinarySearchTree(tres);
     EventBinarySearchTree *teste04 = createEventBinarySearchTree(quatro);
@@ -30,11 +32,12 @@ int main(void)
     insertEventBinarySearchTree(&tree, teste04);
     insertEventBinarySearchTree(&tree, teste02);
     insertEventBinarySearchTree(&tree, teste01);
+    insertEventBinarySearchTree(&tree, teste01_2);
     insertEventBinarySearchTree(&tree, teste06);
     insertEventBinarySearchTree(&tree, teste03);
     insertEventBinarySearchTree(&tree, teste05);
     
-    EventBinarySearchTree **wanted = searchEventBinarySearchTree(&tree, quatro);
+    EventBinarySearchTree **wanted = searchEventBinarySearchTree(&tree, um);
     
     removeEventBinarySearchTree(wanted);
     

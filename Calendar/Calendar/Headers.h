@@ -12,6 +12,7 @@
 #define Max 100
 #define description 300
 #define SearchTableSize 661
+#define not_in_use -1
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,6 +23,7 @@
 #include"Search Table.h"
 #include"Binary Search Tree.h"
 #include"Support Functions.h"
+#include "Lists Management.h"
 
 
 #endif

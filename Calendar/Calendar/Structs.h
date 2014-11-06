@@ -14,7 +14,10 @@
 typedef struct calendar Calendar;
 typedef struct event Event;
 typedef struct sTable SearchTable;
+typedef struct dTable DayTable;
+typedef struct mTable MonthTable;
 typedef struct eventBinarySearchTree EventBinarySearchTree;
+typedef struct node Node;
 
 struct calendar
 {
@@ -35,7 +38,18 @@ struct event
 
 struct sTable
 {
-    Event *table[SearchTableSize];
+    EventBinarySearchTree *table[SearchTableSize];
+};
+
+struct dTable
+{
+    EventBinarySearchTree *root;
+};
+
+struct mTable
+{
+    EventBinarySearchTree *root;
+    DayTable *day[31];
 };
 
 struct eventBinarySearchTree
@@ -45,6 +59,14 @@ struct eventBinarySearchTree
     
     EventBinarySearchTree *leftChild;
     EventBinarySearchTree *rightChild;
+};
+
+struct node
+{
+    Node* previous;
+    Node* next;
+    char name[Max];
+    int index;
 };
 
 #endif

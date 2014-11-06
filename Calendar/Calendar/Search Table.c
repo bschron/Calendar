@@ -73,3 +73,8 @@ void mapEventOnSearchTable (Event *event)
 {
     
 }
+
+Node* mapEventTitle (char *title)
+{
+    return NULL;
+}

@@ -12,6 +12,7 @@
 		86279BCE1A0AD06100A5E6B5 /* Events Tree.c in Sources */ = {isa = PBXBuildFile; fileRef = 86279BC51A0AD06100A5E6B5 /* Events Tree.c */; };
 		86279BCF1A0AD06100A5E6B5 /* Search Table.c in Sources */ = {isa = PBXBuildFile; fileRef = 86279BC81A0AD06100A5E6B5 /* Search Table.c */; };
 		86279BD01A0AD06100A5E6B5 /* Support Functions.c in Sources */ = {isa = PBXBuildFile; fileRef = 86279BCB1A0AD06100A5E6B5 /* Support Functions.c */; };
+		86D7A44A1A0B8DFD009C67EF /* Lists Management.c in Sources */ = {isa = PBXBuildFile; fileRef = 86D7A4481A0B8DFD009C67EF /* Lists Management.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -39,6 +40,8 @@
 		86279BCA1A0AD06100A5E6B5 /* Structs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Structs.h; sourceTree = "<group>"; };
 		86279BCB1A0AD06100A5E6B5 /* Support Functions.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "Support Functions.c"; sourceTree = "<group>"; };
 		86279BCC1A0AD06100A5E6B5 /* Support Functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Support Functions.h"; sourceTree = "<group>"; };
+		86D7A4481A0B8DFD009C67EF /* Lists Management.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "Lists Management.c"; sourceTree = "<group>"; };
+		86D7A4491A0B8DFD009C67EF /* Lists Management.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Lists Management.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +85,8 @@
 				86279BC91A0AD06100A5E6B5 /* Search Table.h */,
 				86279BCB1A0AD06100A5E6B5 /* Support Functions.c */,
 				86279BCC1A0AD06100A5E6B5 /* Support Functions.h */,
+				86D7A4481A0B8DFD009C67EF /* Lists Management.c */,
+				86D7A4491A0B8DFD009C67EF /* Lists Management.h */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -143,6 +148,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				86279BCD1A0AD06100A5E6B5 /* Binary Search Tree.c in Sources */,
+				86D7A44A1A0B8DFD009C67EF /* Lists Management.c in Sources */,
 				86279BCF1A0AD06100A5E6B5 /* Search Table.c in Sources */,
 				86279BD01A0AD06100A5E6B5 /* Support Functions.c in Sources */,
 				86279BCE1A0AD06100A5E6B5 /* Events Tree.c in Sources */,

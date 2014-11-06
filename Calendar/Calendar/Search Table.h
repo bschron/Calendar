@@ -19,7 +19,11 @@ int hashWord (char *word);
 int wordSum (char *word);
 /*returns the sum of the sum of every character from every memory position from the provided string*/
 int wordPointerSum (char *word);
-/*maps the provided event on the search table*/
-void mapEventOnSearchTable (Event *event);
+/*maps the provided event on the search tables*/
+void mapEventOnSearchTables (Event *event);
+/*inserts each word from the provided Event title to the titleSearchTable table*/
+void mapEventTitle (Event *event);
+/*sets all table pointers to NULL*/
+void initializeSearchTable (SearchTable *var);
 
 #endif /* defined(__calendar__Search_Table__) */

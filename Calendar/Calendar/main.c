@@ -10,6 +10,8 @@
 
 int main(void)
 {
+    titleSearchTable = createEmptySearchTable();
+    
     Event *um = createEvent(10, 12, 2012, "teste", "teste01");
     Event *um2 = createEvent(10, 12, 2012, "teste", "teste01");
     Event *dois = createEvent(10, 12, 2012, "teste", "teste02");

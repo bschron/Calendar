@@ -42,6 +42,7 @@
 		86279BCC1A0AD06100A5E6B5 /* Support Functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Support Functions.h"; sourceTree = "<group>"; };
 		86D7A4481A0B8DFD009C67EF /* Lists Management.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "Lists Management.c"; sourceTree = "<group>"; };
 		86D7A4491A0B8DFD009C67EF /* Lists Management.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Lists Management.h"; sourceTree = "<group>"; };
+		86D7A44B1A0BB4BA009C67EF /* Main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Main.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +78,7 @@
 				86279BC71A0AD06100A5E6B5 /* Headers.h */,
 				86279BCA1A0AD06100A5E6B5 /* Structs.h */,
 				86279BBC1A0ACFF200A5E6B5 /* main.c */,
+				86D7A44B1A0BB4BA009C67EF /* Main.h */,
 				86279BC31A0AD06100A5E6B5 /* Binary Search Tree.c */,
 				86279BC41A0AD06100A5E6B5 /* Binary Search Tree.h */,
 				86279BC51A0AD06100A5E6B5 /* Events Tree.c */,

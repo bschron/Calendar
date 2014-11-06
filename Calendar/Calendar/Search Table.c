@@ -12,14 +12,19 @@ SearchTable* createEmptySearchTable (void)
 {
     SearchTable *new = (SearchTable*) malloc(sizeof(SearchTable));
     
-    int i;
-    
-    for (i=0; i<SearchTableSize; i++)
-    {
-        new->table[i] = NULL;
-    }
+    initializeSearchTable(new);
     
     return new;
+}
+
+void initializeSearchTable (SearchTable *var)
+{
+    int i;
+    
+    for (i = 0; i<SearchTableSize; i++)
+    {
+        var->table[i] = NULL;
+    }
 }
 
 int hashWord (char *word)
@@ -69,12 +74,21 @@ int wordPointerSum (char *word)
     return wordSum(address) + wordPointerSum(word+1);
 }
 
-void mapEventOnSearchTable (Event *event)
+void mapEventOnSearchTables (Event *event)
 {
-    
+    mapEventTitle(event);
 }
 
-Node* mapEventTitle (char *title)
+void mapEventTitle (Event *event)
 {
-    return NULL;
+    Node *words = NULL;
+    
+    words = listWords(event->title, words);
+    
+    for (; words != NULL; words = removeNode(words, words))
+    {
+        insertEventBinarySearchTree(&titleSearchTable->table[words->index], createEventBinarySearchTree(event));
+    }
+    
+    return;
 }

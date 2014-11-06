@@ -40,9 +40,16 @@ Node* listWords (char *words, Node *list)
         return list;
     }
     
-    return NULL;
+    char *p;
+    char *word = (char*) malloc(sizeof(char)*Max);
+    
+    p = returnNextWord(word, words, ' ');
+    
+    list = insertNode(list, word, hashWord(word));
+    free(word);
+    
+    return listWords(p, list);
 }
-
 char* returnNextWord (char *dest, char *word, char separator)
 {
     if (word == NULL)

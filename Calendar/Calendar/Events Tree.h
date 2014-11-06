@@ -12,8 +12,11 @@
 #include "Headers.h"
 
 //Event
+/*returns a event with empty flags*/
 Event returnEmptyEvent (void);
+/*returns a pointer to a new event with empty flags*/
 Event* createEmptyEvent (void);
+/*returns a pointer to a new event with the provided content*/
 Event* createEvent (int day, int month, int year, char *desc, char *title);
 /*This function will insert a event into a calendar, with the provided parameters and add this event to the hash table, if the calendar is NULL, it will create a new calendar */
 Calendar* insertEvent (Calendar *calendar, int day, int month, int year, char *desc, char *title);
@@ -21,7 +24,9 @@ Calendar* insertEvent (Calendar *calendar, int day, int month, int year, char *d
 Calendar* removeEvent (Calendar *calendar, Event *event);
 
 //Calendar
+/*returns a Calendar with empty falgs*/
 Calendar returnEmptyCalendar (void);
+/*returna a pointer to a new calendar with empty flags*/
 Calendar* createEmptyCalendar (void);
 
 #endif /* defined(__calendar__Events_Tree__) */

@@ -13,6 +13,7 @@
 #define description 300
 #define SearchTableSize 661
 #define not_in_use -1
+#define SearchHeapSize 30
 
 #include <stdio.h>
 #include <stdlib.h>

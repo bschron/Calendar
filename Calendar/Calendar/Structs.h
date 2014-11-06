@@ -18,6 +18,7 @@ typedef struct dTable DayTable;
 typedef struct mTable MonthTable;
 typedef struct eventBinarySearchTree EventBinarySearchTree;
 typedef struct node Node;
+typedef struct searchingHeap SearchingHeap;
 
 struct calendar
 {
@@ -67,6 +68,11 @@ struct node
     Node* next;
     char name[Max];
     int index;
+};
+
+struct searchingHeap
+{
+    Event *heap[SearchHeapSize];
 };
 
 #endif

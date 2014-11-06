@@ -37,7 +37,7 @@ int main(void)
     insertEventBinarySearchTree(&tree, teste03);
     insertEventBinarySearchTree(&tree, teste05);
     
-    EventBinarySearchTree **wanted = searchEventBinarySearchTree(&tree, um);
+    EventBinarySearchTree **wanted = searchEventBinarySearchTree(&tree, um2);
     
     removeEventBinarySearchTree(wanted);
     

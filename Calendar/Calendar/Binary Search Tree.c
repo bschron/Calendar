@@ -62,7 +62,7 @@ void insertEventBinarySearchTree (EventBinarySearchTree **root, EventBinarySearc
         next = &(*root)->leftChild;
     }
     
-    /*balance here*/
+    *root = balanceEventBinarySearchTree(*root);
     
     return insertEventBinarySearchTree(next, new);
 }

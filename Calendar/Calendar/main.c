@@ -29,13 +29,13 @@ int main(void)
     EventBinarySearchTree *teste05 = createEventBinarySearchTree(cinco);
     EventBinarySearchTree *teste06 = createEventBinarySearchTree(seis);
     
-    insertEventBinarySearchTree(&tree, teste04);
-    insertEventBinarySearchTree(&tree, teste02);
     insertEventBinarySearchTree(&tree, teste01);
     insertEventBinarySearchTree(&tree, teste01_2);
-    insertEventBinarySearchTree(&tree, teste06);
+    insertEventBinarySearchTree(&tree, teste02);
     insertEventBinarySearchTree(&tree, teste03);
+    insertEventBinarySearchTree(&tree, teste04);
     insertEventBinarySearchTree(&tree, teste05);
+    insertEventBinarySearchTree(&tree, teste06);
     
     EventBinarySearchTree **wanted = searchEventBinarySearchTree(&tree, um2);
     

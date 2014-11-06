@@ -34,7 +34,7 @@ int main(void)
     insertEventBinarySearchTree(&tree, teste03);
     insertEventBinarySearchTree(&tree, teste05);
     
-    EventBinarySearchTree **wanted = searchEventBinarySearchTree(tree, cinco);
+    EventBinarySearchTree **wanted = searchEventBinarySearchTree(&tree, quatro);
     
     removeEventBinarySearchTree(wanted);
     

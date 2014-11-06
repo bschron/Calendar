@@ -67,18 +67,18 @@ void insertEventBinarySearchTree (EventBinarySearchTree **root, EventBinarySearc
     return insertEventBinarySearchTree(next, new);
 }
 
-EventBinarySearchTree* searchEventBinarySearchTree (EventBinarySearchTree *root, Event *wanted)
+EventBinarySearchTree** searchEventBinarySearchTree (EventBinarySearchTree **root, Event *wanted)
 {
-    if (root == NULL || wanted == NULL)
+    if (*root == NULL || wanted == NULL)
     {
         return NULL;
     }
     
     EventBinarySearchTree *wantedStaple = createEventBinarySearchTree(wanted);
     
-    if (root->nameHash == wantedStaple->nameHash)
+    if ((*root)->nameHash == wantedStaple->nameHash)
     {
-        if (strcmp(root->event->title, wantedStaple->event->title) == 0)
+        if (strcmp((*root)->event->title, wantedStaple->event->title) == 0)
         {
             free(wantedStaple);
             return root;
@@ -86,18 +86,18 @@ EventBinarySearchTree* searchEventBinarySearchTree (EventBinarySearchTree *root,
         else
         {
             free(wantedStaple);
-            return searchEventBinarySearchTree(root->rightChild, wanted);
+            return searchEventBinarySearchTree(&(*root)->rightChild, wanted);
         }
     }
-    else if (root->nameHash < wantedStaple->nameHash)
+    else if ((*root)->nameHash < wantedStaple->nameHash)
     {
         free(wantedStaple);
-        return searchEventBinarySearchTree(root->rightChild, wanted);
+        return searchEventBinarySearchTree(&(*root)->rightChild, wanted);
     }
     else
     {
         free(wantedStaple);
-        return searchEventBinarySearchTree(root->leftChild, wanted);
+        return searchEventBinarySearchTree(&(*root)->leftChild, wanted);
     }
 }
 
@@ -123,25 +123,30 @@ void removeEventBinarySearchTree (EventBinarySearchTree **remove)
     {
         return;
     }
+    else if ((*remove)->leftChild == NULL && (*remove)->rightChild == NULL)
+    {
+        free(*remove);
+        *remove = NULL;
+    }
     else if ((*remove)->leftChild == NULL)
     {
-        EventBinarySearchTree **rmv = remove;
+        EventBinarySearchTree *rmv = *remove;
         
         *remove = (*remove)->rightChild;
         
-        free(*rmv);
-        *rmv = NULL;
+        free(rmv);
+        rmv = NULL;
         
         return;
     }
     else if ((*remove)->rightChild == NULL)
     {
-        EventBinarySearchTree **rmv = remove;
+        EventBinarySearchTree *rmv = *remove;
         
         *remove = (*remove)->leftChild;
         
-        free(*rmv);
-        *rmv = NULL;
+        free(rmv);
+        rmv = NULL;
         
         return;
     }

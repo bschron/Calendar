@@ -73,6 +73,8 @@ struct node
 struct searchingHeap
 {
     Event *heap[SearchHeapSize];
+    int priority[SearchHeapSize];
+    int heapLength;
 };
 
 #endif

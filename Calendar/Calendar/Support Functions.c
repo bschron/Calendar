@@ -50,6 +50,7 @@ Node* listWords (char *words, Node *list)
     
     return listWords(p, list);
 }
+
 char* returnNextWord (char *dest, char *word, char separator)
 {
     if (word == NULL)

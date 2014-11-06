@@ -42,7 +42,6 @@ struct eventBinarySearchTree
 {
     Event *event;
     int nameHash;
-    int tieBreakerFactor;
     
     EventBinarySearchTree *leftChild;
     EventBinarySearchTree *rightChild;

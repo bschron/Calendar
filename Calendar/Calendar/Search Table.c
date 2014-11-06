@@ -25,10 +25,10 @@ SearchTable* createEmptySearchTable (void)
 int hashWord (char *word)
 {
     int hash = wordSum(word);
-    hash -= wordPointerSum(word);
-    char number[Max];
-    snprintf(number, sizeof(number)/sizeof(char), "%d", hash);
-    hash *= wordPointerSum(number);
+    //hash -= wordPointerSum(word);
+    //char number[Max];
+    //snprintf(number, sizeof(number)/sizeof(char), "%d", hash);
+    //hash *= wordPointerSum(number);
     hash = hash %SearchTableSize;
     
     return hash;

@@ -12,8 +12,21 @@
 #include "Headers.h"
 
 
-EventBinarySearchTree* createEmptyBinaryTree (void);
+EventBinarySearchTree* createEmptyEventBinaryTree (void);
+EventBinarySearchTree* createEventBinarySearchTree (Event *event);
 EventBinarySearchTree returnEmptyEventBinarySearchTree (void);
 int eventBinarySearchThreeHeigth (EventBinarySearchTree *root);
+void insertEventBinarySearchTree (EventBinarySearchTree **root, EventBinarySearchTree *new);
+EventBinarySearchTree* searchEventBinarySearchTree (EventBinarySearchTree *root, Event *wanted);
+EventBinarySearchTree* eventBinarySearchTreeLeftMostChild (EventBinarySearchTree *root);
+EventBinarySearchTree* eventBinarySearchTreeRightMostChild (EventBinarySearchTree *root);
+void removeEventBinarySearchTree (EventBinarySearchTree **remove);
+//AVL
+EventBinarySearchTree* eventBinarySearchTreeLLCase (EventBinarySearchTree *root);
+EventBinarySearchTree* eventBinarySearchTreeRRCase (EventBinarySearchTree *root);
+EventBinarySearchTree* eventBinarySearchTreeLRCase (EventBinarySearchTree *root);
+EventBinarySearchTree* eventBinarySearchTreeRLCase (EventBinarySearchTree *root);
+int eventBinarySearchTreeBalanceFactor (EventBinarySearchTree *root);
+EventBinarySearchTree* balanceEventBinarySearchTree (EventBinarySearchTree *root);
 
 #endif /* defined(__calendar__Binary_Search_Tree__) */

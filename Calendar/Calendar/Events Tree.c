@@ -17,6 +17,21 @@ Event* createEmptyEvent (void)
     return new;
 }
 
+Event* createEvent (int day, int month, int year, char *desc, char *title)
+{
+    Event *new = (Event*) malloc(sizeof(Event));
+    
+    new->day = day;
+    new->month = month;
+    new->year = year;
+    new->next = NULL;
+    new->previous = NULL;
+    snprintf(new->title, Max, "%s", title);
+    snprintf(new->desc, description, "%s", desc);
+    
+    return new;
+}
+
 Event returnEmptyEvent (void)
 {
     Event empty;

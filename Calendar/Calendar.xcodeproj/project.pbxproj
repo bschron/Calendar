@@ -71,15 +71,15 @@
 		86279BBB1A0ACFF200A5E6B5 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
+				86279BC71A0AD06100A5E6B5 /* Headers.h */,
+				86279BCA1A0AD06100A5E6B5 /* Structs.h */,
 				86279BBC1A0ACFF200A5E6B5 /* main.c */,
 				86279BC31A0AD06100A5E6B5 /* Binary Search Tree.c */,
 				86279BC41A0AD06100A5E6B5 /* Binary Search Tree.h */,
 				86279BC51A0AD06100A5E6B5 /* Events Tree.c */,
 				86279BC61A0AD06100A5E6B5 /* Events Tree.h */,
-				86279BC71A0AD06100A5E6B5 /* Headers.h */,
 				86279BC81A0AD06100A5E6B5 /* Search Table.c */,
 				86279BC91A0AD06100A5E6B5 /* Search Table.h */,
-				86279BCA1A0AD06100A5E6B5 /* Structs.h */,
 				86279BCB1A0AD06100A5E6B5 /* Support Functions.c */,
 				86279BCC1A0AD06100A5E6B5 /* Support Functions.h */,
 			);

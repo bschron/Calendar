@@ -18,8 +18,8 @@ EventBinarySearchTree returnEmptyEventBinarySearchTree (void);
 int eventBinarySearchThreeHeigth (EventBinarySearchTree *root);
 void insertEventBinarySearchTree (EventBinarySearchTree **root, EventBinarySearchTree *new);
 EventBinarySearchTree** searchEventBinarySearchTree (EventBinarySearchTree **root, Event *wanted);
-EventBinarySearchTree* eventBinarySearchTreeLeftMostChild (EventBinarySearchTree *root);
-EventBinarySearchTree* eventBinarySearchTreeRightMostChild (EventBinarySearchTree *root);
+EventBinarySearchTree** eventBinarySearchTreeLeftMostChild (EventBinarySearchTree **root);
+EventBinarySearchTree** eventBinarySearchTreeRightMostChild (EventBinarySearchTree **root);
 void removeEventBinarySearchTree (EventBinarySearchTree **remove);
 //AVL
 EventBinarySearchTree* eventBinarySearchTreeLLCase (EventBinarySearchTree *root);

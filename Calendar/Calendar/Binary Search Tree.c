@@ -152,46 +152,46 @@ void removeEventBinarySearchTree (EventBinarySearchTree **remove)
     }
     else if (eventBinarySearchThreeHeigth((*remove)->leftChild) > eventBinarySearchThreeHeigth((*remove)->rightChild))
     {
-        EventBinarySearchTree *substitute = eventBinarySearchTreeRightMostChild((*remove)->leftChild);
+        EventBinarySearchTree **substitute = eventBinarySearchTreeRightMostChild(&(*remove)->leftChild);
         
-        (*remove)->event = substitute->event;
-        (*remove)->nameHash = substitute->nameHash;
+        (*remove)->event = (*substitute)->event;
+        (*remove)->nameHash = (*substitute)->nameHash;
         
-        return removeEventBinarySearchTree(&substitute);
+        return removeEventBinarySearchTree(substitute);
     }
     else
     {
-        EventBinarySearchTree *substitute = eventBinarySearchTreeLeftMostChild((*remove)->rightChild);
+        EventBinarySearchTree **substitute = eventBinarySearchTreeLeftMostChild(&(*remove)->rightChild);
         
-        (*remove)->event = substitute->event;
-        (*remove)->nameHash = substitute->nameHash;
+        (*remove)->event = (*substitute)->event;
+        (*remove)->nameHash = (*substitute)->nameHash;
         
-        return removeEventBinarySearchTree(&substitute);
+        return removeEventBinarySearchTree(substitute);
     }
     
 }
 
-EventBinarySearchTree* eventBinarySearchTreeLeftMostChild (EventBinarySearchTree *root)
+EventBinarySearchTree** eventBinarySearchTreeLeftMostChild (EventBinarySearchTree **root)
 {
-    if (root->leftChild == NULL)
+    if ((*root)->leftChild == NULL)
     {
         return root;
     }
     else
     {
-        return  eventBinarySearchTreeLeftMostChild(root->leftChild);
+        return  eventBinarySearchTreeLeftMostChild(&(*root)->leftChild);
     }
 }
 
-EventBinarySearchTree* eventBinarySearchTreeRightMostChild (EventBinarySearchTree *root)
+EventBinarySearchTree** eventBinarySearchTreeRightMostChild (EventBinarySearchTree **root)
 {
-    if (root->rightChild == NULL)
+    if ((*root)->rightChild == NULL)
     {
         return root;
     }
     else
     {
-        return eventBinarySearchTreeRightMostChild(root->rightChild);
+        return eventBinarySearchTreeRightMostChild(&(*root)->rightChild);
     }
 }
 

@@ -77,4 +77,7 @@ struct searchingHeap
     int heapLength;
 };
 
+//Global var
+SearchTable *titleSearchTable;
+
 #endif

@@ -21,15 +21,13 @@
 
 #include "Structs.h"
 
-SearchTable *titleSearchTable;
-
 #include "Main.h"
 #include"Events Tree.h"
 #include"Search Table.h"
 #include"Binary Search Tree.h"
 #include"Support Functions.h"
 #include "Lists Management.h"
-#include "Searching Heap.c"
+#include "Searching Heap.h"
 
 
 #endif

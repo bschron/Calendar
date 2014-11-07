@@ -27,5 +27,7 @@ SearchingHeap* enqueueSearchingHeap (SearchingHeap *heap, Event *item);
 void heapfySearchingHeap (SearchingHeap *heap, int parent);
 /*given two searching heap positions and a pointer to the heap, will switch the positions of the value and priorities of each item*/
 void switchSearchingHeapItems (SearchingHeap *heap, int item1, int item2);
+/*will deque the biggest element from the provided heap, heapfy the tree, and return the dequeued element. If the heap is empty or NULL, will return NULL*/
+Event* dequeueSearchingHeap (SearchingHeap *heap);
 
 #endif /* defined(__Calendar__Searching_Heap__) */

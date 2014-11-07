@@ -43,6 +43,9 @@ int main(void)
     
     removeEventBinarySearchTree(wanted);
     
+    SearchingHeap *heap = NULL;
+    heap =
+    
     getchar();
     
 }

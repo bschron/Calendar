@@ -61,16 +61,21 @@ void heapfySearchingHeap (SearchingHeap *heap, int parent)
     
     int leftChild = heapLeftChild(parent);
     int rightChild = heapRightChild(parent);
-    
-    if (heap->heap[leftChild] != NULL && heap->priority[leftChild] > heap->priority[parent])
+    if (heap->heap[leftChild] == NULL)
     {
-        switchSearchingHeapItems(heap, parent, leftChild);
-        heapfySearchingHeap(heap, leftChild);
+        leftChild = -1;
     }
-    if (heap->heap[rightChild] != NULL && heap->priority[rightChild] > heap->priority[parent])
+    if (heap->heap[rightChild] == NULL)
     {
-        switchSearchingHeapItems(heap, parent, rightChild);
-        heapfySearchingHeap(heap, rightChild);
+        rightChild = -1;
+    }
+    int biggestChild = max(leftChild, rightChild);
+    
+    if (heap->heap[biggestChild] != NULL && heap->priority[parent] < heap->priority[biggestChild])
+    {
+        switchSearchingHeapItems(heap, parent, biggestChild);
+        heapfySearchingHeap(heap, biggestChild);
+        heapfySearchingHeap(heap, parent);
     }
     
     return;
@@ -134,4 +139,34 @@ void initializeSearchingHeap (SearchingHeap *heap)
     }
     
     heap->heapLength = 0;
+}
+
+Event* dequeueSearchingHeap (SearchingHeap *heap)
+{
+    if (heap == NULL)
+    {
+        return NULL;
+    }
+    else if (heap->heapLength <= 0)
+    {
+        return NULL;
+    }
+    
+    //get first
+    Event *dequeued = heap->heap[0];
+    
+    //replace first with last
+    heap->heap[0] = heap->heap[heap->heapLength-1];
+    heap->priority[0] = heap->priority[heap->heapLength-1];
+    //remove last
+    heap->heap[heap->heapLength-1] = NULL;
+    heap->priority[heap->heapLength-1] = -1;
+    //decrease heap length
+    (heap->heapLength)--;
+    
+    //heapfy
+    heapfySearchingHeap(heap, 0);
+    
+    //return dequeued
+    return dequeued;
 }

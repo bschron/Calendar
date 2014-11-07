@@ -29,6 +29,7 @@ SearchTable *titleSearchTable;
 #include"Binary Search Tree.h"
 #include"Support Functions.h"
 #include "Lists Management.h"
+#include "Searching Heap.c"
 
 
 #endif

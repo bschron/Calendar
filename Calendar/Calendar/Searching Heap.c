@@ -16,22 +16,22 @@ int hpParent (int child)
     }
     else if (child%2 == 0)
     {
-        return (child>>1)-1;
+        return (child/2)-1;
     }
     else
     {
-        return child>>1;
+        return child/2;
     }
 }
 
 int hpLeftChild (int parent)
 {
-    return (parent<<1) +1;
+    return (parent*2) +1;
 }
 
 int hpRightChild (int parent)
 {
-    return (parent<<1) +2;
+    return (parent*2) +2;
 }
 
 SearchingHp* createEmptyHp (void)
@@ -46,6 +46,10 @@ SearchingHp* createEmptyHp (void)
 void hpfySearchingHp (SearchingHp *hp, int parent)
 {
     if (parent < 0 || hp == NULL || parent > SearchHpSize-1)
+    {
+        return;
+    }
+    else if (hp->hp[parent] == NULL)
     {
         return;
     }
@@ -69,7 +73,7 @@ void hpfySearchingHp (SearchingHp *hp, int parent)
     {
         rightChild = -1;
     }
-    int biggestChild = max(leftChild, rightChild);
+    int biggestChild = maxSearchingHpChild(hp, leftChild, rightChild);
     
     if (hp->hp[biggestChild] != NULL && hp->priority[parent] < hp->priority[biggestChild])
     {
@@ -118,9 +122,9 @@ SearchingHp* enqueueSearchingHp (SearchingHp *hp, Event *item)
     }
     else if (hp->hpLength < SearchHpSize)
     {
-        hp->hp[hp->hpLength-1] = item;
-        hp->priority[hp->hpLength-1] = 1;
-        hpfySearchingHp(hp, hp->hpLength-1);
+        hp->hp[i] = item;
+        hp->priority[i] = 1;
+        hpfySearchingHp(hp, i);
         (hp->hpLength)++;
     }
     
@@ -169,4 +173,16 @@ Event* dequeueSearchingHp (SearchingHp *hp)
     
     //return dequeued
     return dequeued;
+}
+
+int maxSearchingHpChild (SearchingHp *hp, int left, int right)
+{
+    if (hp->priority[left] > hp->priority[right])
+    {
+        return left;
+    }
+    else
+    {
+        return right;
+    }
 }

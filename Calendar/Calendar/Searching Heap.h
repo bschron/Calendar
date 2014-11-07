@@ -29,5 +29,7 @@ void hpfySearchingHp (SearchingHp *hp, int parent);
 void switchSearchingHpItems (SearchingHp *hp, int item1, int item2);
 /*will deque the biggest element from the provided hp, hpfy the tree, and return the dequeued element. If the hp is empty or NULL, will return NULL*/
 Event* dequeueSearchingHp (SearchingHp *hp);
+/*requests the two SearchingHeap Childs and returns the one with biggest priority*/
+int maxSearchingHpChild (SearchingHp *hp, int left, int right);
 
 #endif /* defined(__Calendar__Searching_Hp__) */

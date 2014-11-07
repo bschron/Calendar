@@ -43,8 +43,28 @@ int main(void)
     
     removeEventBinarySearchTree(wanted);
     
-    //SearchingHeap *heap = NULL;
-    //heap =
+    SearchingHp *hp = NULL;
+    hp = enqueueSearchingHp(hp, um);
+    hp = enqueueSearchingHp(hp, dois);
+    hp = enqueueSearchingHp(hp, tres);
+    hp = enqueueSearchingHp(hp, quatro);
+    hp = enqueueSearchingHp(hp, cinco);
+    hp = enqueueSearchingHp(hp, seis);
+    hp = enqueueSearchingHp(hp, quatro);
+    hp = enqueueSearchingHp(hp, quatro);
+    hp = enqueueSearchingHp(hp, um);
+    hp = enqueueSearchingHp(hp, um);
+    hp = enqueueSearchingHp(hp, cinco);
+    hp = enqueueSearchingHp(hp, cinco);
+    hp = enqueueSearchingHp(hp, cinco);
+    hp = enqueueSearchingHp(hp, um);
+    
+    Event *dequeued = dequeueSearchingHp(hp);
+    dequeued = dequeueSearchingHp(hp);
+    dequeued = dequeueSearchingHp(hp);
+    dequeued = dequeueSearchingHp(hp);
+    dequeued = dequeueSearchingHp(hp);
+    dequeued = dequeueSearchingHp(hp);
     
     getchar();
     

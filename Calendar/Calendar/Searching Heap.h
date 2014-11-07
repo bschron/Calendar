@@ -1,33 +1,33 @@
 //
-//  Searching Heap.h
+//  Searching Hp.h
 //  Calendar
 //
 //  Created by Bruno Chroniaris on 11/6/14.
 //  Copyright (c) 2014 Universidade Federal De Alagoas. All rights reserved.
 //
 
-#ifndef __Calendar__Searching_Heap__
-#define __Calendar__Searching_Heap__
+#ifndef __Calendar__Searching_Hp__
+#define __Calendar__Searching_Hp__
 
 #include "Headers.h"
 
-/*returns the value of the node parend one a heap, will return -1 if it's root*/
-int heapParent (int child);
+/*returns the value of the node parend one a hp, will return -1 if it's root*/
+int hpParent (int child);
 /*returns the valie of the node left child*/
-int heapLeftChild (int parent);
+int hpLeftChild (int parent);
 /*returns the valie of the node right child*/
-int heapRightChild (int parent);
-/*returns a pointer to a new SearchingHeap with empty values and flags*/
-SearchingHeap* createEmptyHeap (void);
+int hpRightChild (int parent);
+/*returns a pointer to a new SearchingHp with empty values and flags*/
+SearchingHp* createEmptyHp (void);
 /*sets all pointer values to NULL and priority values to -1, and length to 0*/
-void initializeSearchingHeap (SearchingHeap *heap);
-/*enqueues event on the SearchingHeap and calls heapfy, but if it already exists, will increase it's priority instead and calls heapdy*/
-SearchingHeap* enqueueSearchingHeap (SearchingHeap *heap, Event *item);
-/*requires a pointer to the heap and the positon of the root or sub-root from wich will start the function*/
-void heapfySearchingHeap (SearchingHeap *heap, int parent);
-/*given two searching heap positions and a pointer to the heap, will switch the positions of the value and priorities of each item*/
-void switchSearchingHeapItems (SearchingHeap *heap, int item1, int item2);
-/*will deque the biggest element from the provided heap, heapfy the tree, and return the dequeued element. If the heap is empty or NULL, will return NULL*/
-Event* dequeueSearchingHeap (SearchingHeap *heap);
+void initializeSearchingHp (SearchingHp *hp);
+/*enqueues event on the SearchingHp and calls hpfy, but if it already exists, will increase it's priority instead and calls hpdy*/
+SearchingHp* enqueueSearchingHp (SearchingHp *hp, Event *item);
+/*requires a pointer to the hp and the positon of the root or sub-root from wich will start the function*/
+void hpfySearchingHp (SearchingHp *hp, int parent);
+/*given two searching hp positions and a pointer to the hp, will switch the positions of the value and priorities of each item*/
+void switchSearchingHpItems (SearchingHp *hp, int item1, int item2);
+/*will deque the biggest element from the provided hp, hpfy the tree, and return the dequeued element. If the hp is empty or NULL, will return NULL*/
+Event* dequeueSearchingHp (SearchingHp *hp);
 
-#endif /* defined(__Calendar__Searching_Heap__) */
+#endif /* defined(__Calendar__Searching_Hp__) */

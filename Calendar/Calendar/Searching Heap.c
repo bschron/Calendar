@@ -1,5 +1,5 @@
 //
-//  Searching Heap.c
+//  Searching Hp.c
 //  Calendar
 //
 //  Created by Bruno Chroniaris on 11/6/14.
@@ -8,7 +8,7 @@
 
 #include "Searching Heap.h"
 
-int heapParent (int child)
+int hpParent (int child)
 {
     if (child == 0)
     {
@@ -24,148 +24,148 @@ int heapParent (int child)
     }
 }
 
-int heapLeftChild (int parent)
+int hpLeftChild (int parent)
 {
     return (parent<<1) +1;
 }
 
-int heapRightChild (int parent)
+int hpRightChild (int parent)
 {
     return (parent<<1) +2;
 }
 
-SearchingHeap* createEmptyHeap (void)
+SearchingHp* createEmptyHp (void)
 {
-    SearchingHeap *new = (SearchingHeap*) malloc(sizeof(SearchingHeap));
+    SearchingHp *new = (SearchingHp*) malloc(sizeof(SearchingHp));
     
-    initializeSearchingHeap(new);
+    initializeSearchingHp(new);
     
     return new;
 }
 
-void heapfySearchingHeap (SearchingHeap *heap, int parent)
+void hpfySearchingHp (SearchingHp *hp, int parent)
 {
-    if (parent < 0 || heap == NULL || parent > SearchHeapSize-1)
+    if (parent < 0 || hp == NULL || parent > SearchHpSize-1)
     {
         return;
     }
     else if (parent != 0)
     {
-        int parentParent = heapParent(parent);
+        int parentParent = hpParent(parent);
         
-        if (heap->priority[parent] > heap->priority[parentParent])
+        if (hp->priority[parent] > hp->priority[parentParent])
         {
-            heapfySearchingHeap(heap, parentParent);
+            hpfySearchingHp(hp, parentParent);
         }
     }
     
-    int leftChild = heapLeftChild(parent);
-    int rightChild = heapRightChild(parent);
-    if (heap->heap[leftChild] == NULL)
+    int leftChild = hpLeftChild(parent);
+    int rightChild = hpRightChild(parent);
+    if (hp->hp[leftChild] == NULL)
     {
         leftChild = -1;
     }
-    if (heap->heap[rightChild] == NULL)
+    if (hp->hp[rightChild] == NULL)
     {
         rightChild = -1;
     }
     int biggestChild = max(leftChild, rightChild);
     
-    if (heap->heap[biggestChild] != NULL && heap->priority[parent] < heap->priority[biggestChild])
+    if (hp->hp[biggestChild] != NULL && hp->priority[parent] < hp->priority[biggestChild])
     {
-        switchSearchingHeapItems(heap, parent, biggestChild);
-        heapfySearchingHeap(heap, biggestChild);
-        heapfySearchingHeap(heap, parent);
+        switchSearchingHpItems(hp, parent, biggestChild);
+        hpfySearchingHp(hp, biggestChild);
+        hpfySearchingHp(hp, parent);
     }
     
     return;
 }
 
-void switchSearchingHeapItems (SearchingHeap *heap, int item1, int item2)
+void switchSearchingHpItems (SearchingHp *hp, int item1, int item2)
 {
     int transitionInt;
     Event *transitionEvent;
     
-    transitionEvent = heap->heap[item1];
-    transitionInt = heap->priority[item1];
+    transitionEvent = hp->hp[item1];
+    transitionInt = hp->priority[item1];
     
-    heap->heap[item1] = heap->heap[item2];
-    heap->priority[item1] = heap->priority[item2];
+    hp->hp[item1] = hp->hp[item2];
+    hp->priority[item1] = hp->priority[item2];
     
-    heap->heap[item2] = transitionEvent;
-    heap->priority[item2] = transitionInt;
+    hp->hp[item2] = transitionEvent;
+    hp->priority[item2] = transitionInt;
 }
 
-SearchingHeap* enqueueSearchingHeap (SearchingHeap *heap, Event *item)
+SearchingHp* enqueueSearchingHp (SearchingHp *hp, Event *item)
 {
     if (item == NULL)
     {
-        return heap;
+        return hp;
     }
-    else if (heap == NULL)
+    else if (hp == NULL)
     {
-        return enqueueSearchingHeap(createEmptyHeap(), item);
+        return enqueueSearchingHp(createEmptyHp(), item);
     }
     
     int i;
     
-    for (i = 0; i<SearchHeapSize && item != heap->heap[i] && heap->heap[i] != NULL; i++);
+    for (i = 0; i<SearchHpSize && item != hp->hp[i] && hp->hp[i] != NULL; i++);
     
-    if (item == heap->heap[i])
+    if (item == hp->hp[i])
     {
-        (heap->priority[i])++;
-        heapfySearchingHeap(heap, i);
+        (hp->priority[i])++;
+        hpfySearchingHp(hp, i);
     }
-    else if (heap->heapLength < SearchHeapSize)
+    else if (hp->hpLength < SearchHpSize)
     {
-        heap->heap[heap->heapLength-1] = item;
-        heap->priority[heap->heapLength-1] = 1;
-        heapfySearchingHeap(heap, heap->heapLength-1);
-        (heap->heapLength)++;
+        hp->hp[hp->hpLength-1] = item;
+        hp->priority[hp->hpLength-1] = 1;
+        hpfySearchingHp(hp, hp->hpLength-1);
+        (hp->hpLength)++;
     }
     
-    return heap;
+    return hp;
 }
 
-void initializeSearchingHeap (SearchingHeap *heap)
+void initializeSearchingHp (SearchingHp *hp)
 
 {
     int i;
     
-    for (i=0; i<SearchHeapSize; i++)
+    for (i=0; i<SearchHpSize; i++)
     {
-        heap->heap[i] = NULL;
-        heap->priority[i] = -1;
+        hp->hp[i] = NULL;
+        hp->priority[i] = -1;
     }
     
-    heap->heapLength = 0;
+    hp->hpLength = 0;
 }
 
-Event* dequeueSearchingHeap (SearchingHeap *heap)
+Event* dequeueSearchingHp (SearchingHp *hp)
 {
-    if (heap == NULL)
+    if (hp == NULL)
     {
         return NULL;
     }
-    else if (heap->heapLength <= 0)
+    else if (hp->hpLength <= 0)
     {
         return NULL;
     }
     
     //get first
-    Event *dequeued = heap->heap[0];
+    Event *dequeued = hp->hp[0];
     
     //replace first with last
-    heap->heap[0] = heap->heap[heap->heapLength-1];
-    heap->priority[0] = heap->priority[heap->heapLength-1];
+    hp->hp[0] = hp->hp[hp->hpLength-1];
+    hp->priority[0] = hp->priority[hp->hpLength-1];
     //remove last
-    heap->heap[heap->heapLength-1] = NULL;
-    heap->priority[heap->heapLength-1] = -1;
-    //decrease heap length
-    (heap->heapLength)--;
+    hp->hp[hp->hpLength-1] = NULL;
+    hp->priority[hp->hpLength-1] = -1;
+    //decrease hp length
+    (hp->hpLength)--;
     
-    //heapfy
-    heapfySearchingHeap(heap, 0);
+    //hpfy
+    hpfySearchingHp(hp, 0);
     
     //return dequeued
     return dequeued;

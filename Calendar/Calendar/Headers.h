@@ -21,6 +21,8 @@
 
 #include "Structs.h"
 
+SearchTable *titleSearchTable;
+
 #include "Main.h"
 #include"Events Tree.h"
 #include"Search Table.h"

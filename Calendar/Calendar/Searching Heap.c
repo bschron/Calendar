@@ -186,3 +186,43 @@ int maxSearchingHpChild (SearchingHp *hp, int left, int right)
         return right;
     }
 }
+
+SearchingHp* searchTableElementsToSearchingHp (SearchingHp *hp, SearchTable *table, int hash)
+{
+    if (table == NULL)
+    {
+        return hp;
+    }
+    else if (hash < 0 || hash >= SearchTableSize)
+    {
+        return hp;
+    }
+    else if (table->table[hash] == NULL)
+    {
+        return hp;
+    }
+    else if (hp == NULL)
+    {
+        return searchTableElementsToSearchingHp(createEmptyHp(), table, hash);
+    }
+    
+    hp = eventBinarySearchTreeToSearchingHp(hp, table->table[hash]);
+    
+    return hp;
+}
+
+SearchingHp* eventBinarySearchTreeToSearchingHp (SearchingHp *hp, EventBinarySearchTree *root)
+{
+    if (root == NULL)
+    {
+        return hp;
+    }
+    else if (hp == NULL)
+    {
+        return NULL;
+    }
+    
+    hp = enqueueSearchingHp(hp, root->event);
+    hp = eventBinarySearchTreeToSearchingHp(hp, root->leftChild);
+    return eventBinarySearchTreeToSearchingHp(hp, root->rightChild);
+}

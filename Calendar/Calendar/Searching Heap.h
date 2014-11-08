@@ -31,5 +31,9 @@ void switchSearchingHpItems (SearchingHp *hp, int item1, int item2);
 Event* dequeueSearchingHp (SearchingHp *hp);
 /*requests the two SearchingHeap Childs and returns the one with biggest priority*/
 int maxSearchingHpChild (SearchingHp *hp, int left, int right);
+/*enqueues every single node from a EventBinarySearchTree to the provided heap. If the root is NULL, will return the with no changes made to the heap, else if the heap is null, will return NULL*/
+SearchingHp* eventBinarySearchTreeToSearchingHp (SearchingHp *hp, EventBinarySearchTree *root);
+/*enqueues every single node from the tree of a specific (defined by the hash variable) array position of the provided SearchTable. Creates a new heap, if the provided is NULL and will return the heap with no changes if it satisfies one if the following conditions: provided table is NULL, provided hash variable is smaller than zero or bigger than the array size, that spoecific position of the array is NULL*/
+SearchingHp* searchTableElementsToSearchingHp (SearchingHp *hp, SearchTable *table, int hash);
 
 #endif /* defined(__Calendar__Searching_Hp__) */

@@ -14,6 +14,8 @@
 		86279BD01A0AD06100A5E6B5 /* Support Functions.c in Sources */ = {isa = PBXBuildFile; fileRef = 86279BCB1A0AD06100A5E6B5 /* Support Functions.c */; };
 		86D7A44A1A0B8DFD009C67EF /* Lists Management.c in Sources */ = {isa = PBXBuildFile; fileRef = 86D7A4481A0B8DFD009C67EF /* Lists Management.c */; };
 		86D7A44E1A0BB7B1009C67EF /* Searching Heap.c in Sources */ = {isa = PBXBuildFile; fileRef = 86D7A44C1A0BB7B1009C67EF /* Searching Heap.c */; };
+		86D7A4591A0CC6C9009C67EF /* Event Binary Search Tree Tests.c in Sources */ = {isa = PBXBuildFile; fileRef = 86D7A4571A0CC6C9009C67EF /* Event Binary Search Tree Tests.c */; };
+		86D7A45C1A0CC73F009C67EF /* Searching Heap tests.c in Sources */ = {isa = PBXBuildFile; fileRef = 86D7A45A1A0CC73F009C67EF /* Searching Heap tests.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -46,6 +48,8 @@
 		86D7A44B1A0BB4BA009C67EF /* Main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Main.h; sourceTree = "<group>"; };
 		86D7A44C1A0BB7B1009C67EF /* Searching Heap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "Searching Heap.c"; sourceTree = "<group>"; };
 		86D7A44D1A0BB7B1009C67EF /* Searching Heap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Searching Heap.h"; sourceTree = "<group>"; };
+		86D7A4571A0CC6C9009C67EF /* Event Binary Search Tree Tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "Event Binary Search Tree Tests.c"; sourceTree = "<group>"; };
+		86D7A45A1A0CC73F009C67EF /* Searching Heap tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "Searching Heap tests.c"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,8 +98,18 @@
 				86D7A4491A0B8DFD009C67EF /* Lists Management.h */,
 				86D7A44C1A0BB7B1009C67EF /* Searching Heap.c */,
 				86D7A44D1A0BB7B1009C67EF /* Searching Heap.h */,
+				86D7A4521A0CC442009C67EF /* Testing */,
 			);
 			path = Calendar;
+			sourceTree = "<group>";
+		};
+		86D7A4521A0CC442009C67EF /* Testing */ = {
+			isa = PBXGroup;
+			children = (
+				86D7A4571A0CC6C9009C67EF /* Event Binary Search Tree Tests.c */,
+				86D7A45A1A0CC73F009C67EF /* Searching Heap tests.c */,
+			);
+			name = Testing;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,8 +168,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86D7A45C1A0CC73F009C67EF /* Searching Heap tests.c in Sources */,
 				86279BCD1A0AD06100A5E6B5 /* Binary Search Tree.c in Sources */,
 				86D7A44A1A0B8DFD009C67EF /* Lists Management.c in Sources */,
+				86D7A4591A0CC6C9009C67EF /* Event Binary Search Tree Tests.c in Sources */,
 				86279BCF1A0AD06100A5E6B5 /* Search Table.c in Sources */,
 				86279BD01A0AD06100A5E6B5 /* Support Functions.c in Sources */,
 				86279BCE1A0AD06100A5E6B5 /* Events Tree.c in Sources */,

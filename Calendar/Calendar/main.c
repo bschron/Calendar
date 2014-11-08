@@ -20,51 +20,20 @@ int main(void)
     Event *cinco = createEvent(10, 12, 2012, "teste", "teste05");
     Event *seis = createEvent(10, 12, 2012, "teste", "teste06");
     
-    
-    EventBinarySearchTree *tree = NULL;
-    
-    EventBinarySearchTree *teste01 = createEventBinarySearchTree(um);
-    EventBinarySearchTree *teste01_2 = createEventBinarySearchTree(um2);
-    EventBinarySearchTree *teste02 = createEventBinarySearchTree(dois);
-    EventBinarySearchTree *teste03 = createEventBinarySearchTree(tres);
-    EventBinarySearchTree *teste04 = createEventBinarySearchTree(quatro);
-    EventBinarySearchTree *teste05 = createEventBinarySearchTree(cinco);
-    EventBinarySearchTree *teste06 = createEventBinarySearchTree(seis);
-    
-    insertEventBinarySearchTree(&tree, teste01);
-    insertEventBinarySearchTree(&tree, teste01_2);
-    insertEventBinarySearchTree(&tree, teste02);
-    insertEventBinarySearchTree(&tree, teste03);
-    insertEventBinarySearchTree(&tree, teste04);
-    insertEventBinarySearchTree(&tree, teste05);
-    insertEventBinarySearchTree(&tree, teste06);
-    
-    EventBinarySearchTree **wanted = searchEventBinarySearchTree(&tree, um2);
-    
-    removeEventBinarySearchTree(wanted);
+    Calendar *calendar = NULL;
+    calendar = insertEvent(calendar, 10, 12, 2012, "01", "reuniao com higor da neocontrol");
+    calendar = insertEvent(calendar, 10, 12, 2012, "02", "jantar na casa da fran");
+    calendar = insertEvent(calendar, 10, 12, 2012, "03", "aniversario do tio de fran");
+    calendar = insertEvent(calendar, 10, 12, 2012, "04", "reuniao dos manos");
+    calendar = insertEvent(calendar, 10, 12, 2012, "05", "prova de p2");
+    calendar = insertEvent(calendar, 10, 12, 2012, "06", "reavaliacao de p2");
     
     SearchingHp *hp = NULL;
-    hp = enqueueSearchingHp(hp, um);
-    hp = enqueueSearchingHp(hp, dois);
-    hp = enqueueSearchingHp(hp, tres);
-    hp = enqueueSearchingHp(hp, quatro);
-    hp = enqueueSearchingHp(hp, cinco);
-    hp = enqueueSearchingHp(hp, seis);
-    hp = enqueueSearchingHp(hp, quatro);
-    hp = enqueueSearchingHp(hp, quatro);
-    hp = enqueueSearchingHp(hp, um);
-    hp = enqueueSearchingHp(hp, um);
-    hp = enqueueSearchingHp(hp, cinco);
-    hp = enqueueSearchingHp(hp, cinco);
-    hp = enqueueSearchingHp(hp, cinco);
-    hp = enqueueSearchingHp(hp, um);
     
-    Event *dequeued = dequeueSearchingHp(hp);
-    dequeued = dequeueSearchingHp(hp);
-    dequeued = dequeueSearchingHp(hp);
-    dequeued = dequeueSearchingHp(hp);
-    dequeued = dequeueSearchingHp(hp);
-    dequeued = dequeueSearchingHp(hp);
+    hp = searchTableElementsToSearchingHp(hp, titleSearchTable, 66);
+    hp = searchTableElementsToSearchingHp(hp, titleSearchTable, 101);
+    hp = searchTableElementsToSearchingHp(hp, titleSearchTable, 105);
+    hp = searchTableElementsToSearchingHp(hp, titleSearchTable, 111);
     
     getchar();
     

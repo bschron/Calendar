@@ -78,8 +78,8 @@ Calendar* insertEvent (Calendar *calendar, int day, int month, int year, char *d
         calendar->events->previous = new;
         calendar->events = new;
     }
-    
-    //insert event int hash
+    //map event on searching tables
+    mapEventOnSearchTables(new);
     
     return calendar;
 }

@@ -23,6 +23,8 @@ int wordPointerSum (char *word);
 void mapEventOnSearchTables (Event *event);
 /*inserts each word from the provided Event title to the titleSearchTable table*/
 void mapEventTitle (Event *event);
+/*inserts each words from the provided Event Description to the descriptionSearchTable table*/
+void mapEventDescription (Event *event);
 /*sets all table pointers to NULL*/
 void initializeSearchTable (SearchTable *var);
 

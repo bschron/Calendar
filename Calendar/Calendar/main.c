@@ -11,6 +11,7 @@
 int main(void)
 {
     titleSearchTable = createEmptySearchTable();
+    descriptionSearchTable = createEmptySearchTable();
     
     Event *um = createEvent(10, 12, 2012, "teste", "teste01");
     Event *um2 = createEvent(10, 12, 2012, "teste", "teste01");
@@ -21,16 +22,16 @@ int main(void)
     Event *seis = createEvent(10, 12, 2012, "teste", "teste06");
     
     Calendar *calendar = NULL;
-    calendar = insertEvent(calendar, 10, 12, 2012, "01", "reuniao com higor da neocontrol");
-    calendar = insertEvent(calendar, 10, 12, 2012, "02", "jantar na casa da fran");
-    calendar = insertEvent(calendar, 10, 12, 2012, "03", "aniversario do tio de fran");
-    calendar = insertEvent(calendar, 10, 12, 2012, "04", "reuniao dos manos");
-    calendar = insertEvent(calendar, 10, 12, 2012, "05", "prova de p2");
-    calendar = insertEvent(calendar, 10, 12, 2012, "06", "reavaliacao de p2");
+    calendar = insertEvent(calendar, 10, 12, 2012, "marcado as 15h", "reuniao com higor da neocontrol");
+    calendar = insertEvent(calendar, 10, 12, 2012, "vai ter cuscuz paulista", "jantar na casa da fran");
+    calendar = insertEvent(calendar, 10, 12, 2012, "em caruaru", "aniversario do tio de fran");
+    calendar = insertEvent(calendar, 10, 12, 2012, "no san nicolas", "reuniao dos manos");
+    calendar = insertEvent(calendar, 10, 12, 2012, "estudar avl", "prova de p2");
+    calendar = insertEvent(calendar, 10, 12, 2012, "estudar todas estruturas", "reavaliacao de p2");
     
     SearchingHp *hp = NULL;
     
-    hp = enqueueEventsWithSimilarTitle(hp, titleSearchTable, "reuniao nada neocontrol p2 manos");
+    hp = enqueueEventsWithSimilarText(hp, descriptionSearchTable, "marcado estudar 15h");
     
     getchar();
     

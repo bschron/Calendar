@@ -77,17 +77,34 @@ int wordPointerSum (char *word)
 void mapEventOnSearchTables (Event *event)
 {
     mapEventTitle(event);
+    mapEventDescription(event);
 }
 
 void mapEventTitle (Event *event)
 {
     Node *words = NULL;
+    Node popped;
     
     words = listWords(event->title, words);
     
-    for (; words != NULL; words = removeNode(words, words))
+    for (popped = popNode(&words); !emptyNode(&popped); popped = popNode(&words))
     {
-        insertEventBinarySearchTree(&titleSearchTable->table[words->index], createEventBinarySearchTree(event));
+        insertEventBinarySearchTree(&titleSearchTable->table[popped.index], createEventBinarySearchTree(event));
+    }
+    
+    return;
+}
+
+void mapEventDescription (Event *event)
+{
+    Node *words = NULL;
+    Node popped;
+    
+    words = listWords(event->desc, words);
+    
+    for (popped = popNode(&words); !emptyNode(&popped); popped = popNode(&words))
+    {
+        insertEventBinarySearchTree(&descriptionSearchTable->table[popped.index], createEventBinarySearchTree(event));
     }
     
     return;

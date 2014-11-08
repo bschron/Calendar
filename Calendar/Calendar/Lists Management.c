@@ -37,6 +37,20 @@ Node *insertNode (Node* first, char* name, int index)
     }
 }
 
+Node popNode (Node **first)
+{
+    if (*first == NULL)
+    {
+        return returnEmptyNode();
+    }
+    
+    Node popped = **first;
+    
+    *first = removeNode(*first, *first);
+    
+    return popped;
+}
+
 Node* removeNode (Node* remove, Node* first)
 {
     Node* pointer;
@@ -138,7 +152,7 @@ Node* freeAllNodes (Node* first)
     }
 }
 
-int isNodeEmpty (Node *item)
+int emptyNode (Node *item)
 {
     if (item == NULL)
     {

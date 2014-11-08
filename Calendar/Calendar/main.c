@@ -30,10 +30,7 @@ int main(void)
     
     SearchingHp *hp = NULL;
     
-    hp = searchTableElementsToSearchingHp(hp, titleSearchTable, 66);
-    hp = searchTableElementsToSearchingHp(hp, titleSearchTable, 101);
-    hp = searchTableElementsToSearchingHp(hp, titleSearchTable, 105);
-    hp = searchTableElementsToSearchingHp(hp, titleSearchTable, 111);
+    hp = enqueueEventsWithSimilarTitle(hp, titleSearchTable, "reuniao nada neocontrol p2 manos");
     
     getchar();
     

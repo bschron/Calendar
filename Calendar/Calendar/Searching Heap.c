@@ -226,3 +226,48 @@ SearchingHp* eventBinarySearchTreeToSearchingHp (SearchingHp *hp, EventBinarySea
     hp = eventBinarySearchTreeToSearchingHp(hp, root->leftChild);
     return eventBinarySearchTreeToSearchingHp(hp, root->rightChild);
 }
+
+SearchingHp* enqueueEventsWithSimilarWord (SearchingHp *hp, SearchTable *table, char *word)
+{
+    if (table == NULL || strcmp(word, "") == 0)
+    {
+        return hp;
+    }
+    else if (hp == NULL)
+    {
+        return enqueueEventsWithSimilarWord(createEmptyHp(), table, word);
+    }
+    
+    int hash = hashWord(word);
+    
+    return searchTableElementsToSearchingHp(hp, table, hash);
+}
+
+SearchingHp* enqueueEventsWithSimilarText (SearchingHp *hp, SearchTable *table, char *text)
+{
+    if (table == NULL || strcmp(text, "") == 0)
+    {
+        return hp;
+    }
+    else if (hp == NULL)
+    {
+        return enqueueEventsWithSimilarText(createEmptyHp(), table, text);
+    }
+    
+    Node *textWords = NULL;
+    textWords = listWords(text, textWords);
+    //there was some error
+    if (textWords == NULL)
+    {
+        return hp;
+    }
+    
+    Node word;
+    //enqueue events, word by word
+    for (word = popNode(&textWords); !emptyNode(&word); word = popNode(&textWords))
+    {
+        hp = enqueueEventsWithSimilarWord(hp, table, word.name);
+    }
+    
+    return hp;
+}

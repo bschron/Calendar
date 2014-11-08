@@ -35,5 +35,9 @@ int maxSearchingHpChild (SearchingHp *hp, int left, int right);
 SearchingHp* eventBinarySearchTreeToSearchingHp (SearchingHp *hp, EventBinarySearchTree *root);
 /*enqueues every single node from the tree of a specific (defined by the hash variable) array position of the provided SearchTable. Creates a new heap, if the provided is NULL and will return the heap with no changes if it satisfies one if the following conditions: provided table is NULL, provided hash variable is smaller than zero or bigger than the array size, that spoecific position of the array is NULL*/
 SearchingHp* searchTableElementsToSearchingHp (SearchingHp *hp, SearchTable *table, int hash);
+/*enqueues events with a hash equal to the provided word. will create a new heap if the heap is NULL and return it unchanged if table is NULL or word is equal to ""*/
+SearchingHp* enqueueEventsWithSimilarWord (SearchingHp *hp, SearchTable *table, char *word);
+/*gets word by word from provided text and enqueues events with similar words, will create a new heap if the provided heap is NULL and return it unchanged if the provided table is NULL or the title is equal to ""*/
+SearchingHp* enqueueEventsWithSimilarText (SearchingHp *hp, SearchTable *table, char *text);
 
 #endif /* defined(__Calendar__Searching_Hp__) */

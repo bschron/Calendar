@@ -22,8 +22,10 @@ Node* searchNodeByIndex (Node* first, int index);
 /*free all nodes from the provided list and return a NULL pointer to the first element*/
 Node* freeAllNodes (Node* first);
 /*looks the provided node and returns 1 if it has all the empty flags, else returns 0*/
-int isNodeEmpty (Node *item);
+int emptyNode (Node *item);
 /*returns a Node with empty flags*/
 Node returnEmptyNode (void);
+/*returns the value of the first node from the list and removes it. But if list is NULL, will return a node with empty flags*/
+Node popNode (Node **first);
 
 #endif /* defined(__Calendar__Lists_Management__) */

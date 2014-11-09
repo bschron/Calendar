@@ -81,3 +81,54 @@ char* returnNextWord (char *dest, char *word, char separator)
     
     return word;
 }
+
+void take_lbreak (char *str)
+{
+    char *pos;
+    if ((pos=strchr(str, '\n')) != NULL)
+    {
+        *pos = '\0';
+    }
+}
+
+void nbgets (char *str, int num, FILE *stream)
+{
+    fgets(str, num, stream);
+    take_lbreak(str);
+}
+
+int getNumber (void)
+{
+    int number;
+    
+    scanf("%d", &number);
+    getchar();
+    
+    return number;
+}
+
+int unwantedgets (char *dest, int size, char unwanted, FILE *stream)
+{
+    if (stream == NULL || dest == NULL)
+    {
+        return -1;
+    }
+    else if (unwanted <= 1)
+    {
+        return 0;
+    }
+    
+    char character = fgetc(stream);
+    
+    if (character != unwanted)
+    {
+        *dest = character;
+        return unwantedgets(dest+1, size-1, unwanted, stream);
+    }
+    else if (character == EOF)
+    {
+        return 1;
+    }
+    
+    return 0;
+}

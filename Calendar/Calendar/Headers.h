@@ -14,6 +14,9 @@
 #define SearchTableSize 661
 #define not_in_use -1
 #define SearchHpSize 30
+#define MainDir "/Documents/spyridonsCalendar"
+#define MainCalendar "calendar"
+#define CalendarFileExtension ".spyridon"
 
 #include <stdio.h>
 #include <stdlib.h>

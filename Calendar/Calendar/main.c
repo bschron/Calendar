@@ -26,6 +26,8 @@ int main(void)
     
     exportEvents(calendar);
     
+    Calendar *imported = importCalendarFromMainDirectory(NULL);
+    
     getchar();
     
 }

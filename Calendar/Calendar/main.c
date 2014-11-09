@@ -28,6 +28,21 @@ int main(void)
     
     Calendar *imported = importCalendarFromMainDirectory(NULL);
     
+    struct timeval now;
+    struct tm *tmp;
+    char timestr[100];
+    int rc;
+    
+    rc = gettimeofday(&now, 0);
+    
+    tmp = localtime(&now.tv_sec);
+    
+    rc = strftime(timestr, sizeof(timestr), "%D", tmp);
+    
+    int day, month, year;
+    
+    getDate(&day, &month, &year);
+    
     getchar();
     
 }

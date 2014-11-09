@@ -25,6 +25,9 @@
 #include <unistd.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <mach/mach_time.h>
+#include <time.h>
+#include <sys/time.h>
 
 #include "Structs.h"
 
@@ -40,6 +43,7 @@ SearchTable *dateSearchTable;
 #include "Lists Management.h"
 #include "Searching Heap.h"
 #include "File Management.h"
+#include "Date and Time.h"
 
 
 #endif

@@ -66,7 +66,7 @@ struct node
 {
     Node* previous;
     Node* next;
-    char name[Max];
+    char name[Max*5];
     int index;
 };
 

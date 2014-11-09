@@ -24,7 +24,7 @@ int main(void)
     
     SearchingHp *hp = NULL;
     
-    hp = enqueueEventsWithProvidedDate(hp, dateSearchTable, 10, 12, 2012);
+    exportEvents(calendar);
     
     getchar();
     

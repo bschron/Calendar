@@ -23,6 +23,7 @@
 
 SearchTable *titleSearchTable;
 SearchTable *descriptionSearchTable;
+SearchTable *dateSearchTable;
 
 #include "Main.h"
 #include"Events Tree.h"

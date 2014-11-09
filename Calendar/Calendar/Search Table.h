@@ -25,6 +25,8 @@ void mapEventOnSearchTables (Event *event);
 void mapEventTitle (Event *event);
 /*inserts each words from the provided Event Description to the descriptionSearchTable table*/
 void mapEventDescription (Event *event);
+/*inserts each event day, month and year to dateSearchTable table*/
+void mapEventDate (Event *event);
 /*sets all table pointers to NULL*/
 void initializeSearchTable (SearchTable *var);
 

@@ -78,6 +78,7 @@ void mapEventOnSearchTables (Event *event)
 {
     mapEventTitle(event);
     mapEventDescription(event);
+    mapEventDate(event);
 }
 
 void mapEventTitle (Event *event)
@@ -106,6 +107,23 @@ void mapEventDescription (Event *event)
     {
         insertEventBinarySearchTree(&descriptionSearchTable->table[popped.index], createEventBinarySearchTree(event));
     }
+    
+    return;
+}
+
+void mapEventDate (Event *event)
+{
+    char day[3];
+    char month[3];
+    char year[Max];
+    
+    sprintf(day, "%d", event->day);
+    sprintf(month, "%d", event->month);
+    sprintf(year, "%d", event->year);
+    
+    insertEventBinarySearchTree(&dateSearchTable->table[hashWord(day)], createEventBinarySearchTree(event));
+    insertEventBinarySearchTree(&dateSearchTable->table[hashWord(month)], createEventBinarySearchTree(event));
+    insertEventBinarySearchTree(&dateSearchTable->table[hashWord(year)], createEventBinarySearchTree(event));
     
     return;
 }

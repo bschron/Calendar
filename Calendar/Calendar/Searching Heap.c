@@ -43,6 +43,20 @@ SearchingHp* createEmptyHp (void)
     return new;
 }
 
+int peekHpHighestPriority (SearchingHp *hp)
+{
+    if (hp == NULL)
+    {
+        return -1;
+    }
+    else if (hp->hpLength == 0)
+    {
+        return -1;
+    }
+    
+    return hp->priority[0];
+}
+
 void hpfySearchingHp (SearchingHp *hp, int parent)
 {
     if (parent < 0 || hp == NULL || parent > SearchHpSize-1)
@@ -267,6 +281,54 @@ SearchingHp* enqueueEventsWithSimilarText (SearchingHp *hp, SearchTable *table, 
     for (word = popNode(&textWords); !emptyNode(&word); word = popNode(&textWords))
     {
         hp = enqueueEventsWithSimilarWord(hp, table, word.name);
+    }
+    
+    return hp;
+}
+
+SearchingHp* enqueueEventsWithProvidedDate (SearchingHp *hp, SearchTable *table, int day, int month, int year)
+{
+    if (table == NULL)
+    {
+        return hp;
+    }
+    else if (day < 1 || day > 31 || month < 1 || month > 12 || year < 1)
+    {
+        return hp;
+    }
+    else if (hp == NULL)
+    {
+        return enqueueEventsWithProvidedDate(createEmptyHp(), table, day, month, year);
+    }
+    
+    SearchingHp *provisory = NULL;
+    SearchingHp *provisory2 = NULL;
+    Event *dequeued = NULL;
+    
+    char strDay[4], strMonth[4], strYear[Max];
+    
+    snprintf(strDay, sizeof(strDay)/sizeof(char)-1, "%d", day);
+    snprintf(strMonth, sizeof(strMonth)/sizeof(char)-1, "%d", month);
+    snprintf(strYear, sizeof(strYear)/sizeof(char)-1, "%d", year);
+    
+    provisory = searchTableElementsToSearchingHp(provisory, table, hashWord(strDay));
+    provisory = searchTableElementsToSearchingHp(provisory, table, hashWord(strMonth));
+    provisory = searchTableElementsToSearchingHp(provisory, table, hashWord(strYear));
+    //get only Events with at least 3 matchings
+    while (peekHpHighestPriority(provisory) >= 3)
+    {
+        dequeued = dequeueSearchingHp(provisory);
+        provisory2 = enqueueSearchingHp(provisory2, dequeued);
+    }
+    //clear provisory heap
+    for (dequeued = dequeueSearchingHp(provisory); dequeued != NULL; dequeued = dequeueSearchingHp(provisory));
+    //get only events with that exact date
+    for (dequeued = dequeueSearchingHp(provisory2); dequeued != NULL; dequeued = dequeueSearchingHp(provisory2))
+    {
+        if (dequeued->day == day && dequeued->month == month && dequeued->year == year)
+        {
+            hp = enqueueSearchingHp(hp, dequeued);
+        }
     }
     
     return hp;

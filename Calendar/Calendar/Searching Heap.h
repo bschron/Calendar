@@ -39,5 +39,9 @@ SearchingHp* searchTableElementsToSearchingHp (SearchingHp *hp, SearchTable *tab
 SearchingHp* enqueueEventsWithSimilarWord (SearchingHp *hp, SearchTable *table, char *word);
 /*gets word by word from provided text and enqueues events with similar words, will create a new heap if the provided heap is NULL and return it unchanged if the provided table is NULL or the title is equal to ""*/
 SearchingHp* enqueueEventsWithSimilarText (SearchingHp *hp, SearchTable *table, char *text);
+/*will return the priority of the highest priority element on that heap. WIll return -1 if heap is NULL or if heap size is 0*/
+int peekHpHighestPriority (SearchingHp *hp);
+/*enqueues Events from provided table that occurs on provided date on provided SearchingHp. Creates a new heap if the provided is NULL and returns the provided heap value unchanged if the provided table is NULL or provided date is invalid*/
+SearchingHp* enqueueEventsWithProvidedDate (SearchingHp *hp, SearchTable *table, int day, int month, int year);
 
 #endif /* defined(__Calendar__Searching_Hp__) */

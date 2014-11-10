@@ -17,6 +17,7 @@
 #define MainDir "/Documents/spyridonsCalendar"
 #define MainCalendar "calendar"
 #define CalendarFileExtension ".spyridon"
+#define SearchingLimit 10
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -45,6 +46,7 @@ SearchTable *dateSearchTable;
 #include "File Management.h"
 #include "Date and Time.h"
 #include"Output.h"
+#include "User Interaction Module.h"
 
 
 #endif

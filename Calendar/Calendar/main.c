@@ -25,7 +25,6 @@ int main(void)
         printf("\n\nEventos Agendados para esta Semana:\n");
         printEventTitlesOfHeapOfEvents(stdout, enqueueEventsForThisWeek(NULL, NULL));
         
-        exportEvents(main);
     } while (getMainMenuOptions(main));
     
     exportEvents(main);

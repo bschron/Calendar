@@ -377,3 +377,23 @@ SearchingHp* enqueueEventsForThisMonth (SearchingHp *hp, Date *now)
     
     return hp;
 }
+
+SearchingHp* duplicateSearchingHp (SearchingHp *hp)
+{
+    if (hp == NULL)
+    {
+        return NULL;
+    }
+    
+    SearchingHp *new = createEmptyHp();
+    
+    int i;
+    for (i = 0; i<hp->hpLength; i++)
+    {
+        new->hp[i] = hp->hp[i];
+        new->priority[i] = hp->priority[i];
+    }
+    new->hpLength = hp->hpLength;
+    
+    return new;
+}

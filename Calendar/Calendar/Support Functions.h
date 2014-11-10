@@ -33,4 +33,13 @@ int sizeOfStr (char *str);
 int unwantedgets (char *dest, int size, char unwanted, FILE *stream);
 /*returns the two last digits of a provided integer bigger than 99, returns it's own value if it's lesser than 100*/
 int lastTwoDigitsOfInt (int integer);
+/*takes a pointer to Date as argument, returns 1 Date value is valid. Returns 0 if any of the following conditions is satisfied:
+ -Date pointer is NULL
+ -Year os lesser than 100
+ -month is lesser than 1
+ -month is bigger than 12
+ -day is greater than the month can handle
+ -day is lesse than one
+ */
+int validDate (Date *date);
 #endif /* defined(__calendar__Support_Functions__) */

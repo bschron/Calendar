@@ -152,3 +152,36 @@ int lastTwoDigitsOfInt (int integer)
     
     return integer - i;
 }
+
+int validDate (Date *date)
+{
+    if (date == NULL)
+    {
+        return 0;
+    }
+    
+    int valid = 1;
+    
+    if (date->year < 100)
+    {
+        valid = 0;
+    }
+    else if (date->month > 12 || date->month < 1)
+    {
+        valid = 0;
+    }
+    else if (leapYear(date->year) && date->month == 2 && date->day > 29)
+    {
+        valid = 0;
+    }
+    else if (date->day > daysInMonth(date->month))
+    {
+        valid = 0;
+    }
+    else if (date->day < 1)
+    {
+        valid = 0;
+    }
+    
+    return valid;
+}

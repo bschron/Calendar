@@ -80,6 +80,8 @@ Calendar* insertEvent (Calendar *calendar, int day, int month, int year, char *d
     //map event on searching tables
     mapEventOnSearchTables(new);
     
+    exportEvents(calendar);
+    
     return calendar;
 }
 
@@ -107,6 +109,8 @@ Calendar* removeEvent (Calendar *calendar, Event *remove)
     
     free(remove->date);
     free(remove);
+    
+    exportEvents(calendar);
     
     return calendar;
 }
@@ -166,4 +170,33 @@ Date* createDate (int day, int month, int year)
     new->year = year;
     
     return new;
+}
+
+void editEvent (Event *event, Date *date, char *title, char *desc)
+{
+    if (event == NULL || date == NULL || title == NULL || desc == NULL)
+    {
+        return;
+    }
+    
+    event->date->day = date->day;
+    event->date->month = date->month;
+    event->date->year = date->year;
+    sprintf(event->title, "%s", title);
+    sprintf(event->desc, "%s", desc);
+    
+    return;
+}
+
+void freeEvent (Event **event)
+{
+    if (event == NULL)
+    {
+        return;
+    }
+    
+    free((*event)->date);
+    free(*event);
+    
+    return;
 }

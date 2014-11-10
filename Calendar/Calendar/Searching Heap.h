@@ -47,5 +47,7 @@ SearchingHp* enqueueEventsWithProvidedDate (SearchingHp *hp, SearchTable *table,
 SearchingHp* enqueueEventsForThisWeek (SearchingHp *hp, Date *now);
 /*takes a pointer to SearchingHp and a pointer to Date as argument. Enqueues events for the month of the provided Date to provided Searching Heap. If provided pointer to SarchingHp is NULL, allocates a new one. If Pointer to Date is NULL, gets the current Date of the computer.*/
 SearchingHp* enqueueEventsForThisMonth (SearchingHp *hp, Date *now);
+/*takes a pointer to a SearchingHp as argument, returns a pointer to a new Searching heap with the same values as the provided SearchingHeap. if the provided pointer is NULL, returns NULL*/
+SearchingHp* duplicateSearchingHp (SearchingHp *hp);
 
 #endif /* defined(__Calendar__Searching_Hp__) */

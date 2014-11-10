@@ -22,6 +22,10 @@ Event* createEvent (int day, int month, int year, char *desc, char *title);
 Calendar* insertEvent (Calendar *calendar, int day, int month, int year, char *desc, char *title);
 /*this function will remove a event provided from a provided calendar, if calendar is NULL, will return NULL*/
 Calendar* removeEvent (Calendar *calendar, Event *event);
+/*takes a pointer to Event, a pointer to Date, pointer title str and pointer to description str. Attribute those new values to provided event and returns. if any of the provided pointers is NULL, returns without changes to the event*/
+void editEvent (Event *event, Date *date, char *title, char *desc);
+/*Takes double pointer to Event. Frees event and event Date. If Event == NULL, returns*/
+void freeEvent (Event **event);
 
 //Calendar
 /*returns a Calendar with empty falgs*/

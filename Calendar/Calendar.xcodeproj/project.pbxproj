@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		861FFE741A10F1A0004BC3EE /* Output.c in Sources */ = {isa = PBXBuildFile; fileRef = 861FFE721A10F1A0004BC3EE /* Output.c */; };
+		861FFE771A114CE3004BC3EE /* User Interaction Module.c in Sources */ = {isa = PBXBuildFile; fileRef = 861FFE751A114CE3004BC3EE /* User Interaction Module.c */; };
 		862432FF1A0F8041004ADD65 /* File Management.c in Sources */ = {isa = PBXBuildFile; fileRef = 862432FD1A0F8041004ADD65 /* File Management.c */; };
 		86279BBD1A0ACFF200A5E6B5 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 86279BBC1A0ACFF200A5E6B5 /* main.c */; };
 		86279BCD1A0AD06100A5E6B5 /* Binary Search Tree.c in Sources */ = {isa = PBXBuildFile; fileRef = 86279BC31A0AD06100A5E6B5 /* Binary Search Tree.c */; };
@@ -36,6 +37,8 @@
 /* Begin PBXFileReference section */
 		861FFE721A10F1A0004BC3EE /* Output.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Output.c; sourceTree = "<group>"; };
 		861FFE731A10F1A0004BC3EE /* Output.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Output.h; sourceTree = "<group>"; };
+		861FFE751A114CE3004BC3EE /* User Interaction Module.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "User Interaction Module.c"; sourceTree = "<group>"; };
+		861FFE761A114CE3004BC3EE /* User Interaction Module.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "User Interaction Module.h"; sourceTree = "<group>"; };
 		862432FD1A0F8041004ADD65 /* File Management.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "File Management.c"; sourceTree = "<group>"; };
 		862432FE1A0F8041004ADD65 /* File Management.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "File Management.h"; sourceTree = "<group>"; };
 		86279BB91A0ACFF200A5E6B5 /* Calendar */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Calendar; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -113,6 +116,8 @@
 				864741921A0FFB3A001ECAD7 /* Date and Time.h */,
 				861FFE721A10F1A0004BC3EE /* Output.c */,
 				861FFE731A10F1A0004BC3EE /* Output.h */,
+				861FFE751A114CE3004BC3EE /* User Interaction Module.c */,
+				861FFE761A114CE3004BC3EE /* User Interaction Module.h */,
 				86D7A4521A0CC442009C67EF /* Testing */,
 			);
 			path = Calendar;
@@ -183,6 +188,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				861FFE771A114CE3004BC3EE /* User Interaction Module.c in Sources */,
 				86D7A45C1A0CC73F009C67EF /* Searching Heap tests.c in Sources */,
 				86279BCD1A0AD06100A5E6B5 /* Binary Search Tree.c in Sources */,
 				86D7A44A1A0B8DFD009C67EF /* Lists Management.c in Sources */,

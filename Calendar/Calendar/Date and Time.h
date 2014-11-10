@@ -37,4 +37,6 @@ int dayOfWeek (char *dest, Date *date);
 int monthTableNumber (int month, int year);
 /*takes a pointer to a str and a integer representing a day of the week as a argument. prints the day of the week to the provided pointer to str. prints a "" empty str if it's a invalid day*/
 void weekDayIntToStr (char *dest, int day);
+/*takes a pointer to a str and a integer that represents the month, prints the name of the day on the provided strin str. If the pointer is NULL, returns without changes. If the month nubmer is invalid, prints "" to str*/
+void monthIntToStr (char *dest, int month);
 #endif /* defined(__Calendar__Date_and_Time__) */

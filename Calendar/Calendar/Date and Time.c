@@ -417,3 +417,55 @@ void weekDayIntToStr (char *dest, int day)
             break;
     }
 }
+
+void monthIntToStr (char *dest, int month)
+{
+    if (dest == NULL)
+    {
+        return;
+    }
+    
+    switch (month)
+    {
+        case 1:
+            sprintf(dest, "Janeiro");
+            break;
+        case 2:
+            sprintf(dest, "Fevereiro");
+            break;
+        case 3:
+            sprintf(dest, "Marco");
+            break;
+        case 4:
+            sprintf(dest, "Abril");
+            break;
+        case 5:
+            sprintf(dest, "Maio");
+            break;
+        case 6:
+            sprintf(dest, "Junho");
+            break;
+        case 7:
+            sprintf(dest, "Julho");
+            break;
+        case 8:
+            sprintf(dest, "Agosto");
+            break;
+        case 9:
+            sprintf(dest, "Setembro");
+            break;
+        case 10:
+            sprintf(dest, "Outubro");
+            break;
+        case 11:
+            sprintf(dest, "Novembro");
+            break;
+        case 12:
+            sprintf(dest, "Dezembro");
+            break;
+            
+        default:
+            sprintf(dest, "");
+            break;
+    }
+}

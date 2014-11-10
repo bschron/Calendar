@@ -13,6 +13,8 @@
 
 /*This fucntion will return the maximum provided value*/
 int max (int a, int b);
+/*takes two integers as argument, returns the minimum value*/
+int min (int a, int b);
 /*This function will return the size of a provided string*/
 int sizeOfStr (char *str);
 /*this function will print the first part a provided string that is formated with the provided separator to the *dest pointer and will return the pointer to right after the next separator is reached*/

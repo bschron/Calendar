@@ -20,6 +20,11 @@ int max (int a, int b)
     }
 }
 
+int min (int a, int b)
+{
+    return a + b - max(a, b);
+}
+
 int sizeOfStr (char *str)
 {
     int i;

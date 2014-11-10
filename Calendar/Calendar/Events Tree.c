@@ -139,3 +139,31 @@ Date* createEmptyDate (void)
     
     return new;
 }
+
+Date* createDate (int day, int month, int year)
+{
+    if (day <= 0 || month <=0 || year <=0)
+    {
+        return NULL;
+    }
+    else if (month > 12)
+    {
+        return NULL;
+    }
+    else if (month == 2 && leapYear(year) && day > 29)
+    {
+        return NULL;
+    }
+    else if (day > daysInMonth(month))
+    {
+        return NULL;
+    }
+    
+    Date *new = createEmptyDate();
+    
+    new->day = day;
+    new->month = month;
+    new->year = year;
+    
+    return new;
+}

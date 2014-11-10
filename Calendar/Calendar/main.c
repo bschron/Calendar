@@ -24,8 +24,6 @@ int main(void)
     
     SearchingHp *hp = enqueueEventsWithProvidedDate(NULL, dateSearchTable, 10, 12, 2012);
     
-    
-    
     getchar();
     
 }

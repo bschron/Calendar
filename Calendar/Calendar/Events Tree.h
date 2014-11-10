@@ -32,5 +32,7 @@ Calendar* createEmptyCalendar (void);
 //Date
 /*creates a new date TAD and sets its values to empty flags, returns the pointer to the new Date*/
 Date* createEmptyDate (void);
+/*takes three int as arguments, attributes that values to a new Date and returns a pointer to it. Returns NULL if provided date is invalid*/
+Date* createDate (int day, int month, int year);
 
 #endif /* defined(__calendar__Events_Tree__) */

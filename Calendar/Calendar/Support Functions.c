@@ -118,8 +118,9 @@ int unwantedgets (char *dest, int size, char unwanted, FILE *stream)
     {
         return -1;
     }
-    else if (unwanted <= 1)
+    else if (size <= 1)
     {
+        *dest = '\0';
         return 0;
     }
     
@@ -135,6 +136,7 @@ int unwantedgets (char *dest, int size, char unwanted, FILE *stream)
         return 1;
     }
     
+    *dest = '\0';
     return 0;
 }
 

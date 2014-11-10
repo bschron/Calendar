@@ -14,18 +14,64 @@ int main(void)
     descriptionSearchTable = createEmptySearchTable();
     dateSearchTable = createEmptySearchTable();
     
-    Calendar *calendar = NULL;
-    calendar = insertEvent(calendar, 16, 11, 2014, "marcado as 15h", "reuniao com higor da neocontrol");
-    calendar = insertEvent(calendar, 1, 11, 2014, "vai ter cuscuz paulista", "jantar na casa da fran");
-    calendar = insertEvent(calendar, 30, 11, 2014, "em caruaru", "aniversario do tio de fran");
-    calendar = insertEvent(calendar, 12, 11, 2014, "no san nicolas", "reuniao dos manos");
-    calendar = insertEvent(calendar, 11, 11, 2014, "estudar avl", "prova de p2");
-    calendar = insertEvent(calendar, 1, 12, 2014, "estudar todas estruturas", "reavaliacao de p2");
+    Calendar *main = importCalendarFromMainDirectory(NULL);
     
-    SearchingHp *hp = enqueueEventsForThisMonth(NULL, NULL);
+    do
+    {
+        resetScreen();
+        
+        printMainMenu();
+        
+        printf("\n\nEventos Agendados para esta Semana:\n");
+        printEventTitlesOfHeapOfEvents(stdout, enqueueEventsForThisWeek(NULL, NULL));
+        
+        exportEvents(main);
+    } while (getMainMenuOptions(main));
     
-    printHeapOfEvents(stdout, hp);
+    exportEvents(main);
     
     getchar();
     
+}
+
+void printMainMenu (void)
+{
+    int optionNumber = 0;
+    
+    printf("\nOpcoes:\n");
+    printOption(&optionNumber, "Adicionar evento");
+    printOption(&optionNumber, "Editar evento");
+    printOption(&optionNumber, "Remover evento");
+    printOption(&optionNumber, "Ver eventos agendados para este mes");
+}
+
+int getMainMenuOptions (Calendar *calendar)
+{
+    int option = getNumber();
+    
+    switch (option)
+    {
+        case 0://exit Program
+            return 0;
+            break;
+        case 1:
+            //adicionar evento
+            break;
+        case 2:
+            //editar evento
+            break;
+        case 3:
+            //remover evento
+            break;
+        case 4:
+            //ver eventos agendados para este mes
+            break;
+            
+        default:
+            wrongInput();
+            return getMainMenuOptions(calendar);
+            break;
+    }
+    
+    return 1;
 }

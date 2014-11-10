@@ -66,6 +66,7 @@ void printHeapOfEvents (FILE *stream, SearchingHp *events)
     }
     else if (events->hpLength == 0)
     {
+        free(events);
         return;
     }
     
@@ -89,6 +90,7 @@ void printEventTitlesOfHeapOfEvents (FILE *stream, SearchingHp *events)
     }
     else if (events->hpLength == 0)
     {
+        free(events);
         return;
     }
     
@@ -102,4 +104,35 @@ void printEventTitlesOfHeapOfEvents (FILE *stream, SearchingHp *events)
     printEventTitle(stream, dequeued);
     
     return printEventTitlesOfHeapOfEvents(stream, events);
+}
+
+void resetScreen (void)
+{
+    system("clear");
+    char day[10];
+    Date *date = getDate(NULL);
+    dayOfWeek(day, date);
+    
+    fprintf(stdout, "Calendario Spyridon          %s-%d/%d/%d\n", day, date->day, date->month, date->year);
+    fprintf(stdout, "0-Voltar/Cancelar\n");
+    
+    free(date);
+}
+
+void printOption (int *optionNumber, char *str)
+{
+    printf("%d-%s\n", *optionNumber, str);
+    (*optionNumber)++;
+}
+
+void enterToContinue (void)
+{
+    printf("Aperte Enter para continuar:");
+    getchar();
+}
+
+void wrongInput (void)
+{
+    printf("\nVoce forneceu uma entrada errada, por favor, tente novamente:\n");
+    //enterToContinue();
 }

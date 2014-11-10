@@ -21,5 +21,12 @@ void printEventTitle (FILE *stream, Event *event);
 void printHeapOfEvents (FILE *stream, SearchingHp *events);
 /*takes a pointer to a stream and a pointer to a SearchingHp as argument. Dequeues the provided SearchingHp and prints the Events Titles, keeps calling it self recursively until there is no more events left in the provided heap. returns if any of the provided pointers is NULL*/
 void printEventTitlesOfHeapOfEvents (FILE *stream, SearchingHp *events);
-
+/*clears the screen and prints a preset for it*/
+void resetScreen (void);
+/*takes a pointer to int and a pointer to str, prints formated option and increases the valur of the pointed int*/
+void printOption (int *optionNumber, char *str);
+/*imprime a string de confirmacao e espera um caracter para continuar*/
+void enterToContinue (void);
+/*Informa o usuario da entrada errada, espera um enter para continuar*/
+void wrongInput (void);
 #endif /* defined(__Calendar__Output__) */

@@ -325,7 +325,7 @@ SearchingHp* enqueueEventsWithProvidedDate (SearchingHp *hp, SearchTable *table,
     //get only events with that exact date
     for (dequeued = dequeueSearchingHp(provisory2); dequeued != NULL; dequeued = dequeueSearchingHp(provisory2))
     {
-        if (dequeued->day == day && dequeued->month == month && dequeued->year == year)
+        if (dequeued->date->day == day && dequeued->date->month == month && dequeued->date->year == year)
         {
             hp = enqueueSearchingHp(hp, dequeued);
         }

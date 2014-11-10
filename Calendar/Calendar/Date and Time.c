@@ -8,8 +8,13 @@
 
 #include "Date and Time.h"
 
-int getDate (int *day, int *month, int *year)
+Date* getDate (Date *date)
 {
+    if (date == NULL)
+    {
+        return getDate(createEmptyDate());
+    }
+    
     struct timeval now;
     struct tm *tmp;
     char timestr[Max];
@@ -20,24 +25,26 @@ int getDate (int *day, int *month, int *year)
     rc = gettimeofday(&now, 0);
     if (rc != 0)
     {
-        return -1;
+        free(date);
+        return createEmptyDate();
     }
     
     
     tmp = localtime(&now.tv_sec);
     if (tmp == 0)
     {
-        return -1;
+        free(date);
+        return createEmptyDate();
     }
     
     strftime(timestr, sizeof(timestr), "%d/%m/%Y", tmp);
     
     breakpoint = returnNextWord(number, breakpoint, '/');
-    *day = atoi(number);
+    date->day = atoi(number);
     breakpoint = returnNextWord(number, breakpoint, '/');
-    *month = atoi(number);
+    date->month = atoi(number);
     breakpoint = returnNextWord(number, breakpoint, '/');
-    *year = atoi(number);
+    date->year = atoi(number);
     
-    return 0;
+    return date;
 }

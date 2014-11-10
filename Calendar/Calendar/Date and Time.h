@@ -11,7 +11,7 @@
 
 #include "Headers.h"
 
-/*takes three pointers to integer, for day, month and year, respectively. Attributes the current Date from the computer, with the following format: dd-mm-yyyy. returns -1 if there was some error getting the current time and 0 if everything is ok*/
-int getDate (int *day, int *month, int *year);
+/*Takes a pointer to a Date structure and attributtes the current time values to it. Allocates a new Date if the provided pointer is NULL and if there is some failure attributing the current time, returns a Date with empty values flags.*/
+Date* getDate (Date *date);
 
 #endif /* defined(__Calendar__Date_and_Time__) */

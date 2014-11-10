@@ -22,26 +22,9 @@ int main(void)
     calendar = insertEvent(calendar, 10, 10, 2012, "estudar avl", "prova de p2");
     calendar = insertEvent(calendar, 10, 1, 2014, "estudar todas estruturas", "reavaliacao de p2");
     
-    SearchingHp *hp = NULL;
+    SearchingHp *hp = enqueueEventsWithProvidedDate(NULL, dateSearchTable, 10, 12, 2012);
     
-    exportEvents(calendar);
     
-    Calendar *imported = importCalendarFromMainDirectory(NULL);
-    
-    struct timeval now;
-    struct tm *tmp;
-    char timestr[100];
-    int rc;
-    
-    rc = gettimeofday(&now, 0);
-    
-    tmp = localtime(&now.tv_sec);
-    
-    rc = strftime(timestr, sizeof(timestr), "%D", tmp);
-    
-    int day, month, year;
-    
-    getDate(&day, &month, &year);
     
     getchar();
     

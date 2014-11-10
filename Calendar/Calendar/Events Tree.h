@@ -29,4 +29,8 @@ Calendar returnEmptyCalendar (void);
 /*returna a pointer to a new calendar with empty flags*/
 Calendar* createEmptyCalendar (void);
 
+//Date
+/*creates a new date TAD and sets its values to empty flags, returns the pointer to the new Date*/
+Date* createEmptyDate (void);
+
 #endif /* defined(__calendar__Events_Tree__) */

@@ -19,6 +19,7 @@ typedef struct mTable MonthTable;
 typedef struct eventBinarySearchTree EventBinarySearchTree;
 typedef struct node Node;
 typedef struct searchingHp SearchingHp;
+typedef struct date Date;
 
 struct calendar
 {
@@ -32,9 +33,7 @@ struct event
     
     char title[Max];
     char desc[description];
-    int day;
-    int month;
-    int year;
+    Date *date;
 };
 
 struct sTable
@@ -75,6 +74,13 @@ struct searchingHp
     Event *hp[SearchHpSize];
     int priority[SearchHpSize];
     int hpLength;
+};
+
+struct date
+{
+    int day;
+    int month;
+    int year;
 };
 
 #endif

@@ -20,10 +20,11 @@ Event* createEmptyEvent (void)
 Event* createEvent (int day, int month, int year, char *desc, char *title)
 {
     Event *new = (Event*) malloc(sizeof(Event));
+    new->date = createEmptyDate();
     
-    new->day = day;
-    new->month = month;
-    new->year = year;
+    new->date->day = day;
+    new->date->month = month;
+    new->date->year = year;
     new->next = NULL;
     new->previous = NULL;
     snprintf(new->title, Max, "%s", title);
@@ -36,9 +37,7 @@ Event returnEmptyEvent (void)
 {
     Event empty;
     
-    empty.day = 0;
-    empty.month = 0;
-    empty.year = 0;
+    empty.date = createEmptyDate();
     empty.next = NULL;
     empty.previous = NULL;
     sprintf(empty.desc, "");
@@ -58,9 +57,9 @@ Calendar* insertEvent (Calendar *calendar, int day, int month, int year, char *d
     {
         new = createEmptyEvent();
         
-        new->day = day;
-        new->month = month;
-        new->year = year;
+        new->date->day = day;
+        new->date->month = month;
+        new->date->year = year;
         snprintf(new->title, Max, "%s", title);
         snprintf(new->desc, description, "%s", desc);
     }
@@ -106,6 +105,7 @@ Calendar* removeEvent (Calendar *calendar, Event *remove)
         remove->next->previous = remove->previous;
     }
     
+    free(remove->date);
     free(remove);
     
     return calendar;
@@ -125,6 +125,17 @@ Calendar* createEmptyCalendar (void)
     Calendar *new = (Calendar*) malloc(sizeof(Calendar));
     
     *new = returnEmptyCalendar();
+    
+    return new;
+}
+
+Date* createEmptyDate (void)
+{
+    Date *new = (Date*) malloc(sizeof(Date));
+    
+    new->day = 0;
+    new->month = 0;
+    new->year = 0;
     
     return new;
 }

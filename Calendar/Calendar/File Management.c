@@ -58,7 +58,7 @@ Node* listEventsExportingStr (Node *list, Event *events)
     
     char output[Max*5];
     
-    snprintf(output, sizeof(output)/sizeof(char), "*%s-%s-%d/%d/%d", events->title, events->desc, events->day, events->month, events->year);
+    snprintf(output, sizeof(output)/sizeof(char), "*%s-%s-%d/%d/%d", events->title, events->desc, events->date->day, events->date->month, events->date->year);
     
     list = insertNode(list, output, not_in_use);
     

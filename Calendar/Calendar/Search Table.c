@@ -117,9 +117,9 @@ void mapEventDate (Event *event)
     char month[3];
     char year[Max];
     
-    sprintf(day, "%d", event->day);
-    sprintf(month, "%d", event->month);
-    sprintf(year, "%d", event->year);
+    sprintf(day, "%d", event->date->day);
+    sprintf(month, "%d", event->date->month);
+    sprintf(year, "%d", event->date->year);
     
     insertEventBinarySearchTree(&dateSearchTable->table[hashWord(day)], createEventBinarySearchTree(event));
     insertEventBinarySearchTree(&dateSearchTable->table[hashWord(month)], createEventBinarySearchTree(event));

@@ -276,3 +276,144 @@ int daysBetweenYears (int year1, int year2)
     
     return daysBetweenYears(year1, year2) + 365 + leapYear(year1);
 }
+
+int dayOfWeek (char *dest, Date *date)
+{
+    if (date == NULL)
+    {
+        return -1;
+    }
+    
+    int day = (date->day + monthTableNumber(date->month, date->year) + lastTwoDigitsOfInt(date->year) + (lastTwoDigitsOfInt(date->year)/4) + centuryNumber(date->year))%7;
+    
+    if (dest != NULL)
+    {
+        weekDayIntToStr(dest, day);
+    }
+    
+    return day ;
+}
+
+int centuryNumber (int year)
+{
+    if (year<100)
+    {
+        return -1;
+    }
+    
+    year /= 100;
+    
+    if (year%4 == 0)
+    {
+        return 6;
+    }
+    else if ((year-1)%4 == 0)
+    {
+        return 4;
+    }
+    else if ((year-2)%4 == 0)
+    {
+        return 2;
+    }
+    else if ((year-3)%4 == 0)
+    {
+        return 0;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+int monthTableNumber (int month, int year)
+{
+    switch (month)
+    {
+        case 1:
+            if (leapYear(year))
+            {
+                return 6;
+            }
+            else
+            {
+                return 0;
+            }
+            break;
+        case 2:
+            if (leapYear(year))
+            {
+                return 2;
+            }
+            else
+            {
+                return 3;
+            }
+            break;
+        case 3:
+            return 3;
+            break;
+        case 4:
+            return 6;
+            break;
+        case 5:
+            return 1;
+            break;
+        case 6:
+            return 4;
+            break;
+        case 7:
+            return 6;
+            break;
+        case 8:
+            return 2;
+            break;
+        case 9:
+            return 5;
+            break;
+        case 10:
+            return 0;
+            break;
+        case 11:
+            return 3;
+            break;
+        case 12:
+            return 5;
+            break;
+            
+        default:
+            return -1;
+            break;
+    }
+}
+
+void weekDayIntToStr (char *dest, int day)
+{
+    switch (day)
+    {
+        case 0:
+            sprintf(dest, "domingo");
+            break;
+        case 1:
+            sprintf(dest, "segunda");
+            break;
+        case 2:
+            sprintf(dest, "terca");
+            break;
+        case 3:
+            sprintf(dest, "quarta");
+            break;
+        case 4:
+            sprintf(dest, "quinta");
+            break;
+        case 5:
+            sprintf(dest, "sexta");
+            break;
+        case 6:
+            sprintf(dest, "sabado");
+            break;
+            
+        default:
+            sprintf(dest, "");
+            break;
+    }
+}

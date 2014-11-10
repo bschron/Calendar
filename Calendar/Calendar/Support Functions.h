@@ -31,5 +31,6 @@ int getNumber (void);
 int sizeOfStr (char *str);
 /*scans the provided stream until the unwanted character is reached (or if EOF or end of array is reached), removes the character from stream and attributes the characters to provided str. returns -1 if provided stream is NULL or destination str is NULL, else, returns 0. Returns 1 if EOF is reached before the unwanted character*/
 int unwantedgets (char *dest, int size, char unwanted, FILE *stream);
-
+/*returns the two last digits of a provided integer bigger than 99, returns it's own value if it's lesser than 100*/
+int lastTwoDigitsOfInt (int integer);
 #endif /* defined(__calendar__Support_Functions__) */

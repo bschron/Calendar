@@ -29,4 +29,12 @@ int daysBetweenMonths (int month1, int month2);
 int daysBetweenYears (int year1, int year2);
 /*takes two Dates as argument, returns a int with the number of days between those two dates. if any of the dates is NULL, will return -1. Returns 0 if dates are both equal*/
 int daysTimeDistance (Date *date1, Date *date2);
+/*takes a integer representing a year as argument, returns the century number of that year. If the year is lesser than 100, returns -1.*/
+int centuryNumber (int year);
+/*takes a pointer to a string and a pointer do a Date as argument. prints the name of the day of week of that date to the provided char pointer and returns the weekday value as a int. returns -1 if the pointer to Date is NULL. Won't print the day fo the week to str if the provided pointer to str is NULL*/
+int dayOfWeek (char *dest, Date *date);
+/*takes a integer representing the month and another integer representing the year as argument, returns a integer representing the month table number of that month. returns -1 if provided arguments are invalid.*/
+int monthTableNumber (int month, int year);
+/*takes a pointer to a str and a integer representing a day of the week as a argument. prints the day of the week to the provided pointer to str. prints a "" empty str if it's a invalid day*/
+void weekDayIntToStr (char *dest, int day);
 #endif /* defined(__Calendar__Date_and_Time__) */

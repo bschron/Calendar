@@ -137,3 +137,16 @@ int unwantedgets (char *dest, int size, char unwanted, FILE *stream)
     
     return 0;
 }
+
+int lastTwoDigitsOfInt (int integer)
+{
+    if (integer < 100)
+    {
+        return integer;
+    }
+    
+    int i = integer/100;
+    i *= 100;
+    
+    return integer - i;
+}

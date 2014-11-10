@@ -24,6 +24,12 @@ int main(void)
     
     SearchingHp *hp = enqueueEventsWithProvidedDate(NULL, dateSearchTable, 10, 12, 2012);
     
+    Date *d = createDate(10, 11, 2014);
+    
+    char day[10];
+    
+    int i = dayOfWeek(day, d);
+    
     getchar();
     
 }

@@ -15,20 +15,16 @@ int main(void)
     dateSearchTable = createEmptySearchTable();
     
     Calendar *calendar = NULL;
-    calendar = insertEvent(calendar, 10, 12, 2012, "marcado as 15h", "reuniao com higor da neocontrol");
-    calendar = insertEvent(calendar, 1, 12, 2012, "vai ter cuscuz paulista", "jantar na casa da fran");
-    calendar = insertEvent(calendar, 10, 10, 2012, "em caruaru", "aniversario do tio de fran");
-    calendar = insertEvent(calendar, 10, 12, 2012, "no san nicolas", "reuniao dos manos");
-    calendar = insertEvent(calendar, 10, 10, 2012, "estudar avl", "prova de p2");
-    calendar = insertEvent(calendar, 10, 1, 2014, "estudar todas estruturas", "reavaliacao de p2");
+    calendar = insertEvent(calendar, 16, 11, 2014, "marcado as 15h", "reuniao com higor da neocontrol");
+    calendar = insertEvent(calendar, 1, 11, 2014, "vai ter cuscuz paulista", "jantar na casa da fran");
+    calendar = insertEvent(calendar, 30, 11, 2014, "em caruaru", "aniversario do tio de fran");
+    calendar = insertEvent(calendar, 12, 11, 2014, "no san nicolas", "reuniao dos manos");
+    calendar = insertEvent(calendar, 11, 11, 2014, "estudar avl", "prova de p2");
+    calendar = insertEvent(calendar, 1, 12, 2014, "estudar todas estruturas", "reavaliacao de p2");
     
-    SearchingHp *hp = enqueueEventsWithProvidedDate(NULL, dateSearchTable, 10, 12, 2012);
+    SearchingHp *hp = enqueueEventsForThisMonth(NULL, NULL);
     
-    Date *d = createDate(10, 11, 2014);
-    
-    char day[10];
-    
-    int i = dayOfWeek(day, d);
+    printHeapOfEvents(stdout, hp);
     
     getchar();
     

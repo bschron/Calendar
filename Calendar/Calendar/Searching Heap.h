@@ -43,5 +43,9 @@ SearchingHp* enqueueEventsWithSimilarText (SearchingHp *hp, SearchTable *table, 
 int peekHpHighestPriority (SearchingHp *hp);
 /*enqueues Events from provided table that occurs on provided date on provided SearchingHp. Creates a new heap if the provided is NULL and returns the provided heap value unchanged if the provided table is NULL or provided date is invalid*/
 SearchingHp* enqueueEventsWithProvidedDate (SearchingHp *hp, SearchTable *table, int day, int month, int year);
+/*takes a pointer to SearchingHp and a pointer to Date as argument. Enqueues events for the week of the provided Date to provided Searching Heap. If provided pointer to SarchingHp is NULL, allocates a new one. If Pointer to Date is NULL, gets the current Date of the computer.*/
+SearchingHp* enqueueEventsForThisWeek (SearchingHp *hp, Date *now);
+/*takes a pointer to SearchingHp and a pointer to Date as argument. Enqueues events for the month of the provided Date to provided Searching Heap. If provided pointer to SarchingHp is NULL, allocates a new one. If Pointer to Date is NULL, gets the current Date of the computer.*/
+SearchingHp* enqueueEventsForThisMonth (SearchingHp *hp, Date *now);
 
 #endif /* defined(__Calendar__Searching_Hp__) */

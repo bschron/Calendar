@@ -39,4 +39,11 @@ int monthTableNumber (int month, int year);
 void weekDayIntToStr (char *dest, int day);
 /*takes a pointer to a str and a integer that represents the month, prints the name of the day on the provided strin str. If the pointer is NULL, returns without changes. If the month nubmer is invalid, prints "" to str*/
 void monthIntToStr (char *dest, int month);
+/*takes a pointer to Date as argument, returns the number of remaining days in that week. Returns -1 if provided pointer is NULL;*/
+int remainingDaysInWeek (Date *date);
+/*takes a pointer to Date as argument, pulls it's value to next day and returns a pointer to it. Returns NULL if provided pointer is NULL;*/
+Date* increaseDate (Date *date);
+/*takes a pointer to Date as argument, returns the number of remaining days in that month. Returns -1 if provided pointer is NULL;*/
+int remainingDaysInMonth (Date *date);
+
 #endif /* defined(__Calendar__Date_and_Time__) */

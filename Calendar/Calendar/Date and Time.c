@@ -469,3 +469,67 @@ void monthIntToStr (char *dest, int month)
             break;
     }
 }
+
+int remainingDaysInWeek (Date *date)
+{
+    if (date == NULL)
+    {
+        return -1;
+    }
+    
+    int day = dayOfWeek(NULL, date);
+    
+    return 7-day;
+}
+
+Date* increaseDate (Date *date)
+{
+    if (date == NULL)
+    {
+        return NULL;
+    }
+    
+    if (leapYear(date->year) && date->month == 2 && date->day == 29)
+    {
+        date->month = 3;
+        date->day = 1;
+    }
+    else if (date->month == 12 && date->day == 31)
+    {
+        (date->year++);
+        date->month = 1;
+        date->day=1;
+    }
+    else if (date->day+1 > daysInMonth(date->month))
+    {
+        date->day = 1;
+        (date->month)++;
+    }
+    else
+    {
+        (date->day)++;
+    }
+    
+    return date;
+}
+
+int remainingDaysInMonth (Date *date)
+{
+    if (date == NULL)
+    {
+        return -1;
+    }
+    
+    int remaining;
+    
+    if (date->month == 2 && leapYear(date->year))
+    {
+        remaining = 29 - date->day-1;//-1, since we want to include the current
+    }
+    else
+    {
+        remaining = daysInMonth(date->month) - date->day;//-1, since we want to include the current day
+    }
+    
+    return remaining;
+}

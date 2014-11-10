@@ -333,3 +333,47 @@ SearchingHp* enqueueEventsWithProvidedDate (SearchingHp *hp, SearchTable *table,
     
     return hp;
 }
+
+SearchingHp* enqueueEventsForThisWeek (SearchingHp *hp, Date *now)
+{
+    if (hp == NULL)
+    {
+        return enqueueEventsForThisWeek(createEmptyHp(), now);
+    }
+    else if (now == NULL)
+    {
+        return enqueueEventsForThisWeek(hp, getDate(NULL));
+    }
+    
+    int weekRemainingDays = remainingDaysInWeek(now);
+    int i;
+    
+    for (i=0; i<weekRemainingDays; i++, now=increaseDate(now))
+    {
+        hp = enqueueEventsWithProvidedDate(hp, dateSearchTable, now->day, now->month, now->year);
+    }
+    
+    return hp;
+}
+
+SearchingHp* enqueueEventsForThisMonth (SearchingHp *hp, Date *now)
+{
+    if (hp == NULL)
+    {
+        return enqueueEventsForThisMonth(createEmptyHp(), now);
+    }
+    else if (now == NULL)
+    {
+        return enqueueEventsForThisMonth(hp, getDate(NULL));
+    }
+    
+    int remainingDays = remainingDaysInMonth(now);
+    int i;
+    
+    for (i=0; i<=remainingDays; i++, now=increaseDate(now))
+    {
+        hp = enqueueEventsWithProvidedDate(hp, dateSearchTable, now->day, now->month, now->year);
+    }
+    
+    return hp;
+}

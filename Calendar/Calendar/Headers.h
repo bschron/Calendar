@@ -44,6 +44,7 @@ SearchTable *dateSearchTable;
 #include "Searching Heap.h"
 #include "File Management.h"
 #include "Date and Time.h"
+#include"Output.h"
 
 
 #endif

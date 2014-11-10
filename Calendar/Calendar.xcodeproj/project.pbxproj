@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		861FFE741A10F1A0004BC3EE /* Output.c in Sources */ = {isa = PBXBuildFile; fileRef = 861FFE721A10F1A0004BC3EE /* Output.c */; };
 		862432FF1A0F8041004ADD65 /* File Management.c in Sources */ = {isa = PBXBuildFile; fileRef = 862432FD1A0F8041004ADD65 /* File Management.c */; };
 		86279BBD1A0ACFF200A5E6B5 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 86279BBC1A0ACFF200A5E6B5 /* main.c */; };
 		86279BCD1A0AD06100A5E6B5 /* Binary Search Tree.c in Sources */ = {isa = PBXBuildFile; fileRef = 86279BC31A0AD06100A5E6B5 /* Binary Search Tree.c */; };
@@ -33,6 +34,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		861FFE721A10F1A0004BC3EE /* Output.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Output.c; sourceTree = "<group>"; };
+		861FFE731A10F1A0004BC3EE /* Output.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Output.h; sourceTree = "<group>"; };
 		862432FD1A0F8041004ADD65 /* File Management.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "File Management.c"; sourceTree = "<group>"; };
 		862432FE1A0F8041004ADD65 /* File Management.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "File Management.h"; sourceTree = "<group>"; };
 		86279BB91A0ACFF200A5E6B5 /* Calendar */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Calendar; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,6 +111,8 @@
 				862432FE1A0F8041004ADD65 /* File Management.h */,
 				864741911A0FFB3A001ECAD7 /* Date and Time.c */,
 				864741921A0FFB3A001ECAD7 /* Date and Time.h */,
+				861FFE721A10F1A0004BC3EE /* Output.c */,
+				861FFE731A10F1A0004BC3EE /* Output.h */,
 				86D7A4521A0CC442009C67EF /* Testing */,
 			);
 			path = Calendar;
@@ -188,6 +193,7 @@
 				86279BCE1A0AD06100A5E6B5 /* Events Tree.c in Sources */,
 				86D7A44E1A0BB7B1009C67EF /* Searching Heap.c in Sources */,
 				86279BBD1A0ACFF200A5E6B5 /* main.c in Sources */,
+				861FFE741A10F1A0004BC3EE /* Output.c in Sources */,
 				864741931A0FFB3A001ECAD7 /* Date and Time.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

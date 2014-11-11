@@ -16,6 +16,8 @@ int main(void)
     
     Calendar *main = importCalendarFromMainDirectory(NULL);
     
+    userEditEvent(main);
+    
     do
     {
         resetScreen();
@@ -25,6 +27,7 @@ int main(void)
         printf("\n\nEventos Agendados para esta Semana:\n");
         printEventTitlesOfHeapOfEvents(stdout, enqueueEventsForThisWeek(NULL, NULL));
         
+        exportEvents(main);
     } while (getMainMenuOptions(main));
     
     exportEvents(main);
@@ -35,12 +38,11 @@ int main(void)
 
 void printMainMenu (void)
 {
-    int optionNumber = 0;
+    int optionNumber = 1;
     
     printf("\nOpcoes:\n");
     printOption(&optionNumber, "Adicionar evento");
     printOption(&optionNumber, "Editar evento");
-    printOption(&optionNumber, "Remover evento");
     printOption(&optionNumber, "Ver eventos agendados para este mes");
 }
 
@@ -54,13 +56,10 @@ int getMainMenuOptions (Calendar *calendar)
             return 0;
             break;
         case 1:
-            //adicionar evento
+            userAddEvent(calendar);
             break;
         case 2:
-            //editar evento
-            break;
-        case 3:
-            //remover evento
+            userEditEvent(calendar);
             break;
         case 4:
             //ver eventos agendados para este mes

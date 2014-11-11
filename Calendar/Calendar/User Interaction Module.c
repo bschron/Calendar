@@ -10,6 +10,11 @@
 
 void userAddEvent (Calendar *calendar)
 {
+    if (calendar == NULL)
+    {
+        return;
+    }
+    
     Event *new = createEmptyEvent();
     
     resetScreen();
@@ -20,11 +25,23 @@ void userAddEvent (Calendar *calendar)
         nbgets(new->title, sizeof(new->title)/sizeof(char), stdin);
     } while (sizeOfStr(new->title) == 0);
     
+    if (strcmp(new->title, "0") == 0)
+    {
+        freeEvent(&new);
+        return;
+    }
+    
     do
     {
         printf("Insira uma descricao para o Evento:\n");
         nbgets(new->desc, sizeof(new->desc)/sizeof(char), stdin);
     } while (sizeOfStr(new->desc) == 0);
+    
+    if (strcmp(new->desc, "0") == 0)
+    {
+        freeEvent(&new);
+        return;
+    }
     
     do
     {
@@ -42,16 +59,129 @@ void userAddEvent (Calendar *calendar)
 
 void userEditEvent (Calendar *calendar)
 {
+    if (calendar == NULL)
+    {
+        return;
+    }
+    
     int optionNumber = 1;
-    Event *edit = createEmptyEvent();
+    int option = 1;
+    Event *edit = userSearchEvent(calendar);
+    Date *date = createEmptyDate();
+    char input[Max*5];
+
+    if (edit == NULL)
+    {
+        free(date);
+        return;
+    }
     
-    resetScreen();
+    for (optionNumber = 1; option != 0; optionNumber = 1)
+    {
+        resetScreen();
+        printf("Qual das informacoes abaixo voce deseja editar?\n");
+        printOption(&optionNumber, "Titulo");
+        printOption(&optionNumber, "Descricao");
+        printOption(&optionNumber, "Data");
+        printOption(&optionNumber, "Remover");
+        option = getNumber();
+        
+        if (option == 0)
+        {
+            return;
+        }
+        else if (option>optionNumber)
+        {
+            wrongInput();
+            enterToContinue();
+        }
+        else
+        {
+            userEditEventGetInput(option, date, input, sizeof(input)/sizeof(char));
+            userEditEventEditEvent(option, date, input, sizeof(input)/sizeof(char), edit, calendar);
+        }
+    }
     
-    //search event
+    free(date);
+}
+
+void userEditEventGetInput (int option, Date *date, char *dest, int destLength)
+{
+    switch (option)
+    {
+        case 1:
+            printf("Novo titulo:");
+            nbgets(dest, destLength, stdin);
+            break;
+        case 2:
+            printf("Nova descricao:");
+            nbgets(dest, destLength, stdin);
+            break;
+        case 3:
+            printf("Nova data: (dd/mm/yyyy):\n");
+            date->day = getNumber();
+            date->month = getNumber();
+            date->year = getNumber();
+            break;
+        case 4:
+            break;
+            
+        default:
+            break;
+    }
+    
+    if ((option == 1 || option == 2))
+    {
+        if (sizeOfStr(dest) == 0)
+        {
+            wrongInput();
+            enterToContinue();
+            return userEditEventGetInput(option, date, dest, destLength);
+        }
+    }
+    else if (option == 3)
+    {
+        if (!validDate(date))
+        {
+            wrongInput();
+            enterToContinue();
+            return userEditEventGetInput(option, date, dest, destLength);
+        }
+    }
+    
+    return;
+}
+
+void userEditEventEditEvent (int option, Date *date, char *str, int destLength, Event *event, Calendar *calendar)
+{
+    switch (option)
+    {
+        case 1:
+            editEvent(event, event->date, str, event->desc);
+            break;
+        case 2:
+            editEvent(event, event->date, event->title, str);
+            break;
+        case 3:
+            editEvent(event, date, event->title, event->desc);
+            break;
+        case 4:
+            calendar = removeEvent(calendar, event);
+            confirmSucess();
+            break;
+            
+        default:
+            break;
+    }
 }
 
 Event* userSearchEvent (Calendar *calendar)
 {
+    if (calendar == NULL)
+    {
+        return NULL;
+    }
+    
     int optionNumber = 1;
     SearchingHp *results = NULL;
     
@@ -100,25 +230,28 @@ Event* userSearchEvent (Calendar *calendar)
     SearchingHp *copy = duplicateSearchingHp(results);
     int i;
     Event *dequeued = NULL;
-    char output[Max*2];
+    char *output = (char*) malloc(sizeof(char)*Max*2);
+    char *weekd = (char*) malloc(sizeof(char)*10);
     
     printf("Qual dos eventos abaixo voce procura?\n");
     
     for (i=0, optionNumber = 1; i<SearchingLimit && results->hpLength > 0; i++)
     {
         dequeued = dequeueSearchingHp(results);
-        dayOfWeek(output, dequeued->date);
-        sprintf(output, "%s  %s-%d%d%d", dequeued->title, output, dequeued->date->day, dequeued->date->month, dequeued->date->year);
+        dayOfWeek(weekd, dequeued->date);
+        sprintf(output, "%s  %s-%d/%d/%d", dequeued->title, weekd, dequeued->date->day, dequeued->date->month, dequeued->date->year);
         printOption(&optionNumber, output);
     }
     free(results);
+    free(output);
+    free(weekd);
     results = copy;
     
     printOption(&optionNumber, "Nenhuma das opções");
     
     option = getNumber();
     
-    if (option >=optionNumber || option < 0)
+    if (option >=optionNumber-1 || option < 0)
     {
         printf("Nao foi possivel achar seu evento, tente outro tipo de busca.");
         enterToContinue();

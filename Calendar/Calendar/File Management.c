@@ -20,6 +20,7 @@ void exportEvents (Calendar *calendar)
     }
     
     char output[Max];
+    char output2[Max];
     char *home = getenv("HOME");//path to home folder
     sprintf(output, "%s%s", home, MainDir);
     int exists = access(output, R_OK);
@@ -31,14 +32,20 @@ void exportEvents (Calendar *calendar)
         mkdir(output, chmod(output, 2));
     }
     
-    sprintf(output, "%s/%s%s", output, MainCalendar, CalendarFileExtension);
-    FILE *export = fopen(output, "w");
+    sprintf(output2, "%s/%s%s", output, MainCalendar, CalendarFileExtension);
+    FILE *export = fopen(output2, "w");
+    Node pop;
     //inserts every formated data on the lists Node->name
     list = listEventsExportingStr(list, calendar->events);
     //prints every event on the list
-    for (; list->next != NULL; list = removeNode(list, list))
+    for (pop = popNode(&list); !emptyNode(&pop); pop=popNode(&list))
     {
-        fprintf(export, "%s\n", list->name);
+        fprintf(export, "%s\n", pop.name);
+    }
+    
+    if (list != NULL)
+    {
+        free(list);
     }
     
     fclose(export);
@@ -50,11 +57,13 @@ Node* listEventsExportingStr (Node *list, Event *events)
     {
         return list;
     }
+    /*
     else if (list == NULL)
     {
         Node *new = (Node*) malloc(sizeof(Node));
         return listEventsExportingStr(new, events);
     }
+    */
     
     char output[Max*5];
     

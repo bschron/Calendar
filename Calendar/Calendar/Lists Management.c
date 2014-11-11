@@ -68,12 +68,17 @@ Node* removeNode (Node* remove, Node* first)
         free(remove);
         return NULL;
     }
-    else if (remove == first)
+    else if (remove == first && remove->next != NULL)
     {
         remove->next->previous = NULL;
         pointer = remove->next;
         free(remove);
         return pointer;
+    }
+    else if (remove == first)
+    {
+        free(remove);
+        return NULL;
     }
     else if (remove->next == NULL)
     {

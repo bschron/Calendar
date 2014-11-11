@@ -136,3 +136,9 @@ void wrongInput (void)
     printf("\nVoce forneceu uma entrada errada, por favor, tente novamente:\n");
     //enterToContinue();
 }
+
+void confirmSucess (void)
+{
+    printf("Operacao efetuada com sucesso.\n");
+    enterToContinue();
+}

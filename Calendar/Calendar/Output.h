@@ -25,8 +25,10 @@ void printEventTitlesOfHeapOfEvents (FILE *stream, SearchingHp *events);
 void resetScreen (void);
 /*takes a pointer to int and a pointer to str, prints formated option and increases the valur of the pointed int*/
 void printOption (int *optionNumber, char *str);
-/*imprime a string de confirmacao e espera um caracter para continuar*/
+/*Requests the user to press the enter button*/
 void enterToContinue (void);
-/*Informa o usuario da entrada errada, espera um enter para continuar*/
+/*Tells the user about the invalid input*/
 void wrongInput (void);
+/*Tells the user that the operation was sucessfull and requests him to press enter*/
+void confirmSucess (void);
 #endif /* defined(__Calendar__Output__) */

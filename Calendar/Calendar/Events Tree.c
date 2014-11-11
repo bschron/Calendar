@@ -80,7 +80,7 @@ Calendar* insertEvent (Calendar *calendar, int day, int month, int year, char *d
     //map event on searching tables
     mapEventOnSearchTables(new);
     
-    exportEvents(calendar);
+    //exportEvents(calendar);/*had issue with two functions oppening the same file*/
     
     return calendar;
 }

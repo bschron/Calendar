@@ -127,3 +127,39 @@ void mapEventDate (Event *event)
     
     return;
 }
+
+void removeEventDateReference (Event *event)
+{
+    if (event == NULL)
+    {
+        return;
+    }
+    
+    char day[3], month[3], year[Max];
+    int dayHash, monthHash, yearHash;
+    
+    sprintf(day, "%d", event->date->day);
+    sprintf(month, "%d", event->date->month);
+    sprintf(year, "%d", event->date->year);
+    
+    dayHash = hashWord(day);
+    monthHash = hashWord(month);
+    yearHash = hashWord(year);
+    //day
+    EventBinarySearchTree **result = NULL;
+    result = searchEventBinarySearchTree(&dateSearchTable->table[dayHash], event);
+    removeEventBinarySearchTree(result);
+    //month
+    result = searchEventBinarySearchTree(&dateSearchTable->table[monthHash], event);
+    removeEventBinarySearchTree(result);
+    //year
+    result = searchEventBinarySearchTree(&dateSearchTable->table[yearHash], event);
+    removeEventBinarySearchTree(result);
+    
+    return;
+}
+
+void removeEventTitleReference (Event *event)
+{
+    
+}

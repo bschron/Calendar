@@ -29,5 +29,6 @@ void mapEventDescription (Event *event);
 void mapEventDate (Event *event);
 /*sets all table pointers to NULL*/
 void initializeSearchTable (SearchTable *var);
-
+/*removes all references for this event on dateSarchTable. Takes a pointer to the required event, if the provided pointer is NULL, returns without changes.*/
+void removeEventDateReference (Event *event);
 #endif /* defined(__calendar__Search_Table__) */

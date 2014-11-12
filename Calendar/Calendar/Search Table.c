@@ -128,6 +128,13 @@ void mapEventDate (Event *event)
     return;
 }
 
+void removeEventReferences (Event *event)
+{
+    removeEventDateReference(event);
+    removeEventTitleReference(event);
+    removeEventDescReference(event);
+}
+
 void removeEventDateReference (Event *event)
 {
     if (event == NULL)

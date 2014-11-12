@@ -161,5 +161,34 @@ void removeEventDateReference (Event *event)
 
 void removeEventTitleReference (Event *event)
 {
+    Node *words = NULL;
+    Node pop;
+    EventBinarySearchTree **result = NULL;
     
+    words = listWords(event->title, words);
+    
+    for (pop = popNode(&words); !emptyNode(&pop); pop = popNode(&words))
+    {
+        result = searchEventBinarySearchTree(&titleSearchTable->table[pop.index], event);
+        removeEventBinarySearchTree(result);
+    }
+    
+    return;
+}
+
+void removeEventDescReference (Event *event)
+{
+    Node *words = NULL;
+    Node pop;
+    EventBinarySearchTree **result = NULL;
+    
+    words = listWords(event->desc, words);
+    
+    for (pop = popNode(&words); !emptyNode(&pop); pop = popNode(&words))
+    {
+        result = searchEventBinarySearchTree(&descriptionSearchTable->table[pop.index], event);
+        removeEventBinarySearchTree(result);
+    }
+    
+    return;
 }

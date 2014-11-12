@@ -35,4 +35,6 @@ void removeEventDateReference (Event *event);
 void removeEventTitleReference (Event *event);
 /*removes all references for this event on descriptionSearchTable. Takes a pointer tonthe required event, if the provided pointer is NULL, returns without changes.*/
 void removeEventDescReference (Event *event);
+/*takes pointer to event as argument and calls other remove event functions, fomr each table*/
+void removeEventReferences (Event *event);
 #endif /* defined(__calendar__Search_Table__) */

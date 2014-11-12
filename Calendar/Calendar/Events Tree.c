@@ -179,11 +179,17 @@ void editEvent (Event *event, Date *date, char *title, char *desc)
         return;
     }
     
+    //remove references
+    removeEventReferences(event);
+    
     event->date->day = date->day;
     event->date->month = date->month;
     event->date->year = date->year;
     sprintf(event->title, "%s", title);
     sprintf(event->desc, "%s", desc);
+    
+    //renew references
+    mapEventOnSearchTables(event);
     
     return;
 }

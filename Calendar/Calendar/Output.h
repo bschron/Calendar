@@ -31,4 +31,6 @@ void enterToContinue (void);
 void wrongInput (void);
 /*Tells the user that the operation was sucessfull and requests him to press enter*/
 void confirmSucess (void);
+/*Takes pointer to EventQueue as argument. Dequeues provided queue until it's empty and print's every event on it. Function stops whe queue length is zero or dequeued event is NULL. If provided pointer to EventQueue is NULL< returns.*/
+void printEventQueue (EventQueue *queue);
 #endif /* defined(__Calendar__Output__) */

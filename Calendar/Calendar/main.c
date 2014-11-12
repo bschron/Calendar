@@ -15,7 +15,9 @@ int main(void)
     dateSearchTable = createEmptySearchTable();
     
     Calendar *main = importCalendarFromMainDirectory(NULL);
-    
+    //
+    printEventQueue(eventQueueEnqueueEventsForNDays(7, NULL, main, NULL));
+    //
     do
     {
         resetScreen();

@@ -142,3 +142,26 @@ void confirmSucess (void)
     printf("Operacao efetuada com sucesso.\n");
     enterToContinue();
 }
+
+void printEventQueue (EventQueue *queue)
+{
+    if (queue == NULL)
+    {
+        return;
+    }
+    else if (queue->queueLength == 0)
+    {
+        return;
+    }
+    
+    Event *dequeued = dequeueEventQueue(queue);
+    
+    if (dequeued == NULL)
+    {
+        return;
+    }
+    
+    printEvent(stdout, dequeued);
+    
+    return printEventQueue(queue);
+}

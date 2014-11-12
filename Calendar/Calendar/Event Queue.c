@@ -88,3 +88,40 @@ Event* dequeueEventQueue (EventQueue *queue)
     
     return event;
 }
+
+EventQueue* eventQueueEnqueueEventsForNDays (int numberOfDays, EventQueue *queue, Calendar *calendar, Date *now)
+{
+    if (calendar == NULL)
+    {
+        return NULL;
+    }
+    else if (calendar->events == NULL)
+    {
+        return NULL;
+    }
+    else if (queue == NULL)
+    {
+        return eventQueueEnqueueEventsForNDays(numberOfDays, createEmptyQueue(), calendar, now);
+    }
+    else if (now == NULL)
+    {
+        return eventQueueEnqueueEventsForNDays(numberOfDays, queue, calendar, getDate(NULL));
+    }
+    else if (numberOfDays == 0)
+    {
+        return queue;
+    }
+    
+    SearchingHp *result = NULL;
+    Event *dequeued = NULL;
+    
+    for (result = enqueueEventsWithProvidedDate(result, dateSearchTable, now->day, now->month, now->year); numberOfDays>0; numberOfDays--, now = increaseDate(now), result = enqueueEventsWithProvidedDate(result, dateSearchTable, now->day, now->month, now->year))
+    {
+        for (dequeued = dequeueSearchingHp(result); dequeued != NULL; dequeued = dequeueSearchingHp(result))
+        {
+            queue = enqueueEventQueue(queue, dequeued);
+        }
+    }
+    
+    return queue;
+}

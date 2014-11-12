@@ -79,11 +79,11 @@ void hpfySearchingHp (SearchingHp *hp, int parent)
     
     int leftChild = hpLeftChild(parent);
     int rightChild = hpRightChild(parent);
-    if (hp->hp[leftChild] == NULL)
+    if (hp->hp[leftChild] == NULL || leftChild >= SearchHpSize)
     {
         leftChild = -1;
     }
-    if (hp->hp[rightChild] == NULL)
+    if (hp->hp[rightChild] == NULL || rightChild >= SearchHpSize)
     {
         rightChild = -1;
     }
@@ -238,7 +238,9 @@ SearchingHp* eventBinarySearchTreeToSearchingHp (SearchingHp *hp, EventBinarySea
     
     hp = enqueueSearchingHp(hp, root->event);
     hp = eventBinarySearchTreeToSearchingHp(hp, root->leftChild);
-    return eventBinarySearchTreeToSearchingHp(hp, root->rightChild);
+    hp = eventBinarySearchTreeToSearchingHp(hp, root->rightChild);
+    
+    return hp;
 }
 
 SearchingHp* enqueueEventsWithSimilarWord (SearchingHp *hp, SearchTable *table, char *word)
@@ -330,6 +332,9 @@ SearchingHp* enqueueEventsWithProvidedDate (SearchingHp *hp, SearchTable *table,
             hp = enqueueSearchingHp(hp, dequeued);
         }
     }
+    
+    free(provisory);
+    free(provisory2);
     
     return hp;
 }

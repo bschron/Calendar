@@ -19,4 +19,5 @@ EventQueue* enqueueEventQueue (EventQueue *queue, Event *event);
 /*takes a pointer to EventQueue as argument. Removes the first element from the queue, decreases the queue length, and returns the returns a pointer to the dequeued event. Returns NULL if provided pointer to EventQueue is NULL, if provided EventQueue length is equal or lesser to zero or if the first element of the EventQueue is NULL.*/
 Event* dequeueEventQueue (EventQueue *queue);
 
+EventQueue* eventQueueEnqueueEventsForNDays (int numberOfDays, EventQueue *queue, Calendar *calendar, Date *now);
 #endif /* defined(__Calendar__Event_Queue__) */

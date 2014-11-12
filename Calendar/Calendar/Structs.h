@@ -20,6 +20,8 @@ typedef struct eventBinarySearchTree EventBinarySearchTree;
 typedef struct node Node;
 typedef struct searchingHp SearchingHp;
 typedef struct date Date;
+typedef struct eventQueue EventQueue;
+typedef struct eventCapsule EventCapsule;
 
 struct calendar
 {
@@ -81,6 +83,21 @@ struct date
     int day;
     int month;
     int year;
+};
+
+struct eventQueue
+{
+    EventCapsule *first;
+    EventCapsule *last;
+    int queueLength;
+    
+};
+
+struct eventCapsule
+{
+    Event *event;
+    EventCapsule *next;
+    EventCapsule *previous;
 };
 
 #endif

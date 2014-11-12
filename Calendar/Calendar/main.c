@@ -16,8 +16,6 @@ int main(void)
     
     Calendar *main = importCalendarFromMainDirectory(NULL);
     
-    userEditEvent(main);
-    
     do
     {
         resetScreen();
@@ -44,6 +42,7 @@ void printMainMenu (void)
     printOption(&optionNumber, "Adicionar evento");
     printOption(&optionNumber, "Editar evento");
     printOption(&optionNumber, "Ver eventos agendados para este mes");
+    printOption(&optionNumber, "Procurar por evento agendado");
 }
 
 int getMainMenuOptions (Calendar *calendar)
@@ -61,8 +60,11 @@ int getMainMenuOptions (Calendar *calendar)
         case 2:
             userEditEvent(calendar);
             break;
+        case 3:
+            printHeapOfEvents(stdout, enqueueEventsForThisMonth(NULL, NULL));
+            break;
         case 4:
-            //ver eventos agendados para este mes
+            //busca de evento
             break;
             
         default:

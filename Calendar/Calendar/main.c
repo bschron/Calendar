@@ -64,7 +64,7 @@ int getMainMenuOptions (Calendar *calendar)
             printHeapOfEvents(stdout, enqueueEventsForThisMonth(NULL, NULL));
             break;
         case 4:
-            //busca de evento
+            printEvent(stdout, userSearchEvent(calendar));
             break;
             
         default:

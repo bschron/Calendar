@@ -123,5 +123,7 @@ EventQueue* eventQueueEnqueueEventsForNDays (int numberOfDays, EventQueue *queue
         }
     }
     
+    free(result);
+    
     return queue;
 }

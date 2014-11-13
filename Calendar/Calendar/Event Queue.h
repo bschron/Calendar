@@ -18,6 +18,6 @@ EventQueue* createEmptyQueue (void);
 EventQueue* enqueueEventQueue (EventQueue *queue, Event *event);
 /*takes a pointer to EventQueue as argument. Removes the first element from the queue, decreases the queue length, and returns the returns a pointer to the dequeued event. Returns NULL if provided pointer to EventQueue is NULL, if provided EventQueue length is equal or lesser to zero or if the first element of the EventQueue is NULL.*/
 Event* dequeueEventQueue (EventQueue *queue);
-
+/*Takes a int representing the number of days to be printed, a pointer to EventQueue, a pointer to Calendar and a Pointer to Date as arguments. This function will print every event in the period of N days after the provided date. The function enqueues every event, day by day, of that time period, dequeues it, and enqueue to the provided EventQueue, preserving the date order. Returns NULL if the provided pointer to Calendar is NULL, or, if the provided calendar is empty. Creates a new EventQueue if the provided is NULL. Gets the current time, if the provided is NULL. Returns the queue unchanged if the provided number of days is 0. Returns a pointer to the provided queue.*/
 EventQueue* eventQueueEnqueueEventsForNDays (int numberOfDays, EventQueue *queue, Calendar *calendar, Date *now);
 #endif /* defined(__Calendar__Event_Queue__) */

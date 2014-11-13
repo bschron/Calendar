@@ -151,6 +151,7 @@ void printEventQueue (EventQueue *queue)
     }
     else if (queue->queueLength == 0)
     {
+        free(queue);
         return;
     }
     
@@ -158,10 +159,36 @@ void printEventQueue (EventQueue *queue)
     
     if (dequeued == NULL)
     {
+        free(queue);
         return;
     }
     
     printEvent(stdout, dequeued);
     
     return printEventQueue(queue);
+}
+
+void printEventQueueTitles (EventQueue *queue)
+{
+    if (queue == NULL)
+    {
+        return;
+    }
+    else if (queue->queueLength == 0)
+    {
+        free(queue);
+        return;
+    }
+    
+    Event *dequeued = dequeueEventQueue(queue);
+    
+    if (dequeued == NULL)
+    {
+        free(queue);
+        return;
+    }
+    
+    printEventTitle(stdout, dequeued);
+    
+    return printEventQueueTitles(queue);
 }

@@ -89,23 +89,18 @@ Event* dequeueEventQueue (EventQueue *queue)
     return event;
 }
 
-EventQueue* eventQueueEnqueueEventsForNDays (int numberOfDays, EventQueue *queue, Calendar *calendar, Date *now)
+EventQueue* eventQueueEnqueueEventsForNDays (int numberOfDays, EventQueue *queue, Date *now)
 {
-    if (calendar == NULL)
+    if (queue == NULL)
     {
-        return NULL;
-    }
-    else if (calendar->events == NULL)
-    {
-        return NULL;
-    }
-    else if (queue == NULL)
-    {
-        return eventQueueEnqueueEventsForNDays(numberOfDays, createEmptyQueue(), calendar, now);
+        return eventQueueEnqueueEventsForNDays(numberOfDays, createEmptyQueue(), now);
     }
     else if (now == NULL)
     {
-        return eventQueueEnqueueEventsForNDays(numberOfDays, queue, calendar, getDate(NULL));
+        now = getDate(NULL);
+        queue = eventQueueEnqueueEventsForNDays(numberOfDays, queue, now);
+        free(now);
+        return queue;
     }
     else if (numberOfDays == 0)
     {
@@ -125,5 +120,26 @@ EventQueue* eventQueueEnqueueEventsForNDays (int numberOfDays, EventQueue *queue
     
     free(result);
     
+    return queue;
+}
+
+EventQueue* eventQueueEnqueueEventsForThisWeek (EventQueue *queue)
+{
+    return eventQueueEnqueueEventsForNDays(7-dayOfWeek(NULL, NULL), queue, NULL);
+}
+
+EventQueue* eventQueueEnqueueEventsForThisMonth (EventQueue *queue)
+{
+    Date *now = getDate(NULL);
+    int nDays = daysInMonth(now->month) - now->day + 1;
+    
+    if (now->month == 2 && now->day < 29 && leapYear(now->year))
+    {
+        nDays++;
+    }
+    
+    queue = eventQueueEnqueueEventsForNDays(nDays, queue, now);
+    
+    free(now);
     return queue;
 }

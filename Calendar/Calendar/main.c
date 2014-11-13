@@ -15,7 +15,7 @@ int main(void)
     dateSearchTable = createEmptySearchTable();
     
     Calendar *main = importCalendarFromMainDirectory(NULL);
-    printEventQueue(eventQueueEnqueueEventsForNDays(7, NULL, main, NULL));
+    
     do
     {
         resetScreen();
@@ -23,7 +23,7 @@ int main(void)
         printMainMenu();
         
         printf("\n\nEventos Agendados para esta Semana:\n");
-        printEventTitlesOfHeapOfEvents(stdout, enqueueEventsForThisWeek(NULL, NULL));
+        printEventQueueTitles(eventQueueEnqueueEventsForThisWeek(NULL));
         
         exportEvents(main);
     } while (getMainMenuOptions(main));
@@ -61,7 +61,7 @@ int getMainMenuOptions (Calendar *calendar)
             userEditEvent(calendar);
             break;
         case 3:
-            printHeapOfEvents(stdout, enqueueEventsForThisMonth(NULL, NULL));
+            printEventQueue(eventQueueEnqueueEventsForThisMonth(NULL));
             break;
         case 4:
             printEvent(stdout, userSearchEvent(calendar));

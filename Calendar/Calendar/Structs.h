@@ -36,6 +36,9 @@ struct event
     char title[Max];
     char desc[description];
     Date *date;
+    
+    int recurrency;//0 is not recurrent, 1 is recurrent root, 2 is not root
+    Event *recurrences;
 };
 
 struct sTable

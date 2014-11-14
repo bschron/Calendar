@@ -37,7 +37,8 @@ struct event
     char desc[description];
     Date *date;
     
-    int recurrency;//0 is not recurrent, 1 is recurrent root, 2 is not root
+    int recurrency;//0 is not recurrent, >0 is recurrent root, <0 is not root. 1/-1 is weekly recurrency, 2/-2 is monthly recurrency, 3/-3 is yearly recurrency
+    int *frequency;
     Event *recurrences;
 };
 

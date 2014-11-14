@@ -18,6 +18,7 @@
 #define MainCalendar "calendar"
 #define CalendarFileExtension ".spyridon"
 #define SearchingLimit 10
+#define NumberOfRecurrences 31
 
 #include <stdio.h>
 #include <stdlib.h>

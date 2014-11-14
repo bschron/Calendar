@@ -16,6 +16,18 @@ int main(void)
     
     Calendar *main = importCalendarFromMainDirectory(NULL);
     
+    //
+    int *f = (int*) malloc(sizeof(int)*7);
+    f[0] = 1;
+    f[1] = 0;
+    f[2] = 0;
+    f[3] = 0;
+    f[4] = 0;
+    f[5] = 1;
+    f[6] = 0;
+    Event *new = createEvent(16, 11, 2014, "teste", "teste01", 1, f);
+    //
+    
     do
     {
         resetScreen();

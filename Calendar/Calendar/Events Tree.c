@@ -17,7 +17,7 @@ Event* createEmptyEvent (void)
     return new;
 }
 
-Event* createEvent (int day, int month, int year, char *desc, char *title)
+Event* createEvent (int day, int month, int year, char *desc, char *title, int recurrency, int *frequency)
 {
     Event *new = (Event*) malloc(sizeof(Event));
     new->date = createEmptyDate();
@@ -29,6 +29,9 @@ Event* createEvent (int day, int month, int year, char *desc, char *title)
     new->previous = NULL;
     snprintf(new->title, Max, "%s", title);
     snprintf(new->desc, description, "%s", desc);
+    new->recurrency = recurrency;
+    new->frequency = frequency;
+    new->recurrences = createRecurrentEvents(title, desc, new->date, recurrency, frequency);
     
     return new;
 }
@@ -42,6 +45,9 @@ Event returnEmptyEvent (void)
     empty.previous = NULL;
     sprintf(empty.desc, "");
     sprintf(empty.title, "");
+    empty.recurrency = 0;
+    empty.recurrences = NULL;
+    empty.frequency = NULL;
     
     return empty;
 }
@@ -203,4 +209,111 @@ void freeEvent (Event **event)
     free(*event);
     
     return;
+}
+
+Event *eventInsertEvent (Event *first, Event *new)
+{
+    if (new == NULL)
+    {
+        return NULL;
+    }
+    
+    if (first == NULL)
+    {
+        new->next = NULL;
+        new->previous = NULL;
+        first = new;
+    }
+    else
+    {
+        first->previous = new;
+        new->next = first;
+        new->previous = NULL;
+        first = new;
+    }
+    
+    return first;
+}
+
+Event* createRecurrentEvents (char *title, char *desc, Date *starting, int recurrency, int *frequency)
+{
+    Event *first = createEmptyEvent();
+    Event *new = NULL;
+    Date *date = createDate(starting->day, starting->month, starting->year);
+    int weekDay = dayOfWeek(NULL, date);
+    int i;
+    //create first
+    sprintf(first->title, "%s", title);
+    sprintf(first->desc, "%s", desc);
+    first->next = NULL;
+    first->previous = NULL;
+    first->recurrences = NULL;
+    first->frequency = NULL;
+    first->recurrency = recurrency*-1;
+    first->date = date;
+    if (recurrency == 1)
+    {
+        first->date = increaseDate(first->date);
+        weekDay = dayOfWeek(NULL, first->date);
+        weekDay = nextDayOfWeekToOccur(frequency, weekDay);
+        first->date = advanceToNextNWeekDay(first->date, weekDay);
+    }
+    else if (recurrency == 2)
+    {
+        first->date = nextDayOfMonthToOccur(frequency, first->date);
+    }
+    else if (recurrency == 3)
+    {
+        first->date = nextDayOfYearToOccur(frequency, first->date);
+    }
+    //create others
+    if (recurrency == 1)
+    {
+        date = createDate(first->date->day, first->date->month, first->date->year);
+        for (i=0; i<NumberOfRecurrences-1; i++, date=createDate(new->date->day, new->date->month, new->date->year))
+        {
+            date = increaseDate(date);
+            weekDay = nextDayOfWeekToOccur(frequency, dayOfWeek(NULL, date));
+            new = createEmptyEvent();
+            sprintf(new->title, "%s", title);
+            sprintf(new->desc, "%s", desc);
+            new->recurrences = NULL;
+            new->frequency = NULL;
+            new->recurrency = first->recurrency;
+            new->date = advanceToNextNWeekDay(date, weekDay);
+            first = eventInsertEvent(first, new);
+        }
+    }
+    else if (recurrency == 2)
+    {
+        date = createDate(first->date->day, first->date->month, first->date->year);
+        for (i=0; i<NumberOfRecurrences-1; i++, date=createDate(new->date->day, new->date->month, new->date->year))
+        {
+            new = createEmptyEvent();
+            sprintf(new->title, "%s", title);
+            sprintf(new->desc, "%s", desc);
+            new->recurrences = NULL;
+            new->frequency = NULL;
+            new->recurrency = first->recurrency;
+            new->date = nextDayOfMonthToOccur(frequency, date);
+            first = eventInsertEvent(first, new);
+        }
+    }
+    else if (recurrency == 3)
+    {
+        date = createDate(first->date->day, first->date->month, first->date->year);
+        for (i=0; i<NumberOfRecurrences-1; i++, date=createDate(new->date->day, new->date->month, new->date->year))
+        {
+            new = createEmptyEvent();
+            sprintf(new->title, "%s", title);
+            sprintf(new->desc, "%s", desc);
+            new->recurrences = NULL;
+            new->frequency = NULL;
+            new->recurrency = first->recurrency;
+            new->date = nextDayOfYearToOccur(frequency, date);
+            first = eventInsertEvent(first, new);
+        }
+    }
+    
+    return first;
 }

@@ -9,7 +9,7 @@
 #include "Headers.h"
 
 void eventBinarySearchTreeTest (void)
-{
+{/*
     titleSearchTable = createEmptySearchTable();
     
     Event *um = createEvent(10, 12, 2012, "teste", "teste01");
@@ -42,4 +42,5 @@ void eventBinarySearchTreeTest (void)
     EventBinarySearchTree **wanted = searchEventBinarySearchTree(&tree, um2);
     
     removeEventBinarySearchTree(wanted);
+  */
 }

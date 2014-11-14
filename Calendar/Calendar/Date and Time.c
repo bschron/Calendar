@@ -592,7 +592,7 @@ Date* nextDayOfMonthToOccur (int *frequency, Date *current)
 {
     if (current == NULL)
     {
-        return nextDayOfWeekToOccur(frequency, getDate(NULL));
+        return nextDayOfMonthToOccur(frequency, getDate(NULL));
     }
     
     current = increaseDate(current);
@@ -602,7 +602,7 @@ Date* nextDayOfMonthToOccur (int *frequency, Date *current)
         return current;
     }
     
-    return nextDayOfWeekToOccur(frequency, current);
+    return nextDayOfMonthToOccur(frequency, current);
 }
 
 Date* nextDayOfYearToOccur (int *frequency, Date *current)

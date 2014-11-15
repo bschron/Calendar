@@ -263,6 +263,7 @@ Event* createRecurrentEvents (char *title, char *desc, Date *starting, int recur
     {
         first->date = nextDayOfYearToOccur(frequency, first->date);
     }
+    mapEventOnSearchTables(new);
     //create others
     if (recurrency == 1)
     {
@@ -279,6 +280,7 @@ Event* createRecurrentEvents (char *title, char *desc, Date *starting, int recur
             new->recurrency = first->recurrency;
             new->date = advanceToNextNWeekDay(date, weekDay);
             first = eventInsertEvent(first, new);
+            mapEventOnSearchTables(new);
         }
     }
     else if (recurrency == 2)
@@ -294,6 +296,7 @@ Event* createRecurrentEvents (char *title, char *desc, Date *starting, int recur
             new->recurrency = first->recurrency;
             new->date = nextDayOfMonthToOccur(frequency, date);
             first = eventInsertEvent(first, new);
+            mapEventOnSearchTables(new);
         }
     }
     else if (recurrency == 3)
@@ -309,6 +312,7 @@ Event* createRecurrentEvents (char *title, char *desc, Date *starting, int recur
             new->recurrency = first->recurrency;
             new->date = nextDayOfYearToOccur(frequency, date);
             first = eventInsertEvent(first, new);
+            mapEventOnSearchTables(new);
         }
     }
     

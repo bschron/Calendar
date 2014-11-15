@@ -19,5 +19,7 @@ void exportEvents (Calendar *calendar);
 Calendar* importCalendarFromFile (Calendar* calendar, FILE *file);
 /*imports calendar info from main calendar file. returns provided calendar unchanged if file does not exist and creates a new calendar if provided is NULL. Returns pointer to the calendar.*/
 Calendar* importCalendarFromMainDirectory (Calendar *calendar);
+/*Takes  pointer to str, a int representing the length of that str and a pointer to Event. prints the provided recurrent event info to the provided str.*/
+void printRecurrentEventFileExportingToStr (char *dest, int destLength, Event *event);
 
 #endif /* defined(__Calendar__File_Management__) */

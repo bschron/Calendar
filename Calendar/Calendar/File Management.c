@@ -67,7 +67,15 @@ Node* listEventsExportingStr (Node *list, Event *events)
     
     char output[Max*5];
     
-    snprintf(output, sizeof(output)/sizeof(char), "*%s-%s-%d/%d/%d", events->title, events->desc, events->date->day, events->date->month, events->date->year);
+    //treat recurrent event differently than regular events
+    if (events->recurrency == 0)
+    {
+        snprintf(output, sizeof(output)/sizeof(char), "*%s-%s-%d/%d/%d", events->title, events->desc, events->date->day, events->date->month, events->date->year);
+    }
+    else
+    {
+        printRecurrentEventFileExportingToStr(output, sizeof(output)/sizeof(char), events);
+    }
     
     list = insertNode(list, output, not_in_use);
     
@@ -140,4 +148,39 @@ Calendar* importCalendarFromMainDirectory (Calendar *calendar)
     calendar = importCalendarFromFile(calendar, file);
     
     return calendar;
+}
+
+void printRecurrentEventFileExportingToStr (char *dest, int destLength, Event *event)
+{
+    char frequencyStr[Max];
+    
+    if (event->recurrency != 2)
+    {
+        int frequecyLength = 0;
+        int i;
+        if (event->recurrency == 1)
+        {
+            frequecyLength = 7;
+        }
+        else if (event->recurrency == 2)
+        {
+            frequecyLength = 31;
+        }
+        
+        for (i=0; i<frequecyLength; i++)
+        {
+            frequencyStr[i] = event->frequency[i]+'0';
+        }
+    }
+    
+    if (event->recurrency == 1 || event->recurrency == 2)
+    {
+        snprintf(dest, destLength, "*%s-%s-%d/%d/%d-%d-%s", event->title, event->desc, event->date->day, event->date->month, event->date->year, event->recurrency, frequencyStr);
+    }
+    else if (event->recurrency == 3)
+    {
+        snprintf(dest, destLength, "*%s-%s-%d/%d/%d-%d-%d/%d", event->title, event->desc, event->date->day, event->date->month, event->date->year, event->recurrency, event->frequency[0], event->frequency[1]);
+    }
+    
+    return;
 }

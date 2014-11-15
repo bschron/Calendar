@@ -51,7 +51,7 @@ void userAddEvent (Calendar *calendar)
         new->date->year = getNumber();
     } while (!validDate(new->date));
     
-    calendar = insertEvent(calendar, new->date->day, new->date->month, new->date->year, new->desc, new->title);
+    calendar = insertEvent(calendar, new);
     
     freeEvent(&new);
     return;

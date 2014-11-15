@@ -18,11 +18,6 @@ Event returnEmptyEvent (void);
 Event* createEmptyEvent (void);
 /*returns a pointer to a new event with the provided content*/
 Event* createEvent (int day, int month, int year, char *desc, char *title, int recurrency, int *frequency);
-/*This function will insert a event into a calendar, with the provided parameters and add this event to the hash table, if the calendar is NULL, it will create a new calendar */
-Calendar* insertEvent (Calendar *calendar, int day, int month, int year, char *desc, char *title);
-/*this function will remove a event provided from a provided calendar, if calendar is NULL, will return NULL*/
-Calendar* removeEvent (Calendar *calendar, Event *event);
-/*takes a pointer to Event, a pointer to Date, pointer title str and pointer to description str. Attribute those new values to provided event and returns. if any of the provided pointers is NULL, returns without changes to the event*/
 void editEvent (Event *event, Date *date, char *title, char *desc);
 /*Takes double pointer to Event. Frees event and event Date. If Event == NULL, returns*/
 void freeEvent (Event **event);
@@ -34,6 +29,11 @@ Event *eventInsertEvent (Event *first, Event *new);
 Calendar returnEmptyCalendar (void);
 /*returna a pointer to a new calendar with empty flags*/
 Calendar* createEmptyCalendar (void);
+/*Takes a pointer to Calendar and pointer to Event as argument. Inserts the provided invent on the provided calendar. If the provided pointer to calendar is NULL, creates a new one. returns the calendar unchanged if the proviede event is NULL.*/
+Calendar* insertEvent (Calendar *calendar, Event *event);
+/*this function will remove a event provided from a provided calendar, if calendar is NULL, will return NULL*/
+Calendar* removeEvent (Calendar *calendar, Event *event);
+/*takes a pointer to Event, a pointer to Date, pointer title str and pointer to description str. Attribute those new values to provided event and returns. if any of the provided pointers is NULL, returns without changes to the event*/
 
 //Date
 /*creates a new date TAD and sets its values to empty flags, returns the pointer to the new Date*/

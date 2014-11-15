@@ -52,39 +52,32 @@ Event returnEmptyEvent (void)
     return empty;
 }
 
-Calendar* insertEvent (Calendar *calendar, int day, int month, int year, char *desc, char *title)
+Calendar* insertEvent (Calendar *calendar, Event *event)
 {
-    Event *new = NULL;
-    if (calendar == NULL)
+    if (event == NULL)
     {
-        return insertEvent(createEmptyCalendar(), day, month, year, desc, title);
+        return calendar;
     }
-    else
+    else if (calendar == NULL)
     {
-        new = createEmptyEvent();
-        
-        new->date->day = day;
-        new->date->month = month;
-        new->date->year = year;
-        snprintf(new->title, Max, "%s", title);
-        snprintf(new->desc, description, "%s", desc);
+        return insertEvent(createEmptyCalendar(), event);
     }
     
     if (calendar->events == NULL)
     {
-        new->next = NULL;
-        new->previous = NULL;
+        event->next = NULL;
+        event->previous = NULL;
         
-        calendar->events = new;
+        calendar->events = event;
     }
     else
     {
-        new->next = calendar->events;
-        calendar->events->previous = new;
-        calendar->events = new;
+        event->next = calendar->events;
+        calendar->events->previous = event;
+        calendar->events = event;
     }
     //map event on searching tables
-    mapEventOnSearchTables(new);
+    mapEventOnSearchTables(event);
     
     return calendar;
 }

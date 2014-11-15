@@ -101,23 +101,18 @@ Calendar* importCalendarFromFile (Calendar* calendar, FILE *file)
     }
     else if (character == '*')//start reading event
     {
-        char *title = (char*) malloc(sizeof(char)*Max);
-        char *desc = (char*) malloc(sizeof(char)*description);
-        int *date = (int*) malloc(sizeof(int)*3);//date has 3 positions that are divided in the following order, day/month/year
+        Event *new = createEmptyEvent();
         
-        unwantedgets(title, Max, '-', file);
-        unwantedgets(desc, description, '-', file);
-        fscanf(file, "%d", &date[0]);
+        unwantedgets(new->title, Max, '-', file);
+        unwantedgets(new->desc, description, '-', file);
+        fscanf(file, "%d", &new->date->day);
         fgetc(file);
-        fscanf(file, "%d", &date[1]);
+        fscanf(file, "%d", &new->date->month);
         fgetc(file);
-        fscanf(file, "%d", &date[2]);
+        fscanf(file, "%d", &new->date->year);
         fgetc(file);
         
-        calendar = insertEvent(calendar, date[0], date[1], date[2], desc, title);
-        free(title);
-        free(desc);
-        free(date);
+        calendar = insertEvent(calendar, new);
         
         return importCalendarFromFile(calendar, file);
     }

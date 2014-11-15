@@ -103,14 +103,18 @@ Calendar* importCalendarFromFile (Calendar* calendar, FILE *file)
     {
         Event *new = createEmptyEvent();
         
-        unwantedgets(new->title, Max, '-', file);
-        unwantedgets(new->desc, description, '-', file);
-        fscanf(file, "%d", &new->date->day);
-        fgetc(file);
-        fscanf(file, "%d", &new->date->month);
-        fgetc(file);
-        fscanf(file, "%d", &new->date->year);
-        fgetc(file);
+        new = getEventMainInformationsFromStream(file, new);
+        
+        calendar = insertEvent(calendar, new);
+        
+        return importCalendarFromFile(calendar, file);
+    }
+    else if (character == '+')
+    {
+        Event *new = createEmptyEvent();
+        
+        new = getEventMainInformationsFromStream(file, new);
+        new = getRecurrentAdditionalInformationsFromStream(file, new);
         
         calendar = insertEvent(calendar, new);
         
@@ -178,4 +182,65 @@ void printRecurrentEventFileExportingToStr (char *dest, int destLength, Event *e
     }
     
     return;
+}
+
+Event* getEventMainInformationsFromStream (FILE *stream, Event *event)
+{
+    if (stream == NULL)
+    {
+        return event;
+    }
+    else if (event == NULL)
+    {
+        return getEventMainInformationsFromStream(stream, createEmptyEvent());
+    }
+    
+    unwantedgets(event->title, Max, '-', stream);
+    unwantedgets(event->desc, description, '-', stream);
+    fscanf(stream, "%d", &event->date->day);
+    fgetc(stream);
+    fscanf(stream, "%d", &event->date->month);
+    fgetc(stream);
+    fscanf(stream, "%d", &event->date->year);
+    fgetc(stream);
+    
+    return event;
+}
+
+Event *getRecurrentAdditionalInformationsFromStream (FILE *stream, Event *event)
+{
+    if (stream == NULL || event == NULL)
+    {
+        return event;
+    }
+    
+    int frequencyLength = 0;
+    int i;
+    
+    event->recurrency = getNumber();
+
+    if (event->recurrency == 1)
+    {
+        frequencyLength = 7;
+    }
+    else if (event->recurrency == 2)
+    {
+        frequencyLength = 31;
+    }
+    
+    if (event->recurrency == 1 || event->recurrency == 2)
+    {
+        for (i = 0; i < frequencyLength; i++)
+        {
+            event->frequency[i] = getchar() - '0';
+        }
+        getchar();//gets line break
+    }
+    else if (event->recurrency == 3)
+    {
+        event->frequency[0] = getNumber();
+        event->frequency[1] = getNumber();//gets like break
+    }
+    
+    return event;
 }

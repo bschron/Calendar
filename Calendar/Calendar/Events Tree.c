@@ -63,21 +63,25 @@ Calendar* insertEvent (Calendar *calendar, Event *event)
         return insertEvent(createEmptyCalendar(), event);
     }
     
+    Event *new = createEvent(event->date->day, event->date->month, event->date->year, event->desc, event->title, event->recurrency, event->frequency);
+    
+    free(event);
+    
     if (calendar->events == NULL)
     {
-        event->next = NULL;
-        event->previous = NULL;
+        new->next = NULL;
+        new->previous = NULL;
         
-        calendar->events = event;
+        calendar->events = new;
     }
     else
     {
-        event->next = calendar->events;
-        calendar->events->previous = event;
-        calendar->events = event;
+        new->next = calendar->events;
+        calendar->events->previous = new;
+        calendar->events = new;
     }
     //map event on searching tables
-    mapEventOnSearchTables(event);
+    mapEventOnSearchTables(new);
     
     return calendar;
 }

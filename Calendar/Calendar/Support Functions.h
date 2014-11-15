@@ -42,4 +42,6 @@ int lastTwoDigitsOfInt (int integer);
  -day is lesse than one
  */
 int validDate (Date *date);
+/*prints stdin input to str and compares the first character. If there is evidence of the answer been "yes", returns 1, else, returns 0.*/
+int get1or0 (void);
 #endif /* defined(__calendar__Support_Functions__) */

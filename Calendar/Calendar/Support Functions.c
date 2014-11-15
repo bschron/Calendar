@@ -185,3 +185,22 @@ int validDate (Date *date)
     
     return valid;
 }
+
+int get1or0 (void)
+{
+    char input[10];
+    int output;
+    
+    nbgets(input, 9, stdin);
+    
+    if (*input == '1' || *input == 's' || *input == 'y')
+    {
+        output = 1;
+    }
+    else
+    {
+        output = 0;
+    }
+    
+    return output;
+}

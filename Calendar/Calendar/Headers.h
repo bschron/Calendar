@@ -17,7 +17,7 @@
 #define MainDir "/Documents/spyridonsCalendar"
 #define MainCalendar "calendar"
 #define CalendarFileExtension ".spyridon"
-#define SearchingLimit 10
+#define SearchingLimit 100
 #define NumberOfRecurrences 31
 
 #include <stdio.h>

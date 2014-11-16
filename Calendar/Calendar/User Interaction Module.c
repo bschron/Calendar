@@ -59,7 +59,6 @@ void userAddEvent (Calendar *calendar)
     
     calendar = insertEvent(calendar, new);
     
-    freeEvent(&new);
     return;
 }
 
@@ -364,6 +363,8 @@ void userSetupRecorrentEventWeeklyEvent (Event *event)
     char output[Max];
     char weekDay[10];
     
+    event->frequency = (int*) malloc(sizeof(int)*7);
+    
     for (i = 0; i<7; i++)
     {
         event->frequency[i] = 0;
@@ -378,7 +379,7 @@ void userSetupRecorrentEventWeeklyEvent (Event *event)
         for (i = 1; i<=7;)
         {
             weekDayIntToStr(weekDay, i-1);
-            snprintf(output, sizeof(max)/sizeof(char), "%s-%d", weekDay, event->frequency[i-1]);
+            snprintf(output, sizeof(output)/sizeof(char), "%s-%d", weekDay, event->frequency[i-1]);
             printOption(&i, output);
         }
         
@@ -401,6 +402,8 @@ void userSetupRecorrentEventMonthlyEvent (Event *event)
 {
     int i;
     char output[3];
+    
+    event->frequency = (int*) malloc(sizeof(int)*31);
     
     for (i = 0; i<31; i++)
     {
@@ -436,6 +439,8 @@ void userSetupRecorrentEventMonthlyEvent (Event *event)
 
 void userSetupRecorrentEventYearlyEvent (Event *event)
 {
+    event->frequency = (int*) malloc(sizeof(int)*2);
+    
     do
     {
         resetScreen();

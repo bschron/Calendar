@@ -112,6 +112,16 @@ int getNumber (void)
     return number;
 }
 
+int fgetNumber (FILE *stream)
+{
+    int number;
+    
+    fscanf(stream, "%d", &number);
+    fgetc(stream);
+    
+    return number;
+}
+
 int unwantedgets (char *dest, int size, char unwanted, FILE *stream)
 {
     if (stream == NULL || dest == NULL)

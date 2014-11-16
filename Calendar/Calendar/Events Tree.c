@@ -31,7 +31,15 @@ Event* createEvent (int day, int month, int year, char *desc, char *title, int r
     snprintf(new->desc, description, "%s", desc);
     new->recurrency = recurrency;
     new->frequency = frequency;
-    new->recurrences = createRecurrentEvents(title, desc, new->date, recurrency, frequency);
+    if (recurrency == 0)
+    {
+        new->recurrences = NULL;
+    }
+    else
+    {
+        
+        new->recurrences = createRecurrentEvents(title, desc, new->date, recurrency, frequency);
+    }
     
     return new;
 }
@@ -263,7 +271,7 @@ Event* createRecurrentEvents (char *title, char *desc, Date *starting, int recur
     {
         first->date = nextDayOfYearToOccur(frequency, first->date);
     }
-    mapEventOnSearchTables(new);
+    mapEventOnSearchTables(first);
     //create others
     if (recurrency == 1)
     {

@@ -174,11 +174,11 @@ void printRecurrentEventFileExportingToStr (char *dest, int destLength, Event *e
     
     if (event->recurrency == 1 || event->recurrency == 2)
     {
-        snprintf(dest, destLength, "*%s-%s-%d/%d/%d-%d-%s", event->title, event->desc, event->date->day, event->date->month, event->date->year, event->recurrency, frequencyStr);
+        snprintf(dest, destLength, "+%s-%s-%d/%d/%d-%d-%s", event->title, event->desc, event->date->day, event->date->month, event->date->year, event->recurrency, frequencyStr);
     }
     else if (event->recurrency == 3)
     {
-        snprintf(dest, destLength, "*%s-%s-%d/%d/%d-%d-%d/%d", event->title, event->desc, event->date->day, event->date->month, event->date->year, event->recurrency, event->frequency[0], event->frequency[1]);
+        snprintf(dest, destLength, "+%s-%s-%d/%d/%d-%d-%d/%d", event->title, event->desc, event->date->day, event->date->month, event->date->year, event->recurrency, event->frequency[0], event->frequency[1]);
     }
     
     return;
@@ -217,7 +217,7 @@ Event *getRecurrentAdditionalInformationsFromStream (FILE *stream, Event *event)
     int frequencyLength = 0;
     int i;
     
-    event->recurrency = getNumber();
+    event->recurrency = fgetNumber(stream);
 
     if (event->recurrency == 1)
     {
@@ -230,16 +230,19 @@ Event *getRecurrentAdditionalInformationsFromStream (FILE *stream, Event *event)
     
     if (event->recurrency == 1 || event->recurrency == 2)
     {
+        event->frequency = (int*) malloc(sizeof(int)*frequencyLength);
+        
         for (i = 0; i < frequencyLength; i++)
         {
-            event->frequency[i] = getchar() - '0';
+            event->frequency[i] = fgetc(stream) - '0';
         }
-        getchar();//gets line break
+        fgetc(stream);//gets line break
     }
     else if (event->recurrency == 3)
     {
-        event->frequency[0] = getNumber();
-        event->frequency[1] = getNumber();//gets like break
+        event->frequency = (int*) malloc(sizeof(int)*2);
+        event->frequency[0] = fgetNumber(stream);
+        event->frequency[1] = fgetNumber(stream);//gets like break
     }
     
     return event;

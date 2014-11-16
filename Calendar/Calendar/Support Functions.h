@@ -27,6 +27,8 @@ void take_lbreak (char *str);
 void nbgets (char *str, int num, FILE *stream);
 /*gets a integer from stdin*/
 int getNumber (void);
+/*gets a integer from stream*/
+int fgetNumber (FILE *stream);
 /*returns a integer with the number of characters befor the '\0' character on provided str*/
 int sizeOfStr (char *str);
 /*scans the provided stream until the unwanted character is reached (or if EOF or end of array is reached), removes the character from stream and attributes the characters to provided str. returns -1 if provided stream is NULL or destination str is NULL, else, returns 0. Returns 1 if EOF is reached before the unwanted character*/

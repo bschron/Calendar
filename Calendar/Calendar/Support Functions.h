@@ -46,4 +46,6 @@ int lastTwoDigitsOfInt (int integer);
 int validDate (Date *date);
 /*prints stdin input to str and compares the first character. If there is evidence of the answer been "yes", returns 1, else, returns 0.*/
 int get1or0 (void);
+/*takes a pointer to two integer arrays and a integer representing the length of the smallest array. Copies, recursively, all integers from one array to the other and returns when the length is zero. returns without changes if one of the provided pointers is NULL or the provided length is zero.*/
+void copyIntegerArray (int *dest, int *from, int smallestLength);
 #endif /* defined(__calendar__Support_Functions__) */

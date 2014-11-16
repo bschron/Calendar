@@ -214,3 +214,15 @@ int get1or0 (void)
     
     return output;
 }
+
+void copyIntegerArray (int *dest, int *from, int smallestLength)
+{
+    if (smallestLength == 0 || dest == NULL || from == NULL)
+    {
+        return;
+    }
+    
+    *dest = *from;
+    
+    return copyIntegerArray(dest+1, from+1, smallestLength-1);
+}

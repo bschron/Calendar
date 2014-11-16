@@ -55,5 +55,9 @@ Date* advanceToNextNWeekDay (Date *date, int n);
 Date* nextDayOfMonthToOccur (int *frequency, Date *current);
 /*Takes a pointer to integer and a pointer to Date as argument. The pointer to integer must be a array with at least 2 positions that is filled with dd/mm. The frequency positions represent the date of year when this event will occur. The provided Date will be increased until it maches the date provided by the frequency array. Returns a pointer to the Date. */
 Date* nextDayOfYearToOccur (int *frequency, Date *current);
+/*Takes a pointer to Date as argument. Compares provided date with current time and returns 1 if date has passes and 0 if not. Retuns 0 if provided pointer to Date is NULL.*/
+int passedDate (Date *date);
+/*Takes a integer representing the event recurrency and a pointer to a integer array representing the event frequency. Calculates when is the next ocurrency of the event, from the current date, and returns a Date to that occurrence.*/
+Date nextTimeToOccur (int recurrency, int *frequency);
 
 #endif /* defined(__Calendar__Date_and_Time__) */

@@ -23,6 +23,10 @@ void editEvent (Event *event, Date *date, char *title, char *desc);
 void freeEvent (Event **event);
 /*takes two pointer to Event as argument, the first been the first node of a list of events and the second is the new node to be inserted on that lins of events. This functions insertes the new node to the provided list of events and return a pointer to eh first element. Returns NULL is the provided new element is a NULL pointer.*/
 Event *eventInsertEvent (Event *first, Event *new);
+/*Takes a integer, representing the event recurrency variable, and returns the length of the frequency array, depending of the recurrency. returns 1 if does not match any case.*/
+int recurrentEventFrequencyLength (int recurrency);
+/*Takes a pointer to calendar as argument. Checks every event on this calendar and checks if any of the recurrent events is outdated. Updates the info of all the outdated recurrent events.*/
+Calendar* updateCalendar (Calendar *calendar);
 
 //Calendar
 /*returns a Calendar with empty falgs*/

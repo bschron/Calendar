@@ -209,7 +209,22 @@ void freeEvent (Event **event)
     {
         return;
     }
+    if ((*event)->recurrences != NULL)
+    {
+        Event current;
+        for (current = *(*event)->recurrences;(*event)->recurrences != NULL; (*event)->recurrences = current.next, current = *(*event)->recurrences)
+        {
+            removeEventReferences((*event)->recurrences);
+            freeEvent(&(*event)->recurrences);
+        }
+    }
+    if ((*event)->frequency != NULL)
+    {
+        free((*event)->frequency);
+        (*event)->frequency = NULL;
+    }
     
+    removeEventReferences(*event);
     free((*event)->date);
     free(*event);
     
@@ -325,4 +340,47 @@ Event* createRecurrentEvents (char *title, char *desc, Date *starting, int recur
     }
     
     return first;
+}
+
+int recurrentEventFrequencyLength (int recurrency)
+{
+    int output = 1;
+    
+    if (recurrency == 1)
+    {
+        output = 7;
+    }
+    else if (recurrency == 2)
+    {
+        output = 31;
+    }
+    else if (recurrency == 3)
+    {
+        output = 2;
+    }
+    
+    return output;
+}
+
+Calendar* updateCalendar (Calendar *calendar)
+{
+    Event **current = NULL;
+    
+    for (current = &calendar->events; current != NULL; *current = (*current)->next)
+    {
+        if ((*current)->recurrency > 0 && passedDate((*current)->date))
+        {
+            Event save = **current;
+            Date saveDate = *(save.date);
+            int *saveFrequency = (int*) malloc(sizeof(int)*recurrentEventFrequencyLength(save.recurrency));
+            copyIntegerArray(saveFrequency, save.frequency, recurrentEventFrequencyLength(save.recurrency));
+            freeEvent(current);
+            saveDate = nextTimeToOccur(save.recurrency, saveFrequency);
+            *current = createEvent(saveDate.day, saveDate.month, saveDate.year, save.desc, save.title, save.recurrency, saveFrequency);
+            (*current)->previous = save.previous;
+            (*current)->next = save.next;
+        }
+    }
+    
+    return calendar;
 }

@@ -22,6 +22,8 @@ typedef struct searchingHp SearchingHp;
 typedef struct date Date;
 typedef struct eventQueue EventQueue;
 typedef struct eventCapsule EventCapsule;
+typedef struct priorityQueue PriorityQueue;
+typedef struct priorityQueueCapsule PQC;
 
 struct calendar
 {
@@ -102,6 +104,19 @@ struct eventCapsule
     Event *event;
     EventCapsule *next;
     EventCapsule *previous;
+};
+
+struct priorityQueue
+{
+    PQC *first;
+    int length;
+};
+
+struct priorityQueueCapsule
+{
+    void *object;
+    PQC *next;
+    int priority;
 };
 
 #endif

@@ -50,5 +50,6 @@ SearchTable *dateSearchTable;
 #include "User Interaction Module.h"
 #include "Event Queue.h"
 #include "Event Capsule.h"
+#include "Object Priority Queue.h"
 
 #endif

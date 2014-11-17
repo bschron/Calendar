@@ -45,6 +45,6 @@ Date* createEmptyDate (void);
 /*takes three int as arguments, attributes that values to a new Date and returns a pointer to it. Returns NULL if provided date is invalid*/
 Date* createDate (int day, int month, int year);
 /*takes a pointer to char title, a pointer to char desc, a pointer to Date starting, a integer recurrency and a pointer to integer frequency as arguments. Tilte is the str of the event title and desc the str of event description. starting is a pointer to the root event date. recurrency is the integer that represents the kind of recurrency for this event. frequency is a array representing the way the events will repeat in time. This function creates NumberOfRecurrences recurrences for this event, inserts them in a list and returns a pointer to the first element of that list.*/
-Event* createRecurrentEvents (char *title, char *desc, Date *starting, int recurrency, int *frequency);
+Event* createRecurrentEvents (Event *main, char *title, char *desc, Date *starting, int recurrency, int *frequency);
 
 #endif /* defined(__calendar__Events_Tree__) */

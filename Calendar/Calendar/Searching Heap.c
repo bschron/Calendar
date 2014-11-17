@@ -309,9 +309,9 @@ SearchingHp* enqueueEventsWithProvidedDate (SearchingHp *hp, SearchTable *table,
     
     char strDay[4], strMonth[4], strYear[Max];
     
-    snprintf(strDay, sizeof(strDay)/sizeof(char)-1, "%d", day);
-    snprintf(strMonth, sizeof(strMonth)/sizeof(char)-1, "%d", month);
-    snprintf(strYear, sizeof(strYear)/sizeof(char)-1, "%d", year);
+    snprintf(strDay, sizeof(strDay)/sizeof(char), "%d", day);
+    snprintf(strMonth, sizeof(strMonth)/sizeof(char), "%d", month);
+    snprintf(strYear, sizeof(strYear)/sizeof(char), "%d", year);
     
     provisory = searchTableElementsToSearchingHp(provisory, table, hashWord(strDay));
     provisory = searchTableElementsToSearchingHp(provisory, table, hashWord(strMonth));

@@ -38,7 +38,7 @@ Event* createEvent (int day, int month, int year, char *desc, char *title, int r
     else
     {
         
-        new->recurrences = createRecurrentEvents(title, desc, new->date, recurrency, frequency);
+        new->recurrences = createRecurrentEvents(new, title, desc, new->date, recurrency, frequency);
     }
     
     mapEventOnSearchTables(new);
@@ -101,6 +101,10 @@ Calendar* removeEvent (Calendar *calendar, Event *remove)
     {
         return NULL;
     }
+    else if (remove->recurrency < 0)
+    {
+        return removeEvent(calendar, remove->recurrences);
+    }
     
     if (calendar->events == remove)
     {
@@ -117,8 +121,9 @@ Calendar* removeEvent (Calendar *calendar, Event *remove)
         remove->next->previous = remove->previous;
     }
     
-    free(remove->date);
-    free(remove);
+    removeEventReferences(remove);
+    
+    freeEvent(&remove);
     
     exportEvents(calendar);
     
@@ -210,7 +215,7 @@ void freeEvent (Event **event)
     {
         return;
     }
-    if ((*event)->recurrences != NULL)
+    if ((*event)->recurrences != NULL && (*event)->recurrency > 0)
     {
         Event current;
         for (current = *(*event)->recurrences;(*event)->recurrences != NULL; current = *(*event)->recurrences)
@@ -261,7 +266,7 @@ Event *eventInsertEvent (Event *first, Event *new)
     return first;
 }
 
-Event* createRecurrentEvents (char *title, char *desc, Date *starting, int recurrency, int *frequency)
+Event* createRecurrentEvents (Event *main, char *title, char *desc, Date *starting, int recurrency, int *frequency)
 {
     Event *first = createEmptyEvent();
     Event *new = NULL;
@@ -273,7 +278,7 @@ Event* createRecurrentEvents (char *title, char *desc, Date *starting, int recur
     sprintf(first->desc, "%s", desc);
     first->next = NULL;
     first->previous = NULL;
-    first->recurrences = NULL;
+    first->recurrences = main;
     first->frequency = NULL;
     first->recurrency = recurrency*-1;
     first->date = date;
@@ -304,7 +309,7 @@ Event* createRecurrentEvents (char *title, char *desc, Date *starting, int recur
             new = createEmptyEvent();
             sprintf(new->title, "%s", title);
             sprintf(new->desc, "%s", desc);
-            new->recurrences = NULL;
+            new->recurrences = main;
             new->frequency = NULL;
             new->recurrency = first->recurrency;
             new->date = advanceToNextNWeekDay(date, weekDay);
@@ -320,7 +325,7 @@ Event* createRecurrentEvents (char *title, char *desc, Date *starting, int recur
             new = createEmptyEvent();
             sprintf(new->title, "%s", title);
             sprintf(new->desc, "%s", desc);
-            new->recurrences = NULL;
+            new->recurrences = main;
             new->frequency = NULL;
             new->recurrency = first->recurrency;
             new->date = nextDayOfMonthToOccur(frequency, date);
@@ -336,7 +341,7 @@ Event* createRecurrentEvents (char *title, char *desc, Date *starting, int recur
             new = createEmptyEvent();
             sprintf(new->title, "%s", title);
             sprintf(new->desc, "%s", desc);
-            new->recurrences = NULL;
+            new->recurrences = main;
             new->frequency = NULL;
             new->recurrency = first->recurrency;
             new->date = nextDayOfYearToOccur(frequency, date);
@@ -380,6 +385,7 @@ Calendar* updateCalendar (Calendar *calendar)
             Date saveDate = *(save.date);
             int *saveFrequency = (int*) malloc(sizeof(int)*recurrentEventFrequencyLength(save.recurrency));
             copyIntegerArray(saveFrequency, save.frequency, recurrentEventFrequencyLength(save.recurrency));
+            removeEventReferences(*current);
             freeEvent(current);
             saveDate = nextTimeToOccur(save.recurrency, saveFrequency);
             *current = createEvent(saveDate.day, saveDate.month, saveDate.year, save.desc, save.title, save.recurrency, saveFrequency);

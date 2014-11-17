@@ -41,6 +41,7 @@ Event* createEvent (int day, int month, int year, char *desc, char *title, int r
         new->recurrences = createRecurrentEvents(title, desc, new->date, recurrency, frequency);
     }
     
+    mapEventOnSearchTables(new);
     return new;
 }
 
@@ -212,10 +213,15 @@ void freeEvent (Event **event)
     if ((*event)->recurrences != NULL)
     {
         Event current;
-        for (current = *(*event)->recurrences;(*event)->recurrences != NULL; (*event)->recurrences = current.next, current = *(*event)->recurrences)
+        for (current = *(*event)->recurrences;(*event)->recurrences != NULL; current = *(*event)->recurrences)
         {
             removeEventReferences((*event)->recurrences);
             freeEvent(&(*event)->recurrences);
+            (*event)->recurrences = current.next;
+            if ((*event)->recurrences == NULL)
+            {
+                break;
+            }
         }
     }
     if ((*event)->frequency != NULL)
@@ -366,7 +372,7 @@ Calendar* updateCalendar (Calendar *calendar)
 {
     Event **current = NULL;
     
-    for (current = &calendar->events; current != NULL; *current = (*current)->next)
+    for (current = &calendar->events; *current != NULL; current = &(*current)->next)
     {
         if ((*current)->recurrency > 0 && passedDate((*current)->date))
         {

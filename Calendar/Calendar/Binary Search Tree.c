@@ -111,7 +111,11 @@ int eventBinarySearchThreeHeigth (EventBinarySearchTree *root)
 
 void removeEventBinarySearchTree (EventBinarySearchTree **remove)
 {
-    if (*remove == NULL)
+    if (remove == NULL)
+    {
+        return;
+    }
+    else if (*remove == NULL)
     {
         return;
     }

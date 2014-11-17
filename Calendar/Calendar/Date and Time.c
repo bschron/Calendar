@@ -136,25 +136,25 @@ Date* minDate (Date *date1, Date *date2)
     {
         return NULL;
     }
-    else if (date1->year > date2->year)
-    {
-        return date2;
-    }
-    else if (date2->year > date1->year)
+    else if (date1->year < date2->year)
     {
         return date1;
     }
-    else if (date1->month > date2->month)
+    else if (date2->year < date1->year)
     {
         return date2;
     }
-    else if (date2->month > date1->month)
+    else if (date1->month < date2->month)
     {
         return date1;
     }
-    else if (date1->day > date2->day)
+    else if (date2->month < date1->month)
     {
         return date2;
+    }
+    else if (date1->day < date2->day)
+    {
+        return date1;
     }
     else
     {
@@ -696,5 +696,28 @@ Date nextTimeToOccur (int recurrency, int *frequency)
     
     output = *now;
     free(now);
+    return output;
+}
+
+int daysBetweenDates (Date *first, Date *second)
+{
+    if (first == NULL || second == NULL)
+    {
+        return -1;
+    }
+    else if (first == second)
+    {
+        return 0;
+    }
+    
+    int output;
+    Date *maxD = maxDate(first, second);
+    Date *minD = minDate(first, second);
+    
+    minD = createDate(minD->day, minD->month, minD->year);
+    
+    for (output=0; minD->day != maxD->day || minD->month != maxD->month || minD->year != maxD->year; minD = increaseDate(minD), output++);
+    
+    free(minD);
     return output;
 }

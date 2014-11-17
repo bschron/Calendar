@@ -13,12 +13,12 @@
 #define description 300
 #define SearchTableSize 661
 #define not_in_use -1
-#define SearchHpSize 30
+#define SearchHpSize 60
 #define MainDir "/Documents/spyridonsCalendar"
 #define MainCalendar "calendar"
 #define CalendarFileExtension ".spyridon"
-#define SearchingLimit 100
-#define NumberOfRecurrences 3
+#define SearchingLimit 1000
+#define NumberOfRecurrences 31
 
 #include <stdio.h>
 #include <stdlib.h>

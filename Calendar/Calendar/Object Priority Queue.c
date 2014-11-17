@@ -116,3 +116,71 @@ void* dequeuePriorityQueue (PriorityQueue *queue)
     
     return dequeued;
 }
+
+PriorityQueue* searchingHpToPriorityQueueOrderedByDate (PriorityQueue *queue, SearchingHp *hp)
+{
+    if (hp == NULL)
+    {
+        return queue;
+    }
+    else if (hp->hpLength <= 0)
+    {
+        return queue;
+    }
+    else if (queue == NULL)
+    {
+        return searchingHpToPriorityQueueOrderedByDate(createPriorityQueue(), hp);
+    }
+    
+    Event *object = dequeueSearchingHp(hp);
+    Date *now = getDate(NULL);
+    
+    queue = enqueuePriorityQueue(queue, NULL, object, daysBetweenDates(object->date, now));
+    
+    free(now);
+    return searchingHpToPriorityQueueOrderedByDate(queue, hp);
+}
+
+void freePriorityQueue (PriorityQueue **queue)
+{
+    if (queue == NULL)
+    {
+        return;
+    }
+    else if (*queue == NULL)
+    {
+        return;
+    }
+    else if ((*queue)->length > 0)
+    {
+        dequeuePriorityQueue(*queue);
+        return freePriorityQueue(queue);
+    }
+    
+    free(*queue);
+    
+    *queue = NULL;
+    
+    return;
+}
+
+PriorityQueue* copyPriorityQueue (PriorityQueue *dest, PriorityQueue *source)
+{
+    if (source == NULL)
+    {
+        return dest;
+    }
+    else if (dest == NULL)
+    {
+        return copyPriorityQueue(createPriorityQueue(), source);
+    }
+    
+    PQC *capsule;
+    
+    for (capsule = source->first; capsule!= NULL; capsule = capsule->next)
+    {
+        dest = enqueuePriorityQueue(dest, NULL, capsule->object, capsule->priority);
+    }
+    
+    return dest;
+}

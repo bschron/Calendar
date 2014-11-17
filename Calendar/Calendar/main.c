@@ -17,7 +17,7 @@ int main(void)
     Calendar *main = importCalendarFromMainDirectory(NULL);
     main = updateCalendar(main);
     
-    testing();
+    //testing();
  
     do
     {

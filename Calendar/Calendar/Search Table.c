@@ -50,7 +50,7 @@ int wordSum (char *word)
         return 0;
     }
     
-    return (*word - '0') + wordSum(word+1);
+    return (tolower(*word) - '0') + wordSum(word+1);
 }
 
 int wordPointerSum (char *word)

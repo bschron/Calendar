@@ -28,5 +28,13 @@ PriorityQueue* enqueuePriorityQueue (PriorityQueue *queue, PQC* capsule, void* o
 PQC* insertInRightPosition (PQC *first, PQC* capsule);
 /*Takes a pointer to a PriorityQueue as argument. Frees the first capsule in line, decreases the queue length by 1, and returns a pointer to it's object.*/
 void* dequeuePriorityQueue (PriorityQueue *queue);
+/*Takes a double pointer to PriorityQueue as argument. Dequeues all elements from provided queue, frees the queue and attributes NULL to it's pointer. Returns unchanged if the provided double pointer is NULL or if the single pointer is NULL.*/
+void freePriorityQueue (PriorityQueue **queue);
+
+//transfering
+/*Takes a pointer to PriorityQueue and a pointer to SearchingHp as arguments. Dequeues the provided SearchingHp and inserts it's events into the provided PriorityQueue, the priority will be defined by distance between computer's current time and the event date. Returns a pointer to the PriorityQueue. Returns the provided queue unchanged if the provided SearchingHp is NULL or if it's length is equal or lesser to zero. Creates a new PriorityQueue if the provided is NULL.*/
+PriorityQueue* searchingHpToPriorityQueueOrderedByDate (PriorityQueue *queue, SearchingHp *hp);
+/*Takes two pointers to PriorityQueues as arguments. Allocates a new capsule for every capsule in the provided sourec queue, attributes it's objects and priorities to it and returns a pointer to the destination queue. Returns the destination queue unchanged if the provided source is NULL. Creates a new destination PriorityQueue if the provided is NULL.*/
+PriorityQueue* copyPriorityQueue (PriorityQueue *dest, PriorityQueue *source);
 
 #endif /* defined(__Calendar__Object_Priority_Queue__) */

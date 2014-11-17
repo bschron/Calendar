@@ -232,7 +232,10 @@ Event* userSearchEvent (Calendar *calendar)
         return NULL;
     }
     
-    SearchingHp *copy = duplicateSearchingHp(results);
+    PriorityQueue *orderedResults = createPriorityQueue();
+    orderedResults = searchingHpToPriorityQueueOrderedByDate(orderedResults, results);
+    free(results);
+    PriorityQueue *copy = copyPriorityQueue(NULL, orderedResults);
     int i;
     Event *dequeued = NULL;
     char *output = (char*) malloc(sizeof(char)*Max*2);
@@ -240,17 +243,16 @@ Event* userSearchEvent (Calendar *calendar)
     
     printf("Qual dos eventos abaixo voce procura?\n");
     
-    for (i=0, optionNumber = 1; i<SearchingLimit && results->hpLength > 0; i++)
+    for (i=0, optionNumber = 1; i<SearchingLimit && orderedResults->length > 0; i++)
     {
-        dequeued = dequeueSearchingHp(results);
+        dequeued = dequeuePriorityQueue(orderedResults);
         dayOfWeek(weekd, dequeued->date);
         sprintf(output, "%s  %s-%d/%d/%d", dequeued->title, weekd, dequeued->date->day, dequeued->date->month, dequeued->date->year);
         printOption(&optionNumber, output);
     }
-    free(results);
+    freePriorityQueue(&orderedResults);
     free(output);
     free(weekd);
-    results = copy;
     
     printOption(&optionNumber, "Nenhuma das opções");
     
@@ -260,16 +262,16 @@ Event* userSearchEvent (Calendar *calendar)
     {
         printf("Nao foi possivel achar seu evento, tente outro tipo de busca.");
         enterToContinue();
-        free(results);
+        freePriorityQueue(&copy);
         return userSearchEvent(calendar);
     }
     
     for (i=0; i!=option; i++)
     {
-        dequeued = dequeueSearchingHp(results);
+        dequeued = dequeuePriorityQueue(copy);
     }
     
-    free(results);
+    freePriorityQueue(&copy);
     return dequeued;
 }
 

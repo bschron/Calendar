@@ -59,5 +59,7 @@ Date* nextDayOfYearToOccur (int *frequency, Date *current);
 int passedDate (Date *date);
 /*Takes a integer representing the event recurrency and a pointer to a integer array representing the event frequency. Calculates when is the next ocurrency of the event, from the current date, and returns a Date to that occurrence.*/
 Date nextTimeToOccur (int recurrency, int *frequency);
+/*Takes two pointer to Date as arguments. Calculates and returns the number of days between those two dates. returns -1 if any of provided pointer is NULL. Returns 0 if first pointer is equal to the second pointer.*/
+int daysBetweenDates (Date *first, Date *second);
 
 #endif /* defined(__Calendar__Date_and_Time__) */

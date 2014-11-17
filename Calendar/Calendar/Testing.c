@@ -10,7 +10,7 @@
 
 void testing (void)
 {
-    int objects[10], i;
+    int objects[10], i, *dequeued;
     int priorities[10];
     PriorityQueue *queue = NULL;
     for (i=0; i<10; i++)
@@ -29,6 +29,13 @@ void testing (void)
     queue = enqueuePriorityQueue(queue, NULL, objects+4, priorities[4]);
     queue = enqueuePriorityQueue(queue, NULL, objects+5, priorities[5]);
     queue = enqueuePriorityQueue(queue, NULL, objects+3, priorities[3]);
+    
+    for (i = 0; i<10; i++)
+    {
+        dequeued = dequeuePriorityQueue(queue);
+    }
+    
+    dequeued = dequeuePriorityQueue(queue);
     
     getchar();
 }

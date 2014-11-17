@@ -93,3 +93,26 @@ PQC* insertInRightPosition (PQC *first, PQC* capsule)
     
     return first;
 }
+
+void* dequeuePriorityQueue (PriorityQueue *queue)
+{
+    if (queue == NULL)
+    {
+        return NULL;
+    }
+    else if (queue->length <= 0)
+    {
+        return NULL;
+    }
+    
+    PQC *dequeuedCapsule = queue->first;
+    void *dequeued = queue->first->object;
+    
+    queue->first = queue->first->next;
+    
+    (queue->length)--;
+    
+    free(dequeuedCapsule);
+    
+    return dequeued;
+}

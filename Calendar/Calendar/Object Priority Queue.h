@@ -26,5 +26,7 @@ PriorityQueue* createPriorityQueue (void);
 PriorityQueue* enqueuePriorityQueue (PriorityQueue *queue, PQC* capsule, void* object, int priority);
 /*Takes a pointer to the first PQC from the queue and a pointer to the new PQC. Inserts the new PQC in the right priority prosition and returns a pointer to the first PQC.*/
 PQC* insertInRightPosition (PQC *first, PQC* capsule);
+/*Takes a pointer to a PriorityQueue as argument. Frees the first capsule in line, decreases the queue length by 1, and returns a pointer to it's object.*/
+void* dequeuePriorityQueue (PriorityQueue *queue);
 
 #endif /* defined(__Calendar__Object_Priority_Queue__) */

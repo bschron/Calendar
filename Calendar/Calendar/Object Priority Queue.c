@@ -50,13 +50,9 @@ PriorityQueue* createPriorityQueue (void)
 
 PriorityQueue* enqueuePriorityQueue (PriorityQueue *queue, PQC* capsule, void* object, int priority)
 {
-    if (object == NULL)
+    if (queue == NULL)
     {
-        return queue;
-    }
-    else if (queue == NULL)
-    {
-        return enqueuePriorityQueue(queue, capsule, object, priority);
+        return enqueuePriorityQueue(createPriorityQueue(), capsule, object, priority);
     }
     else if (capsule == NULL)
     {
@@ -65,7 +61,7 @@ PriorityQueue* enqueuePriorityQueue (PriorityQueue *queue, PQC* capsule, void* o
     
     if (queue->length <= 0)
     {
-        queue->first = object;
+        queue->first = capsule;
     }
     else
     {

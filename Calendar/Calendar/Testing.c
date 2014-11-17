@@ -19,7 +19,16 @@ void testing (void)
         priorities[i] = 10-i;
     }
     
-    queue = enqueuePriorityQueue(queue, NULL, &objects[0], priorities[0]);
+    queue = enqueuePriorityQueue(queue, NULL, objects+0, priorities[0]);
+    queue = enqueuePriorityQueue(queue, NULL, objects+2, priorities[2]);
+    queue = enqueuePriorityQueue(queue, NULL, objects+1, priorities[1]);
+    queue = enqueuePriorityQueue(queue, NULL, objects+9, priorities[9]);
+    queue = enqueuePriorityQueue(queue, NULL, objects+8, priorities[8]);
+    queue = enqueuePriorityQueue(queue, NULL, objects+6, priorities[6]);
+    queue = enqueuePriorityQueue(queue, NULL, objects+7, priorities[7]);
+    queue = enqueuePriorityQueue(queue, NULL, objects+4, priorities[4]);
+    queue = enqueuePriorityQueue(queue, NULL, objects+5, priorities[5]);
+    queue = enqueuePriorityQueue(queue, NULL, objects+3, priorities[3]);
     
     getchar();
 }

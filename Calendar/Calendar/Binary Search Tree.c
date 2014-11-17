@@ -111,7 +111,11 @@ int eventBinarySearchThreeHeigth (EventBinarySearchTree *root)
 
 void removeEventBinarySearchTree (EventBinarySearchTree **remove)
 {
-    if (*remove == NULL)
+    if (remove == NULL)
+    {
+        return;
+    }
+    else if (*remove == NULL)
     {
         return;
     }
@@ -232,7 +236,7 @@ EventBinarySearchTree* eventBinarySearchTreeLRCase (EventBinarySearchTree *root)
     root->leftChild = root->leftChild->rightChild;
     root->leftChild->leftChild->rightChild = leftRightLeft;
     
-    return eventBinarySearchTreeLLCase(root);
+    return balanceEventBinarySearchTree(root);
 }
 
 EventBinarySearchTree* eventBinarySearchTreeRLCase (EventBinarySearchTree *root)
@@ -248,7 +252,7 @@ EventBinarySearchTree* eventBinarySearchTreeRLCase (EventBinarySearchTree *root)
     root->rightChild = root->rightChild->leftChild;
     root->rightChild->rightChild->leftChild = rightLeftRight;
     
-    return eventBinarySearchTreeRRCase(root);
+    return balanceEventBinarySearchTree(root);
 }
 
 int eventBinarySearchTreeBalanceFactor (EventBinarySearchTree *root)

@@ -67,7 +67,15 @@ Node* listEventsExportingStr (Node *list, Event *events)
     
     char output[Max*5];
     
-    snprintf(output, sizeof(output)/sizeof(char), "*%s-%s-%d/%d/%d", events->title, events->desc, events->date->day, events->date->month, events->date->year);
+    //treat recurrent event differently than regular events
+    if (events->recurrency == 0)
+    {
+        snprintf(output, sizeof(output)/sizeof(char), "*%s-%s-%d/%d/%d", events->title, events->desc, events->date->day, events->date->month, events->date->year);
+    }
+    else
+    {
+        printRecurrentEventFileExportingToStr(output, sizeof(output)/sizeof(char), events);
+    }
     
     list = insertNode(list, output, not_in_use);
     
@@ -93,23 +101,22 @@ Calendar* importCalendarFromFile (Calendar* calendar, FILE *file)
     }
     else if (character == '*')//start reading event
     {
-        char *title = (char*) malloc(sizeof(char)*Max);
-        char *desc = (char*) malloc(sizeof(char)*description);
-        int *date = (int*) malloc(sizeof(int)*3);//date has 3 positions that are divided in the following order, day/month/year
+        Event *new = createEmptyEvent();
         
-        unwantedgets(title, Max, '-', file);
-        unwantedgets(desc, description, '-', file);
-        fscanf(file, "%d", &date[0]);
-        fgetc(file);
-        fscanf(file, "%d", &date[1]);
-        fgetc(file);
-        fscanf(file, "%d", &date[2]);
-        fgetc(file);
+        new = getEventMainInformationsFromStream(file, new);
         
-        calendar = insertEvent(calendar, date[0], date[1], date[2], desc, title);
-        free(title);
-        free(desc);
-        free(date);
+        calendar = insertEvent(calendar, new);
+        
+        return importCalendarFromFile(calendar, file);
+    }
+    else if (character == '+')
+    {
+        Event *new = createEmptyEvent();
+        
+        new = getEventMainInformationsFromStream(file, new);
+        new = getRecurrentAdditionalInformationsFromStream(file, new);
+        
+        calendar = insertEvent(calendar, new);
         
         return importCalendarFromFile(calendar, file);
     }
@@ -140,4 +147,103 @@ Calendar* importCalendarFromMainDirectory (Calendar *calendar)
     calendar = importCalendarFromFile(calendar, file);
     
     return calendar;
+}
+
+void printRecurrentEventFileExportingToStr (char *dest, int destLength, Event *event)
+{
+    char frequencyStr[Max];
+    
+    if (event->recurrency != 2)
+    {
+        int frequecyLength = 0;
+        int i;
+        if (event->recurrency == 1)
+        {
+            frequecyLength = 7;
+        }
+        else if (event->recurrency == 2)
+        {
+            frequecyLength = 31;
+        }
+        
+        for (i=0; i<frequecyLength; i++)
+        {
+            frequencyStr[i] = event->frequency[i]+'0';
+        }
+    }
+    
+    if (event->recurrency == 1 || event->recurrency == 2)
+    {
+        snprintf(dest, destLength, "+%s-%s-%d/%d/%d-%d-%s", event->title, event->desc, event->date->day, event->date->month, event->date->year, event->recurrency, frequencyStr);
+    }
+    else if (event->recurrency == 3)
+    {
+        snprintf(dest, destLength, "+%s-%s-%d/%d/%d-%d-%d/%d", event->title, event->desc, event->date->day, event->date->month, event->date->year, event->recurrency, event->frequency[0], event->frequency[1]);
+    }
+    
+    return;
+}
+
+Event* getEventMainInformationsFromStream (FILE *stream, Event *event)
+{
+    if (stream == NULL)
+    {
+        return event;
+    }
+    else if (event == NULL)
+    {
+        return getEventMainInformationsFromStream(stream, createEmptyEvent());
+    }
+    
+    unwantedgets(event->title, Max, '-', stream);
+    unwantedgets(event->desc, description, '-', stream);
+    fscanf(stream, "%d", &event->date->day);
+    fgetc(stream);
+    fscanf(stream, "%d", &event->date->month);
+    fgetc(stream);
+    fscanf(stream, "%d", &event->date->year);
+    fgetc(stream);
+    
+    return event;
+}
+
+Event *getRecurrentAdditionalInformationsFromStream (FILE *stream, Event *event)
+{
+    if (stream == NULL || event == NULL)
+    {
+        return event;
+    }
+    
+    int frequencyLength = 0;
+    int i;
+    
+    event->recurrency = fgetNumber(stream);
+
+    if (event->recurrency == 1)
+    {
+        frequencyLength = 7;
+    }
+    else if (event->recurrency == 2)
+    {
+        frequencyLength = 31;
+    }
+    
+    if (event->recurrency == 1 || event->recurrency == 2)
+    {
+        event->frequency = (int*) malloc(sizeof(int)*frequencyLength);
+        
+        for (i = 0; i < frequencyLength; i++)
+        {
+            event->frequency[i] = fgetc(stream) - '0';
+        }
+        fgetc(stream);//gets line break
+    }
+    else if (event->recurrency == 3)
+    {
+        event->frequency = (int*) malloc(sizeof(int)*2);
+        event->frequency[0] = fgetNumber(stream);
+        event->frequency[1] = fgetNumber(stream);//gets like break
+    }
+    
+    return event;
 }

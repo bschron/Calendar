@@ -112,6 +112,16 @@ int getNumber (void)
     return number;
 }
 
+int fgetNumber (FILE *stream)
+{
+    int number;
+    
+    fscanf(stream, "%d", &number);
+    fgetc(stream);
+    
+    return number;
+}
+
 int unwantedgets (char *dest, int size, char unwanted, FILE *stream)
 {
     if (stream == NULL || dest == NULL)
@@ -184,4 +194,35 @@ int validDate (Date *date)
     }
     
     return valid;
+}
+
+int get1or0 (void)
+{
+    char input[10];
+    int output;
+    
+    nbgets(input, 9, stdin);
+    
+    if (*input == '1' || *input == 's' || *input == 'y')
+    {
+        output = 1;
+    }
+    else
+    {
+        output = 0;
+    }
+    
+    return output;
+}
+
+void copyIntegerArray (int *dest, int *from, int smallestLength)
+{
+    if (smallestLength == 0 || dest == NULL || from == NULL)
+    {
+        return;
+    }
+    
+    *dest = *from;
+    
+    return copyIntegerArray(dest+1, from+1, smallestLength-1);
 }

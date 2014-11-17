@@ -29,5 +29,13 @@ SearchingHp* userSearchEventByKeywords (Calendar *calendar);
 void userEditEventGetInput (int option, Date *date, char *dest, int destLength);
 /*Module of userEditEvent(), performs the edition on the requested event.Takes a int option, pointer to Date, pointer to char, int destLength, pointer to Event and pointer to Calendar as argument.*/
 void userEditEventEditEvent (int option, Date *date, char *str, int destLength, Event *event, Calendar *calendar);
+/*Takes pointer to Event as argument. Requests recurrency information for this event and attributes this information to the provided event.*/
+void userSetupRecorrentEvent (Event *event);
+/*Takes pointer to Event as argument. Requests recurrency information for this event and attributes this information to the provided event.*/
+void userSetupRecorrentEventWeeklyEvent (Event *event);
+/*Takes pointer to Event as argument. Requests recurrency information for this event and attributes this information to the provided event.*/
+void userSetupRecorrentEventMonthlyEvent (Event *event);
+/*Takes pointer to Event as argument. Requests recurrency information for this event and attributes this information to the provided event.*/
+void userSetupRecorrentEventYearlyEvent (Event *event);
 
 #endif /* defined(__Calendar__User_Interaction_Module__) */

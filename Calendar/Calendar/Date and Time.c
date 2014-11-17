@@ -533,3 +533,168 @@ int remainingDaysInMonth (Date *date)
     
     return remaining;
 }
+
+Date* increaseDateByNDays (Date *date, int n)
+{
+    if (date == NULL)
+    {
+        return NULL;
+    }
+    else if (n <= 0)
+    {
+        return date;
+    }
+    
+    return increaseDateByNDays(increaseDate(date), n-1);
+}
+
+int nextDayOfWeekToOccur (int *frequency, int nextDay)
+{
+    if (nextDay > 6)
+    {
+        return nextDayOfWeekToOccur(frequency, 0);
+    }
+    else if (frequency[nextDay])
+    {
+        return nextDay;
+    }
+    else
+    {
+        return nextDayOfWeekToOccur(frequency, nextDay+1);
+    }
+}
+
+Date* advanceToNextNWeekDay (Date *date, int n)
+{
+    if (n < 0 || n > 6)
+    {
+        return date;
+    }
+    else if (date == NULL)
+    {
+        return advanceToNextNWeekDay(getDate(NULL), n);
+    }
+    
+    int weekDay;
+    
+    date = increaseDate(date);
+    weekDay = dayOfWeek(NULL, date);
+    
+    if (n != weekDay)
+    {
+        return advanceToNextNWeekDay(date, n);
+    }
+    
+    return date;
+}
+
+Date* nextDayOfMonthToOccur (int *frequency, Date *current)
+{
+    if (current == NULL)
+    {
+        return nextDayOfMonthToOccur(frequency, getDate(NULL));
+    }
+    
+    current = increaseDate(current);
+    
+    if (frequency[current->day] == 1)
+    {
+        return current;
+    }
+    
+    return nextDayOfMonthToOccur(frequency, current);
+}
+
+Date* nextDayOfYearToOccur (int *frequency, Date *current)
+{
+    if (frequency[0] > daysInMonth(frequency[1]) && frequency[1] != 2)
+    {
+        frequency[0] = daysInMonth(frequency[1]);
+    }
+    else if (frequency[0] > 30)
+    {
+        frequency[0] = 30;
+    }
+    
+    current = increaseDate(current);
+    
+    
+    if (leapYear(current->year) || frequency[1] != 2 || frequency[0] <= 29)
+    {
+        if (current->day == frequency[0] && current->month == frequency[1])
+        {
+            return current;
+        }
+    }
+    else
+    {
+        if (current->day == 30 && current->month == 2)
+        {
+            return current;
+        }
+    }
+    
+    return nextDayOfYearToOccur(frequency, current);
+}
+
+int passedDate (Date *date)
+{
+    if (date == NULL)
+    {
+        return 0;
+    }
+    
+    Date *now = getDate(NULL);
+    int past = 0;
+    
+    if (date->year < now->year)
+    {
+        past = 1;
+    }
+    else if (date->year > now->year)
+    {
+        past = 0;
+    }
+    else if (date->month < now->month)
+    {
+        past = 1;
+    }
+    else if (date->month > now->month)
+    {
+        past = 0;
+    }
+    else if (date->day < now->day)
+    {
+        past = 1;
+    }
+    else
+    {
+        past = 0;
+    }
+    
+    free(now);
+    return past;
+}
+
+Date nextTimeToOccur (int recurrency, int *frequency)
+{   
+    Date *now = getDate(NULL);
+    Date output;
+    if (recurrency == 1)
+    {
+        int weekDay = nextDayOfWeekToOccur(frequency, dayOfWeek(NULL, now));
+        now = advanceToNextNWeekDay(now, weekDay);
+    }
+    else if (recurrency == 2)
+    {
+        now = nextDayOfMonthToOccur(frequency, now);
+    }
+    else if (recurrency == 3)
+    {
+        now = nextDayOfYearToOccur(frequency, now);
+    }
+    
+    output = *now;
+    free(now);
+    return output;
+}

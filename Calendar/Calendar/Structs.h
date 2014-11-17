@@ -36,6 +36,10 @@ struct event
     char title[Max];
     char desc[description];
     Date *date;
+    
+    int recurrency;//0 is not recurrent, >0 is recurrent root, <0 is not root. 1/-1 is weekly recurrency, 2/-2 is monthly recurrency, 3/-3 is yearly recurrency
+    int *frequency;
+    Event *recurrences;
 };
 
 struct sTable

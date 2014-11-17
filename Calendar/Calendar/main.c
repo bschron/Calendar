@@ -15,7 +15,8 @@ int main(void)
     dateSearchTable = createEmptySearchTable();
     
     Calendar *main = importCalendarFromMainDirectory(NULL);
-    
+    main = updateCalendar(main);
+ 
     do
     {
         resetScreen();
@@ -62,6 +63,7 @@ int getMainMenuOptions (Calendar *calendar)
             break;
         case 3:
             printEventQueue(eventQueueEnqueueEventsForThisMonth(NULL));
+            enterToContinue();
             break;
         case 4:
             printEvent(stdout, userSearchEvent(calendar));

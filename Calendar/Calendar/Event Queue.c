@@ -125,13 +125,16 @@ EventQueue* eventQueueEnqueueEventsForNDays (int numberOfDays, EventQueue *queue
 
 EventQueue* eventQueueEnqueueEventsForThisWeek (EventQueue *queue)
 {
-    return eventQueueEnqueueEventsForNDays(7-dayOfWeek(NULL, NULL), queue, NULL);
+    Date *now = getDate(NULL);
+    queue = eventQueueEnqueueEventsForNDays(7-dayOfWeek(NULL, now), queue, NULL);
+    free(now);
+    return  queue;
 }
 
 EventQueue* eventQueueEnqueueEventsForThisMonth (EventQueue *queue)
 {
     Date *now = getDate(NULL);
-    int nDays = daysInMonth(now->month) - now->day + 1;
+    int nDays = (daysInMonth(now->month) - now->day) + 1;
     
     if (now->month == 2 && now->day < 29 && leapYear(now->year))
     {

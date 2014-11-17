@@ -45,5 +45,19 @@ int remainingDaysInWeek (Date *date);
 Date* increaseDate (Date *date);
 /*takes a pointer to Date as argument, returns the number of remaining days in that month. Returns -1 if provided pointer is NULL;*/
 int remainingDaysInMonth (Date *date);
+/*takes a pointer to Date and a integer as argument. This function calls increaseDate(), increases the provided Date by one and recursively repeats the process, until the Date is increased by the provided n of days. This function returns the date unchanged if the provided n is 0 and returns NULL if the provided pointer to Date is NULL.*/
+Date* increaseDateByNDays (Date *date, int n);
+/*Takes a pointer to integer and a integer as argument. The pointer to integer must be a pointer to a at least 7 positions array, that has all days marked with 1 or 0 as ocurrence flags. The integer represents the number of the day of week of the nextDay. nextDay must never be the current day, because if current day is marked as 1, the function will return the currentDay. The function returns the number of the day in the week when this event is next gonna occur.*/
+int nextDayOfWeekToOccur (int *frequency, int nextDay);
+/*takes a pointer to Date and a integer as argument. The integer represents a day of week, thi function will increase the day of week and recursively repeats the process until the day of week is equal to the provided n. If the provided pointer to Date is NULL, will get the current time of the computer. Returns the provided pointer to date unchanged if the provided integer is not a valid day of week.*/
+Date* advanceToNextNWeekDay (Date *date, int n);
+/*Takes a pointer to integer and a pointer to Date as argument. The pointer to integer must be a pointer to a at least 31 positions array, that has all days marked with 1 or 0 as ocurrence flags. The Date represents the current day. This functions increases the provided date recursively until it represents a ocurrence day marked by the provided frequency table and returns it. If the provided pointer to Date is NULL, will get the computers current time. */
+Date* nextDayOfMonthToOccur (int *frequency, Date *current);
+/*Takes a pointer to integer and a pointer to Date as argument. The pointer to integer must be a array with at least 2 positions that is filled with dd/mm. The frequency positions represent the date of year when this event will occur. The provided Date will be increased until it maches the date provided by the frequency array. Returns a pointer to the Date. */
+Date* nextDayOfYearToOccur (int *frequency, Date *current);
+/*Takes a pointer to Date as argument. Compares provided date with current time and returns 1 if date has passes and 0 if not. Retuns 0 if provided pointer to Date is NULL.*/
+int passedDate (Date *date);
+/*Takes a integer representing the event recurrency and a pointer to a integer array representing the event frequency. Calculates when is the next ocurrency of the event, from the current date, and returns a Date to that occurrence.*/
+Date nextTimeToOccur (int recurrency, int *frequency);
 
 #endif /* defined(__Calendar__Date_and_Time__) */

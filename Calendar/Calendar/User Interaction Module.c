@@ -51,9 +51,14 @@ void userAddEvent (Calendar *calendar)
         new->date->year = getNumber();
     } while (!validDate(new->date));
     
-    calendar = insertEvent(calendar, new->date->day, new->date->month, new->date->year, new->desc, new->title);
+    printf("Voce deseja tornar este evento recorrente?\n");
+    if (get1or0())
+    {
+        userSetupRecorrentEvent(new);
+    }
     
-    freeEvent(&new);
+    calendar = insertEvent(calendar, new);
+    
     return;
 }
 
@@ -315,4 +320,134 @@ SearchingHp* userSearchEventByKeywords (Calendar *calendar)
     result = enqueueEventsWithSimilarText(result, descriptionSearchTable, search);
     
     return result;
+}
+
+void userSetupRecorrentEvent (Event *event)
+{
+    int optionNumber = 1;
+    
+    resetScreen();
+    
+    printf("Qual tipo de recorrência você deseja para seu evento?\n");
+    printOption(&optionNumber, "Semanal");
+    printOption(&optionNumber, "Mensal");
+    printOption(&optionNumber, "Anual");
+    
+    
+    switch (getNumber())
+    {
+        case 0:
+            return;
+            break;
+        case 1:
+            userSetupRecorrentEventWeeklyEvent(event);
+            break;
+        case 2:
+            userSetupRecorrentEventMonthlyEvent(event);
+            break;
+        case 3:
+            userSetupRecorrentEventYearlyEvent(event);
+            break;
+            
+        default:
+            wrongInput();
+            enterToContinue();
+            return userSetupRecorrentEvent(event);
+            break;
+    }
+}
+
+void userSetupRecorrentEventWeeklyEvent (Event *event)
+{
+    int i;
+    char output[Max];
+    char weekDay[10];
+    
+    event->frequency = (int*) malloc(sizeof(int)*7);
+    
+    for (i = 0; i<7; i++)
+    {
+        event->frequency[i] = 0;
+    }
+    //get information from user
+    do
+    {
+        resetScreen();
+        
+        printf("Marque com 1 os dias da semana que voce deseja repetir %s:\n", event->title);
+        printf("Selecione 0 para finalizar.\n");
+        for (i = 1; i<=7;)
+        {
+            weekDayIntToStr(weekDay, i-1);
+            snprintf(output, sizeof(output)/sizeof(char), "%s-%d", weekDay, event->frequency[i-1]);
+            printOption(&i, output);
+        }
+        
+        i = getNumber();
+        //finish
+        if (i == 0)
+        {
+            break;
+        }
+        
+        event->frequency[i-1] = !event->frequency[i-1];
+    } while (1);
+    //apply informations
+    event->recurrency = 1;
+    
+    return;
+}
+
+void userSetupRecorrentEventMonthlyEvent (Event *event)
+{
+    int i;
+    char output[3];
+    
+    event->frequency = (int*) malloc(sizeof(int)*31);
+    
+    for (i = 0; i<31; i++)
+    {
+        event->frequency[i] = 0;
+    }
+    
+    while (1)
+    {
+        resetScreen();
+        
+        for (i = 1; i<=31;)
+        {
+            printf("Marque com 1 os dias do mes que voce deseja repetir %s:\n", event->title);
+            printf("Alerta: Dependendo do mes, o agendamento dos dias 29 a 31 poderao não ocorrer.\n");
+            snprintf(output, sizeof(output)/sizeof(char), "%d", event->frequency[i-1]);
+            printOption(&i, output);
+        }
+        
+        i = getNumber();
+        //finish
+        if (i == 0)
+        {
+            break;
+        }
+        
+        event->frequency[i-1] = !event->frequency[i-1];
+    }
+    //apply informations
+    event->recurrency = 2;
+    
+    return;
+}
+
+void userSetupRecorrentEventYearlyEvent (Event *event)
+{
+    event->frequency = (int*) malloc(sizeof(int)*2);
+    
+    do
+    {
+        resetScreen();
+        printf("Insira a data do ano na qual voce deseja repetir %s: (dd/mm)\n", event->title);
+        event->frequency[0] = getNumber();
+        event->frequency[1] = getNumber();
+    } while (event->frequency[0] < 1 || event->frequency[0] > daysInMonth(event->frequency[1]) || event->frequency[1] < 1 || event->frequency[1] > 12);
+    
+    return;
 }

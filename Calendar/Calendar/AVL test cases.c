@@ -51,3 +51,37 @@ Event* createRandomSetOfEvents (Event *events, int nOfEvents)
     free(date);
     return createRandomSetOfEvents(events, nOfEvents-1);
 }
+
+int checkIfGotEveryEventFromList (EventBinarySearchTree *root, Event *list)
+{
+    if (list == NULL)
+    {
+        return -1;
+    }
+    else if (root == NULL)
+    {
+        return -1;
+    }
+    
+    int i;
+    int length = eventListLength(list);
+    Event *events[length];
+    //set events array
+    for (i = 0, events[length-1] = list; i<length; i++)
+    {
+        events[length-1] = events[length-1]->next;
+        events[i] = events[length-1];
+    }
+    
+    
+}
+
+int eventListLength (Event *list)
+{
+    if (list == NULL)
+    {
+        return 0;
+    }
+    
+    return eventListLength(list->next) + 1;
+}

@@ -24,6 +24,7 @@ typedef struct eventQueue EventQueue;
 typedef struct eventCapsule EventCapsule;
 typedef struct priorityQueue PriorityQueue;
 typedef struct priorityQueueCapsule PQC;
+typedef struct twoWayCapsule TWC;
 
 struct calendar
 {
@@ -117,6 +118,13 @@ struct priorityQueueCapsule
     void *object;
     PQC *next;
     int priority;
+};
+
+struct twoWayCapsule
+{
+    void *object;
+    TWC *next;
+    TWC *previous;
 };
 
 #endif

@@ -299,3 +299,18 @@ EventBinarySearchTree* balanceEventBinarySearchTree (EventBinarySearchTree *root
     
     return root;
 }
+
+Event* EventBinarySearchTreeToList (EventBinarySearchTree *root, Event *list)
+{
+    if (root == NULL)
+    {
+        return list;
+    }
+    
+    list = eventInsertEvent(list, root->event);
+    
+    list = EventBinarySearchTreeToList(root->leftChild, list);
+    list = EventBinarySearchTreeToList(root->rightChild, list);
+    
+    return list;
+}

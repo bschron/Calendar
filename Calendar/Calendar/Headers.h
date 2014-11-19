@@ -51,6 +51,7 @@ SearchTable *dateSearchTable;
 #include "Event Queue.h"
 #include "Event Capsule.h"
 #include "Object Priority Queue.h"
+#include "Object List.h"
 
 #include "Testing.h"
 #include "AVL test cases.h"

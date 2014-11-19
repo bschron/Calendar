@@ -24,5 +24,7 @@ int avlTestCases (EventBinarySearchTree *root);
 
 /*Takes pointer to EventBinarySearchTree root, pointer to EventBinarySearchTree data, int nOfData and pointer to inserting function as arguments. inserts every data provided by data pointer to the tree root using the function insert and returns a pointer to root. Ends when data is NULL or nOfData is less or equal to zero, wich one comes first.*/
 EventBinarySearchTree* insertDataToEventBinarySearchTree (EventBinarySearchTree *root, EventBinarySearchTree *data, int nOfData, void (*insert) (EventBinarySearchTree**, EventBinarySearchTree*));
+/*Takes a pointer to Event events and a integer nOfEvents as arguments. Inserts nOfEvents events to the provided Event pointer and returns it. Stops when reaches provided nOfEvents.*/
+Event* createRandomSetOfEvents (Event *events, int nOfEvents);
 
 #endif /* defined(__Calendar__AVL_test_cases__) */

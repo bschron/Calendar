@@ -1021,11 +1021,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Calendar/Testing.c"
-            timestampString = "438098102.836642"
+            timestampString = "438111022.568033"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
             landmarkName = "testing()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1155,6 +1155,22 @@
             startingLineNumber = "235"
             endingLineNumber = "235"
             landmarkName = "userSearchEvent()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Calendar/Testing.c"
+            timestampString = "438111022.568033"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "testing()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

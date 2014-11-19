@@ -25,3 +25,29 @@ EventBinarySearchTree* insertDataToEventBinarySearchTree (EventBinarySearchTree 
     
     return insertDataToEventBinarySearchTree(root, data+1, nOfData-1, insert);
 }
+
+Event* createRandomSetOfEvents (Event *events, int nOfEvents)
+{
+    if (nOfEvents == 0)
+    {
+        return events;
+    }
+    
+    int n = 1;
+    Date *date = createDate(1, 2, 2014);
+    
+    if (events != NULL)
+    {
+        sscanf(events->title, "%*s %d", &n);
+        n++;
+        *date = *events->date;
+        date = increaseDate(date);
+    }
+    
+    char *title = (char*) malloc(sizeof(char)*Max);
+    sprintf(title, "test %d", n);
+    events = eventInsertEvent(events, createEvent(1, 2, 2012, "testing event", title, 0, NULL));
+    free(title);
+    free(date);
+    return createRandomSetOfEvents(events, nOfEvents-1);
+}

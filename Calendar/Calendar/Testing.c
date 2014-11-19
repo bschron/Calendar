@@ -8,13 +8,7 @@
 
 #include "Testing.h"
 
-void testing (void)
+void testing (Calendar *main)
 {
- /*
-    Date *date = createDate(20, 11, 2014);
-    Date *now = getDate(NULL);
-    
-    int i = daysBetweenDates(now, date);
-*/
     getchar();
 }

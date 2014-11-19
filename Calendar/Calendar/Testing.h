@@ -11,6 +11,6 @@
 
 #include "Headers.h"
 
-void testing (void);
+void testing (Calendar *main);
 
 #endif /* defined(__Calendar__Testing__) */

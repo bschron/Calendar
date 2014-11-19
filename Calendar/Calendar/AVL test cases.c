@@ -7,3 +7,21 @@
 //
 
 #include "AVL test cases.h"
+
+int avlTestCases (EventBinarySearchTree *root)
+{
+    return 1;
+}
+
+EventBinarySearchTree* insertDataToEventBinarySearchTree (EventBinarySearchTree *root, EventBinarySearchTree *data, int nOfData, void (*insert) (EventBinarySearchTree**, EventBinarySearchTree*))
+{
+    if (data == NULL || nOfData <= 0)
+    {
+        return root;
+    }
+    
+    //insertEventBinarySearchTree(&root, data);
+    (*insert) (&root, data);
+    
+    return insertDataToEventBinarySearchTree(root, data+1, nOfData-1, insert);
+}

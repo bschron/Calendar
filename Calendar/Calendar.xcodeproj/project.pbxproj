@@ -23,6 +23,7 @@
 		86D7A44E1A0BB7B1009C67EF /* Searching Heap.c in Sources */ = {isa = PBXBuildFile; fileRef = 86D7A44C1A0BB7B1009C67EF /* Searching Heap.c */; };
 		86D7A4591A0CC6C9009C67EF /* Event Binary Search Tree Tests.c in Sources */ = {isa = PBXBuildFile; fileRef = 86D7A4571A0CC6C9009C67EF /* Event Binary Search Tree Tests.c */; };
 		86D7A45C1A0CC73F009C67EF /* Searching Heap tests.c in Sources */ = {isa = PBXBuildFile; fileRef = 86D7A45A1A0CC73F009C67EF /* Searching Heap tests.c */; };
+		86E017FD1A1CCED10063B9EF /* AVL test cases.c in Sources */ = {isa = PBXBuildFile; fileRef = 86E017FB1A1CCED10063B9EF /* AVL test cases.c */; };
 		86F1EF821A1A8746002FD500 /* Testing.c in Sources */ = {isa = PBXBuildFile; fileRef = 86F1EF801A1A8746002FD500 /* Testing.c */; };
 /* End PBXBuildFile section */
 
@@ -72,6 +73,8 @@
 		86D7A44D1A0BB7B1009C67EF /* Searching Heap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Searching Heap.h"; sourceTree = "<group>"; };
 		86D7A4571A0CC6C9009C67EF /* Event Binary Search Tree Tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "Event Binary Search Tree Tests.c"; sourceTree = "<group>"; };
 		86D7A45A1A0CC73F009C67EF /* Searching Heap tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "Searching Heap tests.c"; sourceTree = "<group>"; };
+		86E017FB1A1CCED10063B9EF /* AVL test cases.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "AVL test cases.c"; sourceTree = "<group>"; };
+		86E017FC1A1CCED10063B9EF /* AVL test cases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AVL test cases.h"; sourceTree = "<group>"; };
 		86F1EF801A1A8746002FD500 /* Testing.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Testing.c; sourceTree = "<group>"; };
 		86F1EF811A1A8746002FD500 /* Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Testing.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -148,6 +151,8 @@
 				86D7A45A1A0CC73F009C67EF /* Searching Heap tests.c */,
 				86F1EF801A1A8746002FD500 /* Testing.c */,
 				86F1EF811A1A8746002FD500 /* Testing.h */,
+				86E017FB1A1CCED10063B9EF /* AVL test cases.c */,
+				86E017FC1A1CCED10063B9EF /* AVL test cases.h */,
 			);
 			name = Testing;
 			sourceTree = "<group>";
@@ -219,6 +224,7 @@
 				862432FF1A0F8041004ADD65 /* File Management.c in Sources */,
 				863B25A31A139097002AC7BE /* Event Queue.c in Sources */,
 				86279BD01A0AD06100A5E6B5 /* Support Functions.c in Sources */,
+				86E017FD1A1CCED10063B9EF /* AVL test cases.c in Sources */,
 				86279BCE1A0AD06100A5E6B5 /* Events Tree.c in Sources */,
 				86D7A44E1A0BB7B1009C67EF /* Searching Heap.c in Sources */,
 				86279BBD1A0ACFF200A5E6B5 /* main.c in Sources */,

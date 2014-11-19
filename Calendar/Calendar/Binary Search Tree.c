@@ -314,3 +314,19 @@ TWC* EventBinarySearchTreeToList (EventBinarySearchTree *root, TWC *list)
     
     return list;
 }
+
+void freeAllEventBinarySearchTree (EventBinarySearchTree **root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    else if (*root == NULL)
+    {
+        return;
+    }
+    
+    removeEventBinarySearchTree(root);
+    
+    return freeAllEventBinarySearchTree(root);
+}

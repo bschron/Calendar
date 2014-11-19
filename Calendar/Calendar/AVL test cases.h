@@ -20,7 +20,7 @@
  - balancing
  - possibles data loss
 */
-int avlTestCases (EventBinarySearchTree *root);
+int avlTestCases (void);
 
 /*Takes pointer to EventBinarySearchTree root, pointer to EventBinarySearchTree data, int nOfData and pointer to inserting function as arguments. inserts every data provided by data pointer to the tree root using the function insert and returns a pointer to root. Ends when data is NULL or nOfData is less or equal to zero, wich one comes first.*/
 EventBinarySearchTree* insertDataToEventBinarySearchTree (EventBinarySearchTree *root, Event *data, int nOfData, void (*insert) (EventBinarySearchTree**, EventBinarySearchTree*));

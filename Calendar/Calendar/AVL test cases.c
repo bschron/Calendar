@@ -8,9 +8,34 @@
 
 #include "AVL test cases.h"
 
-int avlTestCases (EventBinarySearchTree *root)
+int avlTestCases (void)
 {
-    return 1;
+    int nOfEventsForTesting = 666;
+    FILE *outputf = stdin;//output file
+    EventBinarySearchTree *tree = NULL;
+    int finalResult = 1;
+    
+    //list of events for testing
+    Event *testCasesEvents = createRandomSetOfEvents(NULL, 666);
+    //insert testing events to AVL
+    tree = insertDataToEventBinarySearchTree(tree, testCasesEvents, nOfEventsForTesting, insertEventBinarySearchTree);
+    
+    //check if all elements are on the list
+    {
+        int result = checkIfGotEveryEventFromList(tree, testCasesEvents);
+        fprintf(outputf, "Inserting - %d", result);
+        if (result == 0)
+        {
+            finalResult--;
+        }
+    }
+    
+    
+    //free
+    freeAllEvents(&testCasesEvents);
+    freeAllEventBinarySearchTree(&tree);
+    
+    return finalResult;
 }
 
 EventBinarySearchTree* insertDataToEventBinarySearchTree (EventBinarySearchTree *root, Event *data, int nOfData, void (*insert) (EventBinarySearchTree**, EventBinarySearchTree*))

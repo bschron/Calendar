@@ -27,6 +27,8 @@ Event *eventInsertEvent (Event *first, Event *new);
 int recurrentEventFrequencyLength (int recurrency);
 /*Takes a pointer to calendar as argument. Checks every event on this calendar and checks if any of the recurrent events is outdated. Updates the info of all the outdated recurrent events.*/
 Calendar* updateCalendar (Calendar *calendar);
+/*Takes a double pointer to Event events as argument. Frees every node on the provided list.*/
+void freeAllEvents (Event **events);
 
 //Calendar
 /*returns a Calendar with empty falgs*/

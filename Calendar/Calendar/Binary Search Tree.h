@@ -31,6 +31,8 @@ EventBinarySearchTree** eventBinarySearchTreeRightMostChild (EventBinarySearchTr
 void removeEventBinarySearchTree (EventBinarySearchTree **remove);
 /*Takes a pointer to EventBinarySearchTree root and a pointer to TWC list as arguments. Inserts every event from the provided EventBinarySearchTree to the provided object list. Returns the list unchanged if provided root is NULL.*/
 TWC* EventBinarySearchTreeToList (EventBinarySearchTree *root, TWC *list);
+/*takes a double pointer to EventBinarySearchTree as argument. Frees every element of the provided tree and set the provided pointer to NULL.*/
+void freeAllEventBinarySearchTree (EventBinarySearchTree **root);
 //AVL
 /*the functions below are responsible to balancing the tree for a LOGn search*/
 EventBinarySearchTree* eventBinarySearchTreeLLCase (EventBinarySearchTree *root);

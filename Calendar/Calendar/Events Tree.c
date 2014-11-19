@@ -396,3 +396,23 @@ Calendar* updateCalendar (Calendar *calendar)
     
     return calendar;
 }
+
+void freeAllEvents (Event **events)
+{
+    if (events == NULL)
+    {
+        return;
+    }
+    else if (*events == NULL)
+    {
+        return;
+    }
+    
+    Event *tofeed = *events;
+    
+    *events = (*events)->next;
+    
+    free(tofeed);
+    
+    return freeAllEvents(events);
+}

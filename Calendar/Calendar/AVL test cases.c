@@ -13,7 +13,7 @@ int avlTestCases (EventBinarySearchTree *root)
     return 1;
 }
 
-EventBinarySearchTree* insertDataToEventBinarySearchTree (EventBinarySearchTree *root, EventBinarySearchTree *data, int nOfData, void (*insert) (EventBinarySearchTree**, EventBinarySearchTree*))
+EventBinarySearchTree* insertDataToEventBinarySearchTree (EventBinarySearchTree *root, Event *data, int nOfData, void (*insert) (EventBinarySearchTree**, EventBinarySearchTree*))
 {
     if (data == NULL || nOfData <= 0)
     {
@@ -21,9 +21,9 @@ EventBinarySearchTree* insertDataToEventBinarySearchTree (EventBinarySearchTree 
     }
     
     //insertEventBinarySearchTree(&root, data);
-    (*insert) (&root, data);
+    (*insert) (&root, createEventBinarySearchTree(data));
     
-    return insertDataToEventBinarySearchTree(root, data+1, nOfData-1, insert);
+    return insertDataToEventBinarySearchTree(root, data->next, nOfData-1, insert);
 }
 
 Event* createRandomSetOfEvents (Event *events, int nOfEvents)
@@ -63,17 +63,61 @@ int checkIfGotEveryEventFromList (EventBinarySearchTree *root, Event *list)
         return -1;
     }
     
-    int i;
+    int i, i2;
     int length = eventListLength(list);
     Event *events[length];
+    TWC *enlisted = NULL;
+    enlisted = EventBinarySearchTreeToList(root, enlisted);
+    int length2 = objectListLength(enlisted);
+    Event *enlistedEvents[length2];
+    int results[length];
+    int result = 1;
+    
+    if (length != length2)
+    {
+        freeAllTWC(&enlisted);
+        return 0;
+    }
+    
     //set events array
     for (i = 0, events[length-1] = list; i<length; i++)
     {
-        events[length-1] = events[length-1]->next;
+        if (i != 0)//if not first
+        {
+            events[length-1] = events[length-1]->next;
+        }
         events[i] = events[length-1];
+        enlistedEvents[i] = popObject(&enlisted);
+    }
+    //set results to 0
+    for (i = 0; i<length; i++)
+    {
+        results[i] = 0;
+    }
+    /*the next function will go event by event, from events array, and search for a event on the enlistedEvents array that is exactely the same. If found, will write 1, meaning success, to the results array on the position of the first array.*/
+    for (i = 0; i<length; i++)
+    {
+        for (i2 = 0; i2<length2 && events[i] != NULL; i2++)
+        {
+            if (events[i] == enlistedEvents[i2])
+            {
+                results[i] = 1;
+                enlistedEvents[i2] = NULL;
+                break;
+            }
+        }
+    }
+    /*the following loop searches for a position on the results array that has value differente than 1. If any, will set this function result to 0.*/
+    for (i = 0; i<length; i++)
+    {
+        if (results[i] != 1)
+        {
+            result = 0;
+        }
     }
     
-    
+    freeAllTWC(&enlisted);
+    return result;
 }
 
 int eventListLength (Event *list)

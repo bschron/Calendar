@@ -29,8 +29,8 @@ EventBinarySearchTree** eventBinarySearchTreeLeftMostChild (EventBinarySearchTre
 EventBinarySearchTree** eventBinarySearchTreeRightMostChild (EventBinarySearchTree **root);
 /*removes the providede EventBinarySearchTree, respecting the BinaryTree properties*/
 void removeEventBinarySearchTree (EventBinarySearchTree **remove);
-/*inserts every */
-Event* EventBinarySearchTreeToList (EventBinarySearchTree *root, Event *list);
+/*Takes a pointer to EventBinarySearchTree root and a pointer to TWC list as arguments. Inserts every event from the provided EventBinarySearchTree to the provided object list. Returns the list unchanged if provided root is NULL.*/
+TWC* EventBinarySearchTreeToList (EventBinarySearchTree *root, TWC *list);
 //AVL
 /*the functions below are responsible to balancing the tree for a LOGn search*/
 EventBinarySearchTree* eventBinarySearchTreeLLCase (EventBinarySearchTree *root);

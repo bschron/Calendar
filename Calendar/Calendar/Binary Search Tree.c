@@ -300,14 +300,14 @@ EventBinarySearchTree* balanceEventBinarySearchTree (EventBinarySearchTree *root
     return root;
 }
 
-Event* EventBinarySearchTreeToList (EventBinarySearchTree *root, Event *list)
+TWC* EventBinarySearchTreeToList (EventBinarySearchTree *root, TWC *list)
 {
     if (root == NULL)
     {
         return list;
     }
     
-    list = eventInsertEvent(list, root->event);
+    list = insertTWC(list, createTWC(root->event));
     
     list = EventBinarySearchTreeToList(root->leftChild, list);
     list = EventBinarySearchTreeToList(root->rightChild, list);

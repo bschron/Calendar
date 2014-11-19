@@ -23,5 +23,9 @@ TWC* insertTWC (TWC *first, TWC *new);
 TWC* removeTWC (TWC* first, TWC *remove);
 /*Takes a double pointer to the frist element of the TWC list. Frees every element on that list and attributes NULL to the provided pointer.*/
 void freeAllTWC (TWC **first);
+/*Takes a pointer to (TWC) the first element from the objectList as argument. Returns a integer representing the number of elements on the provided list.*/
+int objectListLength (TWC* first);
+/*Takes a double pointer to TWC first as argument. first is the first element from a provided object list, removes the first TWC from the provided list and returns a pointer to it's object.*/
+void* popObject (TWC **first);
 
 #endif /* defined(__Calendar__Object_List__) */

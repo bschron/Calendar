@@ -65,8 +65,11 @@ TWC* removeTWC (TWC* first, TWC *remove)
     
     if (first == remove)
     {
+        if (first->next != NULL)
+        {
+            first->next->previous = NULL;
+        }
         first = first->next;
-        first->previous = NULL;
     }
     else if (remove->next == NULL)
     {
@@ -98,4 +101,32 @@ void freeAllTWC (TWC **first)
     *first = NULL;
     
     return freeAllTWC(next);
+}
+
+int objectListLength (TWC* first)
+{
+    if (first == NULL)
+    {
+        return 0;
+    }
+    
+    return objectListLength(first->next) + 1;
+}
+
+void* popObject (TWC **first)
+{
+    if (first == NULL)
+    {
+        return NULL;
+    }
+    else if (*first == NULL)
+    {
+        return NULL;
+    }
+    
+    void *popped = (*first)->object;
+    
+    *first = removeTWC(*first, *first);
+    
+    return popped;
 }

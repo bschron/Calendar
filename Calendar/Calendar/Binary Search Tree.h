@@ -41,5 +41,6 @@ EventBinarySearchTree* eventBinarySearchTreeLRCase (EventBinarySearchTree *root)
 EventBinarySearchTree* eventBinarySearchTreeRLCase (EventBinarySearchTree *root);
 int eventBinarySearchTreeBalanceFactor (EventBinarySearchTree *root);
 EventBinarySearchTree* balanceEventBinarySearchTree (EventBinarySearchTree *root);
+void balanceTillRoot (EventBinarySearchTree **start);
 
 #endif /* defined(__calendar__Binary_Search_Tree__) */

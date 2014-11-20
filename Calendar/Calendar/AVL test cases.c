@@ -10,7 +10,7 @@
 
 int avlTestCases (void)
 {
-    int nOfEventsForTesting = 666;
+    int nOfEventsForTesting = 8;
     FILE *outputf = stdout;//output file
     EventBinarySearchTree *tree = NULL;
     int finalResult = 1;

@@ -35,4 +35,6 @@ int checkIfGotEveryEventFromList (EventBinarySearchTree *root, Event *list);
 int checkIfEveryNodeIsBalanced (int result, EventBinarySearchTree *root);
 /*Takes a integer result, double pointer to EventBinarySearchTree root and a pointer to Event list as arguments. Searches each element of list on the *root tree, if found event does not mach the provided, descreases the result by one, returns the new value of result. Returns result value unchanged if every elements on the provided list is found on the provided tree. Returns result value increased by one if provided root is NULL.*/
 int checkSearching (int result, EventBinarySearchTree **root, Event *list);
+/*Takes a integer result, a pointer to Event list, a integer nOfData and a pointer to function insert as arguments. inserts the provided list of events to a EventBinarySearchTree using the providede insert function and removes event by event, checking if the event was really removed. Decreases result by one if event was not removed as expected. Returns value of result. Value of result is returned unchanged if every EventBinarySearchTree is removed as expected.*/
+int checkRemoval (int result, Event *list, int nOfData, void (*insert) (EventBinarySearchTree **, EventBinarySearchTree *));
 #endif /* defined(__Calendar__AVL_test_cases__) */

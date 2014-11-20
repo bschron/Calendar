@@ -51,6 +51,16 @@ int avlTestCases (void)
             finalResult--;
         }
     }
+    //check if removing is ok
+    {
+        int initial = 1;
+        int result = checkRemoval(initial, testCasesEvents, nOfEventsForTesting, insertEventBinarySearchTree);
+        fprintf(outputf, "Removing - %d\n", result/initial);
+        if (result != initial)
+        {
+            finalResult--;
+        }
+    }
     //free
     freeAllEvents(&testCasesEvents);
     freeAllEventBinarySearchTree(&tree);
@@ -199,11 +209,11 @@ int checkSearching (int result, EventBinarySearchTree **root, Event *list)
 {
     if (root == NULL)
     {
-        return result+1;
+        return result-1;
     }
     else if (*root == NULL)
     {
-        return result+1;
+        return result-1;
     }
     else if (list == NULL)
     {
@@ -218,4 +228,43 @@ int checkSearching (int result, EventBinarySearchTree **root, Event *list)
     }
     
     return checkSearching(result, root, list->next);
+}
+
+int checkRemoval (int result, Event *list, int nOfData, void (*insert) (EventBinarySearchTree **, EventBinarySearchTree *))
+{
+    if (list == NULL)
+    {
+        return result-1;
+    }
+    
+    Event *current = NULL;
+    EventBinarySearchTree *tree = insertDataToEventBinarySearchTree(NULL, list, nOfData, insert);
+    //goes straigth to
+    for (current = list; current!= NULL; current = current->next)
+    {
+        EventBinarySearchTree **remove = searchEventBinarySearchTree(&tree, current);
+        Event *event = (*remove)->event;
+        removeEventBinarySearchTree(remove);
+        if (searchEventBinarySearchTree(&tree, event) != NULL)
+        {
+            result--;
+        }
+    }
+    freeAllEventBinarySearchTree(&tree);
+    //goes straigth to last element of the list
+    for (current = list; current->next != NULL; current = current->next);
+    tree = insertDataToEventBinarySearchTree(NULL, list, nOfData, insert);
+    for (; current != NULL; current = current->previous)
+    {
+        EventBinarySearchTree **remove = searchEventBinarySearchTree(&tree, current);
+        Event *event = (*remove)->event;
+        removeEventBinarySearchTree(remove);
+        if (searchEventBinarySearchTree(&tree, event) != NULL)
+        {
+            result--;
+        }
+    }
+    freeAllEventBinarySearchTree(&tree);
+    
+    return result;
 }

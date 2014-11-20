@@ -10,7 +10,7 @@
 
 void testing (Calendar *main)
 {
-    int result = avlTestCases();
+    avlTestCases();
     
     getchar();
 }

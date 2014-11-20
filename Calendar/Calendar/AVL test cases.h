@@ -30,4 +30,6 @@ Event* createRandomSetOfEvents (Event *events, int nOfEvents);
 int eventListLength (Event *list);
 /*Takes a pointer to EventBinarySearchTree root and a pointer to Event list as arguments. checks is every element on the provided list is also on the provided EventBinarySearchTree, returns 1 if so, 0 if not.*/
 int checkIfGotEveryEventFromList (EventBinarySearchTree *root, Event *list);
+/*Takes a integer result and a pointer to EventBinarySearchTree root as arguments. Runs the whole provided tree, calculating the balance factor, decreases the value of result by one for every unbalanced found spot. Returns result value unchanged if tree is completely balanced or if tree is NULL.*/
+int checkIfEveryNodeIsBalanced (int result, EventBinarySearchTree *root);
 #endif /* defined(__Calendar__AVL_test_cases__) */

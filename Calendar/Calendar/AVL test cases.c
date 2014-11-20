@@ -14,7 +14,7 @@ int avlTestCases (void)
     FILE *outputf = stdout;//output file
     EventBinarySearchTree *tree = NULL;
     int finalResult = 1;
-    fprintf(outputf, "AVL test cases:\n");
+    fprintf(outputf, "AVL test cases: %d\n", nOfEventsForTesting);
     
     //list of events for testing
     Event *testCasesEvents = createRandomSetOfEvents(NULL, nOfEventsForTesting);
@@ -31,10 +31,21 @@ int avlTestCases (void)
         }
     }
     
-    
+    //check if balancing is ok
+    {
+        int initial = 1;
+        int result = checkIfEveryNodeIsBalanced(initial, tree);
+        fprintf(outputf, "Balancing - %d\n", result/initial);
+        if (result != initial)
+        {
+            finalResult--;
+        }
+    }
     //free
     freeAllEvents(&testCasesEvents);
     freeAllEventBinarySearchTree(&tree);
+    
+    fprintf(outputf, "\n\nFinal Result: %d\n", finalResult);
     
     return finalResult;
 }
@@ -154,4 +165,22 @@ int eventListLength (Event *list)
     }
     
     return eventListLength(list->next) + 1;
+}
+
+int checkIfEveryNodeIsBalanced (int result, EventBinarySearchTree *root)
+{
+    if (root == NULL)
+    {
+        return result;
+    }
+    
+    if (eventBinarySearchTreeBalanceFactor(root) < -1 || eventBinarySearchTreeBalanceFactor(root) > 1)
+    {
+        result--;
+    }
+    
+    result = checkIfEveryNodeIsBalanced(result, root->leftChild);
+    result = checkIfEveryNodeIsBalanced(result, root->rightChild);
+    
+    return result;
 }

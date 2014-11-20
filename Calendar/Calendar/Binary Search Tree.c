@@ -64,7 +64,10 @@ void insertEventBinarySearchTree (EventBinarySearchTree **root, EventBinarySearc
     
     *root = balanceEventBinarySearchTree(*root);
     
-    return insertEventBinarySearchTree(next, new);
+    insertEventBinarySearchTree(next, new);
+    
+    *root = balanceEventBinarySearchTree(*root);
+    return;
 }
 
 EventBinarySearchTree** searchEventBinarySearchTree (EventBinarySearchTree **root, Event *wanted)

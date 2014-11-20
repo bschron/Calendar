@@ -41,6 +41,16 @@ int avlTestCases (void)
             finalResult--;
         }
     }
+    //check if searching is ok
+    {
+        int initial = 1;
+        int result = checkSearching(initial, &tree, testCasesEvents);
+        fprintf(outputf, "Searching - %d\n", result/initial);
+        if (result != initial)
+        {
+            finalResult--;
+        }
+    }
     //free
     freeAllEvents(&testCasesEvents);
     freeAllEventBinarySearchTree(&tree);
@@ -183,4 +193,29 @@ int checkIfEveryNodeIsBalanced (int result, EventBinarySearchTree *root)
     result = checkIfEveryNodeIsBalanced(result, root->rightChild);
     
     return result;
+}
+
+int checkSearching (int result, EventBinarySearchTree **root, Event *list)
+{
+    if (root == NULL)
+    {
+        return result+1;
+    }
+    else if (*root == NULL)
+    {
+        return result+1;
+    }
+    else if (list == NULL)
+    {
+        return result;
+    }
+    
+    EventBinarySearchTree **found = searchEventBinarySearchTree(root, list);
+    
+    if ((*found)->event != list)
+    {
+        result--;
+    }
+    
+    return checkSearching(result, root, list->next);
 }

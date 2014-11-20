@@ -16,8 +16,9 @@
  This is a function that executes all the test cases for a AVL. Will print detailed data about each test cases, where 1 is sucessful and 0 is not. Returns 0 if all test cases are OK, 1 if not.
  Tests for:
  - insertion
- - removal
  - balancing
+ - searching
+ - removal
  - possibles data loss
 */
 int avlTestCases (void);
@@ -32,4 +33,6 @@ int eventListLength (Event *list);
 int checkIfGotEveryEventFromList (EventBinarySearchTree *root, Event *list);
 /*Takes a integer result and a pointer to EventBinarySearchTree root as arguments. Runs the whole provided tree, calculating the balance factor, decreases the value of result by one for every unbalanced found spot. Returns result value unchanged if tree is completely balanced or if tree is NULL.*/
 int checkIfEveryNodeIsBalanced (int result, EventBinarySearchTree *root);
+/*Takes a integer result, double pointer to EventBinarySearchTree root and a pointer to Event list as arguments. Searches each element of list on the *root tree, if found event does not mach the provided, descreases the result by one, returns the new value of result. Returns result value unchanged if every elements on the provided list is found on the provided tree. Returns result value increased by one if provided root is NULL.*/
+int checkSearching (int result, EventBinarySearchTree **root, Event *list);
 #endif /* defined(__Calendar__AVL_test_cases__) */

@@ -155,13 +155,13 @@ void removeEventDateReference (Event *event)
     //day
     EventBinarySearchTree **result = NULL;
     result = searchEventBinarySearchTree(&dateSearchTable->table[dayHash], event);
-    removeEventBinarySearchTree(result);
+    dateSearchTable->table[dayHash] = removeEventBinarySearchTree(dateSearchTable->table[dayHash], result);
     //month
     result = searchEventBinarySearchTree(&dateSearchTable->table[monthHash], event);
-    removeEventBinarySearchTree(result);
+    dateSearchTable->table[monthHash] = removeEventBinarySearchTree(dateSearchTable->table[monthHash], result);
     //year
     result = searchEventBinarySearchTree(&dateSearchTable->table[yearHash], event);
-    removeEventBinarySearchTree(result);
+    dateSearchTable->table[yearHash] = removeEventBinarySearchTree(dateSearchTable->table[yearHash], result);
     
     return;
 }
@@ -177,7 +177,7 @@ void removeEventTitleReference (Event *event)
     for (pop = popNode(&words); !emptyNode(&pop); pop = popNode(&words))
     {
         result = searchEventBinarySearchTree(&titleSearchTable->table[pop.index], event);
-        removeEventBinarySearchTree(result);
+        titleSearchTable->table[pop.index] = removeEventBinarySearchTree(titleSearchTable->table[pop.index], result);
     }
     
     return;
@@ -194,7 +194,7 @@ void removeEventDescReference (Event *event)
     for (pop = popNode(&words); !emptyNode(&pop); pop = popNode(&words))
     {
         result = searchEventBinarySearchTree(&descriptionSearchTable->table[pop.index], event);
-        removeEventBinarySearchTree(result);
+        descriptionSearchTable->table[pop.index] = removeEventBinarySearchTree(descriptionSearchTable->table[pop.index], result);
     }
     
     return;

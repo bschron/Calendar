@@ -28,7 +28,7 @@ EventBinarySearchTree** eventBinarySearchTreeLeftMostChild (EventBinarySearchTre
 /*returns a double pointer to the right most child from the provided EventBinarySearchTree*/
 EventBinarySearchTree** eventBinarySearchTreeRightMostChild (EventBinarySearchTree **root);
 /*removes the providede EventBinarySearchTree, respecting the BinaryTree properties*/
-void removeEventBinarySearchTree (EventBinarySearchTree **remove);
+EventBinarySearchTree* removeEventBinarySearchTree (EventBinarySearchTree *root, EventBinarySearchTree **remove);
 /*Takes a pointer to EventBinarySearchTree root and a pointer to TWC list as arguments. Inserts every event from the provided EventBinarySearchTree to the provided object list. Returns the list unchanged if provided root is NULL.*/
 TWC* EventBinarySearchTreeToList (EventBinarySearchTree *root, TWC *list);
 /*takes a double pointer to EventBinarySearchTree as argument. Frees every element of the provided tree and set the provided pointer to NULL.*/

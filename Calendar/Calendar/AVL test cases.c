@@ -10,7 +10,7 @@
 
 int avlTestCases (void)
 {
-    int nOfEventsForTesting = 8;
+    int nOfEventsForTesting = 66;
     FILE *outputf = stdout;//output file
     EventBinarySearchTree *tree = NULL;
     int finalResult = 1;
@@ -254,7 +254,7 @@ int checkRemoval (int result, Event *list, int nOfData, void (*insert) (EventBin
     {
         EventBinarySearchTree **remove = searchEventBinarySearchTree(&tree, current);
         Event *event = (*remove)->event;
-        removeEventBinarySearchTree(remove);
+        tree = removeEventBinarySearchTree(tree, remove);
         if (searchEventBinarySearchTree(&tree, event) != NULL)
         {
             result--;
@@ -268,7 +268,7 @@ int checkRemoval (int result, Event *list, int nOfData, void (*insert) (EventBin
     {
         EventBinarySearchTree **remove = searchEventBinarySearchTree(&tree, current);
         Event *event = (*remove)->event;
-        removeEventBinarySearchTree(remove);
+        tree = removeEventBinarySearchTree(tree, remove);
         if (searchEventBinarySearchTree(&tree, event) != NULL)
         {
             result--;
@@ -291,7 +291,7 @@ int checkRemovalBalance (int result, Event *list, int nOfData, void (*insert) (E
     for (current = list; current!=NULL; current = current->next)
     {
         EventBinarySearchTree **remove = searchEventBinarySearchTree(&tree, current);
-        removeEventBinarySearchTree(remove);
+        tree = removeEventBinarySearchTree(tree, remove);
         result = checkIfEveryNodeIsBalanced(result, tree);
     }
     

@@ -133,6 +133,8 @@ void removeEventBinarySearchTree (EventBinarySearchTree **remove)
         
         *remove = (*remove)->rightChild;
         
+        *remove = balanceEventBinarySearchTree(*remove);
+        
         free(rmv);
         rmv = NULL;
         
@@ -143,6 +145,8 @@ void removeEventBinarySearchTree (EventBinarySearchTree **remove)
         EventBinarySearchTree *rmv = *remove;
         
         *remove = (*remove)->leftChild;
+        
+        *remove = balanceEventBinarySearchTree(*remove);
         
         free(rmv);
         rmv = NULL;
@@ -156,7 +160,11 @@ void removeEventBinarySearchTree (EventBinarySearchTree **remove)
         (*remove)->event = (*substitute)->event;
         (*remove)->nameHash = (*substitute)->nameHash;
         
-        return removeEventBinarySearchTree(substitute);
+        removeEventBinarySearchTree(substitute);
+        
+        *remove = balanceEventBinarySearchTree(*remove);
+        
+        return;
     }
     else
     {
@@ -165,7 +173,11 @@ void removeEventBinarySearchTree (EventBinarySearchTree **remove)
         (*remove)->event = (*substitute)->event;
         (*remove)->nameHash = (*substitute)->nameHash;
         
-        return removeEventBinarySearchTree(substitute);
+        removeEventBinarySearchTree(substitute);
+        
+        *remove = balanceEventBinarySearchTree(*remove);
+        
+        return;
     }
     
 }

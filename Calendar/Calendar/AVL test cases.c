@@ -10,7 +10,7 @@
 
 int avlTestCases (void)
 {
-    int nOfEventsForTesting = 666;
+    int nOfEventsForTesting = 4;
     FILE *outputf = stdout;//output file
     EventBinarySearchTree *tree = NULL;
     int finalResult = 1;
@@ -56,6 +56,16 @@ int avlTestCases (void)
         int initial = 1;
         int result = checkRemoval(initial, testCasesEvents, nOfEventsForTesting, insertEventBinarySearchTree);
         fprintf(outputf, "Removing - %d\n", result/initial);
+        if (result != initial)
+        {
+            finalResult--;
+        }
+    }
+    //check removal balance
+    {
+        int initial  = 1;
+        int result = checkRemovalBalance(initial, testCasesEvents, nOfEventsForTesting, insertEventBinarySearchTree);
+        fprintf(outputf, "Removal Balance - %d\n", result/initial);
         if (result != initial)
         {
             finalResult--;
@@ -239,7 +249,7 @@ int checkRemoval (int result, Event *list, int nOfData, void (*insert) (EventBin
     
     Event *current = NULL;
     EventBinarySearchTree *tree = insertDataToEventBinarySearchTree(NULL, list, nOfData, insert);
-    //goes straigth to
+    
     for (current = list; current!= NULL; current = current->next)
     {
         EventBinarySearchTree **remove = searchEventBinarySearchTree(&tree, current);
@@ -266,5 +276,25 @@ int checkRemoval (int result, Event *list, int nOfData, void (*insert) (EventBin
     }
     freeAllEventBinarySearchTree(&tree);
     
+    return result;
+}
+
+int checkRemovalBalance (int result, Event *list, int nOfData, void (*insert) (EventBinarySearchTree **, EventBinarySearchTree *))
+{
+    if (list == NULL)
+    {
+        return result-1;
+    }
+    
+    Event *current = NULL;
+    EventBinarySearchTree *tree = insertDataToEventBinarySearchTree(NULL, list, nOfData, insert);
+    for (current = list; current!=NULL; current = current->next)
+    {
+        EventBinarySearchTree **remove = searchEventBinarySearchTree(&tree, current);
+        removeEventBinarySearchTree(remove);
+        result = checkIfEveryNodeIsBalanced(result, tree);
+    }
+    
+    freeAllEventBinarySearchTree(&tree);
     return result;
 }

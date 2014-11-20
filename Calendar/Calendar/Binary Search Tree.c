@@ -274,11 +274,11 @@ EventBinarySearchTree* balanceEventBinarySearchTree (EventBinarySearchTree *root
     {
         if (eventBinarySearchTreeBalanceFactor(root->leftChild) < 0)//left right case
         {
-            eventBinarySearchTreeLRCase(root);
+            root = eventBinarySearchTreeLRCase(root);
         }
         else//left left case
         {
-            eventBinarySearchTreeLLCase(root);
+            root = eventBinarySearchTreeLLCase(root);
         }
     }
     else if (factor < -1)//right case

@@ -11,19 +11,20 @@
 int avlTestCases (void)
 {
     int nOfEventsForTesting = 666;
-    FILE *outputf = stdin;//output file
+    FILE *outputf = stdout;//output file
     EventBinarySearchTree *tree = NULL;
     int finalResult = 1;
+    fprintf(outputf, "AVL test cases:\n");
     
     //list of events for testing
-    Event *testCasesEvents = createRandomSetOfEvents(NULL, 666);
+    Event *testCasesEvents = createRandomSetOfEvents(NULL, nOfEventsForTesting);
     //insert testing events to AVL
     tree = insertDataToEventBinarySearchTree(tree, testCasesEvents, nOfEventsForTesting, insertEventBinarySearchTree);
     
     //check if all elements are on the list
     {
         int result = checkIfGotEveryEventFromList(tree, testCasesEvents);
-        fprintf(outputf, "Inserting - %d", result);
+        fprintf(outputf, "Inserting - %d\n", result);
         if (result == 0)
         {
             finalResult--;

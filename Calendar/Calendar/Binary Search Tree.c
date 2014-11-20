@@ -25,8 +25,6 @@ EventBinarySearchTree returnEmptyEventBinarySearchTree (void)
     empty.leftChild = NULL;
     empty.nameHash = 0;
     empty.rightChild = NULL;
-    empty.parent = NULL;
-    
     return empty;
 }
 
@@ -36,6 +34,8 @@ EventBinarySearchTree* createEventBinarySearchTree (Event *event)
     
     new->event = event;
     new->nameHash = hashWord(event->title)+hashWord(event->desc);
+    new->parent = (EventBinarySearchTree**) malloc(sizeof(EventBinarySearchTree*));
+    *(new->parent) = NULL;
     
     return new;
 }
@@ -48,7 +48,7 @@ void insertEventBinarySearchTree (EventBinarySearchTree **root, EventBinarySearc
     }
     else if (*root == NULL)
     {
-        new->parent = parent;
+        *new->parent = parent;
         *root = new;
         return;
     }
@@ -222,24 +222,24 @@ EventBinarySearchTree* eventBinarySearchTreeLLCase (EventBinarySearchTree *root)
     }
     
     EventBinarySearchTree *leftRight = root->leftChild->rightChild;
-    EventBinarySearchTree *rootParent = root->parent;
+    EventBinarySearchTree *rootParent = *root->parent;
     
     //parent attribution, then switching
     if (root != NULL)
     {
-        root->parent = root->leftChild;
+        *root->parent = root->leftChild;
     }
     root->leftChild->rightChild = root;
     //parent attribution, then switching
     if (root->leftChild != NULL)
     {
-        root->leftChild->parent = rootParent;
+        *root->leftChild->parent = rootParent;
     }
     root = root->leftChild;
     //parent attribution, then switching
     if (leftRight != NULL)
     {
-        leftRight->parent = root->rightChild;
+        *leftRight->parent = root->rightChild;
     }
     root->rightChild->leftChild = leftRight;
     
@@ -254,24 +254,24 @@ EventBinarySearchTree* eventBinarySearchTreeRRCase (EventBinarySearchTree *root)
     }
     
     EventBinarySearchTree *rightLeft = root->rightChild->leftChild;
-    EventBinarySearchTree *rootParent = root->parent;
+    EventBinarySearchTree *rootParent = *root->parent;
     
     //parent attribution, then switching
     if (root != NULL)
     {
-        root->parent = root->rightChild;
+        *root->parent = root->rightChild;
     }
     root->rightChild->leftChild = root;
     //parent attribution, then switching
     if (root->rightChild != NULL)
     {
-        root->rightChild->parent = rootParent;
+        *root->rightChild->parent = rootParent;
     }
     root = root->rightChild;
     //parent attribution, then switching
     if (rightLeft != NULL)
     {
-        rightLeft->parent = root->leftChild;
+        *rightLeft->parent = root->leftChild;
     }
     root->leftChild->rightChild = rightLeft;
     
@@ -290,19 +290,19 @@ EventBinarySearchTree* eventBinarySearchTreeLRCase (EventBinarySearchTree *root)
     //parent attribution, then switching
     if (root->leftChild != NULL)
     {
-        root->leftChild->parent = root->leftChild->rightChild;
+        *root->leftChild->parent = root->leftChild->rightChild;
     }
     root->leftChild->rightChild->leftChild = root->leftChild;
     //parent attribution, then switching
     if (root->leftChild->rightChild != NULL)
     {
-        root->leftChild->rightChild->parent = root;
+        *root->leftChild->rightChild->parent = root;
     }
     root->leftChild = root->leftChild->rightChild;
     //parent attribution, then switching
     if (leftRightLeft != NULL)
     {
-        leftRightLeft->parent = root->leftChild->leftChild;
+        *leftRightLeft->parent = root->leftChild->leftChild;
     }
     root->leftChild->leftChild->rightChild = leftRightLeft;
     
@@ -321,19 +321,19 @@ EventBinarySearchTree* eventBinarySearchTreeRLCase (EventBinarySearchTree *root)
     //parent attribution, then switching
     if (root->rightChild != NULL)
     {
-        root->rightChild->parent = root->rightChild->leftChild;
+        *root->rightChild->parent = root->rightChild->leftChild;
     }
     root->rightChild->leftChild->rightChild = root->rightChild;
     //parent attribution, then switching
     if (root->rightChild->leftChild != NULL)
     {
-        root->rightChild->leftChild->parent = root;
+        *root->rightChild->leftChild->parent = root;
     }
     root->rightChild = root->rightChild->leftChild;
     //parent attribution, then switching
     if (rightLeftRight != NULL)
     {
-        rightLeftRight->parent = root->rightChild->rightChild;
+        *rightLeftRight->parent = root->rightChild->rightChild;
     }
     root->rightChild->rightChild->leftChild = rightLeftRight;
     
@@ -421,23 +421,26 @@ void freeAllEventBinarySearchTree (EventBinarySearchTree **root)
     return freeAllEventBinarySearchTree(root);
 }
 
-void balanceTillRoot (EventBinarySearchTree **start)
+EventBinarySearchTree* balanceTillRoot (EventBinarySearchTree *start, EventBinarySearchTree *root)
 {
-    if (start == NULL)
+    if (start == NULL || root == NULL)
     {
-        return;
-    }
-    else if (*start == NULL)
-    {
-        return;
+        return root;
     }
     
-    *start = balanceEventBinarySearchTree(*start);
+    int end = 0;
     
-    if ((*start)->parent != NULL)
+    if (start == root)
     {
-        return balanceTillRoot(&(*start)->parent);
+        end = 1;
     }
     
-    return;
+    start = balanceEventBinarySearchTree(start);
+    
+    if (!end)
+    {
+        start = balanceTillRoot(*start->parent, root);
+    }
+    
+    return start;
 }

@@ -141,12 +141,12 @@ EventBinarySearchTree* removeEventBinarySearchTree (EventBinarySearchTree *root,
         free(*remove);
         
         *remove = NULL;
-        /*
+        
         if (root != NULL)
         {
             root = balanceTillRoot(removeParent, root);
         }
-        */
+        
     }
     else if ((*remove)->leftChild == NULL)
     {
@@ -162,7 +162,7 @@ EventBinarySearchTree* removeEventBinarySearchTree (EventBinarySearchTree *root,
             root = *remove;
         }
         
-        //root = balanceTillRoot(*remove, root);
+        root = balanceTillRoot(*remove, root);
     }
     else if ((*remove)->rightChild == NULL)
     {
@@ -178,7 +178,7 @@ EventBinarySearchTree* removeEventBinarySearchTree (EventBinarySearchTree *root,
             root = *remove;
         }
         
-        //root = balanceTillRoot(*remove, root);
+        root = balanceTillRoot(*remove, root);
     }
     else if (eventBinarySearchThreeHeigth((*remove)->leftChild) > eventBinarySearchThreeHeigth((*remove)->rightChild))
     {
@@ -456,7 +456,11 @@ EventBinarySearchTree* balanceEventBinarySearchTree (EventBinarySearchTree *root
     
     if (factor > 1)//left case
     {
-        if (eventBinarySearchTreeBalanceFactor(root->leftChild) < 0)//left right case
+        /*if (eventBinarySearchTreeBalanceFactor(root->leftChild) > 1 || eventBinarySearchTreeBalanceFactor(root->leftChild) < -1)
+        {
+            root = eventBinarySearchTreeLLCase(root);
+        }
+        else */if (eventBinarySearchTreeBalanceFactor(root->leftChild) < 0)//left right case
         {
             root = eventBinarySearchTreeLRCase(root);
         }
@@ -467,7 +471,11 @@ EventBinarySearchTree* balanceEventBinarySearchTree (EventBinarySearchTree *root
     }
     else if (factor < -1)//right case
     {
-        if (eventBinarySearchTreeBalanceFactor(root->rightChild) > 0)//right left case
+        /*if (eventBinarySearchTreeBalanceFactor(root->rightChild) > 1 || eventBinarySearchTreeBalanceFactor(root->rightChild) < -1)
+        {
+            root = eventBinarySearchTreeRRCase(root);
+        }
+        else */if (eventBinarySearchTreeBalanceFactor(root->rightChild) > 0)//right left case
         {
             root = eventBinarySearchTreeRLCase(root);
         }
@@ -523,13 +531,32 @@ EventBinarySearchTree* balanceTillRoot (EventBinarySearchTree *start, EventBinar
     }
     
     int end = 0;
+    int side = 0;
+    EventBinarySearchTree *parent = *start->parent;
     
     if (start == root)
     {
         end = 1;
     }
+    else if (start == parent->rightChild)
+    {
+        side = -1;
+    }
+    else
+    {
+        side = 1;
+    }
     
     start = balanceEventBinarySearchTree(start);
+    
+    if (side == -1)
+    {
+        parent->rightChild = start;
+    }
+    else if (side == 1)
+    {
+        parent->leftChild = start;
+    }
     
     if (!end)
     {

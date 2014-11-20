@@ -10,7 +10,7 @@
 
 int avlTestCases (void)
 {
-    int nOfEventsForTesting = 4;
+    int nOfEventsForTesting = 666;
     FILE *outputf = stdout;//output file
     EventBinarySearchTree *tree = NULL;
     int finalResult = 1;
@@ -19,7 +19,7 @@ int avlTestCases (void)
     //list of events for testing
     Event *testCasesEvents = createRandomSetOfEvents(NULL, nOfEventsForTesting);
     //insert testing events to AVL
-    tree = insertDataToEventBinarySearchTree(tree, testCasesEvents, nOfEventsForTesting, insertEventBinarySearchTree);
+    tree = insertDataToEventBinarySearchTree(tree, NULL, testCasesEvents, nOfEventsForTesting, insertEventBinarySearchTree);
     
     //check if all elements are on the list
     {
@@ -80,7 +80,7 @@ int avlTestCases (void)
     return finalResult;
 }
 
-EventBinarySearchTree* insertDataToEventBinarySearchTree (EventBinarySearchTree *root, Event *data, int nOfData, void (*insert) (EventBinarySearchTree**, EventBinarySearchTree*))
+EventBinarySearchTree* insertDataToEventBinarySearchTree (EventBinarySearchTree *root, EventBinarySearchTree *parent, Event *data, int nOfData, void (*insert) (EventBinarySearchTree**, EventBinarySearchTree *, EventBinarySearchTree *))
 {
     if (data == NULL || nOfData <= 0)
     {
@@ -88,9 +88,9 @@ EventBinarySearchTree* insertDataToEventBinarySearchTree (EventBinarySearchTree 
     }
     
     //insertEventBinarySearchTree(&root, data);
-    (*insert) (&root, createEventBinarySearchTree(data));
+    (*insert) (&root, createEventBinarySearchTree(data), parent);
     
-    return insertDataToEventBinarySearchTree(root, data->next, nOfData-1, insert);
+    return insertDataToEventBinarySearchTree(root, parent, data->next, nOfData-1, insert);
 }
 
 Event* createRandomSetOfEvents (Event *events, int nOfEvents)
@@ -240,7 +240,7 @@ int checkSearching (int result, EventBinarySearchTree **root, Event *list)
     return checkSearching(result, root, list->next);
 }
 
-int checkRemoval (int result, Event *list, int nOfData, void (*insert) (EventBinarySearchTree **, EventBinarySearchTree *))
+int checkRemoval (int result, Event *list, int nOfData, void (*insert) (EventBinarySearchTree **, EventBinarySearchTree *, EventBinarySearchTree *))
 {
     if (list == NULL)
     {
@@ -248,7 +248,7 @@ int checkRemoval (int result, Event *list, int nOfData, void (*insert) (EventBin
     }
     
     Event *current = NULL;
-    EventBinarySearchTree *tree = insertDataToEventBinarySearchTree(NULL, list, nOfData, insert);
+    EventBinarySearchTree *tree = insertDataToEventBinarySearchTree(NULL, NULL, list, nOfData, insert);
     
     for (current = list; current!= NULL; current = current->next)
     {
@@ -263,7 +263,7 @@ int checkRemoval (int result, Event *list, int nOfData, void (*insert) (EventBin
     freeAllEventBinarySearchTree(&tree);
     //goes straigth to last element of the list
     for (current = list; current->next != NULL; current = current->next);
-    tree = insertDataToEventBinarySearchTree(NULL, list, nOfData, insert);
+    tree = insertDataToEventBinarySearchTree(NULL, NULL, list, nOfData, insert);
     for (; current != NULL; current = current->previous)
     {
         EventBinarySearchTree **remove = searchEventBinarySearchTree(&tree, current);
@@ -279,7 +279,7 @@ int checkRemoval (int result, Event *list, int nOfData, void (*insert) (EventBin
     return result;
 }
 
-int checkRemovalBalance (int result, Event *list, int nOfData, void (*insert) (EventBinarySearchTree **, EventBinarySearchTree *))
+int checkRemovalBalance (int result, Event *list, int nOfData, void (*insert) (EventBinarySearchTree **, EventBinarySearchTree *, EventBinarySearchTree *))
 {
     if (list == NULL)
     {
@@ -287,7 +287,7 @@ int checkRemovalBalance (int result, Event *list, int nOfData, void (*insert) (E
     }
     
     Event *current = NULL;
-    EventBinarySearchTree *tree = insertDataToEventBinarySearchTree(NULL, list, nOfData, insert);
+    EventBinarySearchTree *tree = insertDataToEventBinarySearchTree(NULL, NULL, list, nOfData, insert);
     for (current = list; current!=NULL; current = current->next)
     {
         EventBinarySearchTree **remove = searchEventBinarySearchTree(&tree, current);

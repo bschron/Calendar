@@ -25,6 +25,7 @@ EventBinarySearchTree returnEmptyEventBinarySearchTree (void)
     empty.leftChild = NULL;
     empty.nameHash = 0;
     empty.rightChild = NULL;
+    empty.parent = NULL;
     
     return empty;
 }
@@ -39,7 +40,7 @@ EventBinarySearchTree* createEventBinarySearchTree (Event *event)
     return new;
 }
 
-void insertEventBinarySearchTree (EventBinarySearchTree **root, EventBinarySearchTree *new)
+void insertEventBinarySearchTree (EventBinarySearchTree **root, EventBinarySearchTree *new, EventBinarySearchTree *parent)
 {
     if (new == NULL)
     {
@@ -47,6 +48,7 @@ void insertEventBinarySearchTree (EventBinarySearchTree **root, EventBinarySearc
     }
     else if (*root == NULL)
     {
+        new->parent = parent;
         *root = new;
         return;
     }
@@ -64,7 +66,7 @@ void insertEventBinarySearchTree (EventBinarySearchTree **root, EventBinarySearc
     
     *root = balanceEventBinarySearchTree(*root);
     
-    insertEventBinarySearchTree(next, new);
+    insertEventBinarySearchTree(next, new, *root);
     
     *root = balanceEventBinarySearchTree(*root);
     return;

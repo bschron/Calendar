@@ -20,7 +20,7 @@ EventBinarySearchTree returnEmptyEventBinarySearchTree (void);
 /*returns the value of the provided EventBinarySearchTree Heigth*/
 int eventBinarySearchThreeHeigth (EventBinarySearchTree *root);
 /*inserts a new EventBinarySearchTree to the provided root, if the provided EventBinarySEarchTree pointer is NULL, will return and do nothing*/
-void insertEventBinarySearchTree (EventBinarySearchTree **root, EventBinarySearchTree *new);
+void insertEventBinarySearchTree (EventBinarySearchTree **root, EventBinarySearchTree *new, EventBinarySearchTree *parent);
 /*searches a EventBinarySearchTree, below the provided root, with the provided event and returns a double pointer to it. If a matching case is not found, will return a NULL pointer*/
 EventBinarySearchTree** searchEventBinarySearchTree (EventBinarySearchTree **root, Event *wanted);
 /*returns a double pointer to the left most child from the provided EventBinarySearchTree*/

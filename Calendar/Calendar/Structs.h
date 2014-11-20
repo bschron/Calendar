@@ -68,6 +68,7 @@ struct eventBinarySearchTree
     
     EventBinarySearchTree *leftChild;
     EventBinarySearchTree *rightChild;
+    EventBinarySearchTree *parent;
 };
 
 struct node

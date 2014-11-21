@@ -161,7 +161,7 @@ void printRecurrentEventFileExportingToStr (char *dest, int destLength, Event *e
 {
     char frequencyStr[Max];
     
-    if (event->recurrency != 2)
+    if (event->recurrency != 3)
     {
         int frequecyLength = 0;
         int i;

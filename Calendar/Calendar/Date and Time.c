@@ -597,7 +597,7 @@ Date* nextDayOfMonthToOccur (int *frequency, Date *current)
     
     current = increaseDate(current);
     
-    if (frequency[current->day] == 1)
+    if (frequency[current->day-1] == 1)
     {
         return current;
     }

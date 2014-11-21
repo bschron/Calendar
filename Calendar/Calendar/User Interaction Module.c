@@ -419,11 +419,10 @@ void userSetupRecorrentEventMonthlyEvent (Event *event)
     while (1)
     {
         resetScreen();
-        
+        printf("Marque com 1 os dias do mes que voce deseja repetir %s:\n", event->title);
+        printf("Alerta: Dependendo do mes, o agendamento dos dias 29 a 31 poderao não ocorrer.\n");
         for (i = 1; i<=31;)
         {
-            printf("Marque com 1 os dias do mes que voce deseja repetir %s:\n", event->title);
-            printf("Alerta: Dependendo do mes, o agendamento dos dias 29 a 31 poderao não ocorrer.\n");
             snprintf(output, sizeof(output)/sizeof(char), "%d", event->frequency[i-1]);
             printOption(&i, output);
         }

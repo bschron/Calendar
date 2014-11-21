@@ -280,6 +280,7 @@ Event *eventInsertEvent (Event *first, Event *new)
 Event* createRecurrentEvents (Event *main, char *title, char *desc, Date *starting, int recurrency, int *frequency)
 {
     Event *first = createEmptyEvent();
+    free(first->date);
     Event *new = NULL;
     Date *date = createDate(starting->day, starting->month, starting->year);
     int weekDay = dayOfWeek(NULL, date);
@@ -313,11 +314,16 @@ Event* createRecurrentEvents (Event *main, char *title, char *desc, Date *starti
     if (recurrency == 1)
     {
         date = createDate(first->date->day, first->date->month, first->date->year);
-        for (i=0; i<NumberOfRecurrences-1; i++, date=createDate(new->date->day, new->date->month, new->date->year))
+        for (i=0; i<NumberOfRecurrences-1; i++)
         {
+            if (i > 0)
+            {
+                date = createDate(new->date->day, new->date->month, new->date->year);
+            }
             date = increaseDate(date);
             weekDay = nextDayOfWeekToOccur(frequency, dayOfWeek(NULL, date));
             new = createEmptyEvent();
+            free(new->date);
             sprintf(new->title, "%s", title);
             sprintf(new->desc, "%s", desc);
             new->recurrences = main;
@@ -331,9 +337,14 @@ Event* createRecurrentEvents (Event *main, char *title, char *desc, Date *starti
     else if (recurrency == 2)
     {
         date = createDate(first->date->day, first->date->month, first->date->year);
-        for (i=0; i<NumberOfRecurrences-1; i++, date=createDate(new->date->day, new->date->month, new->date->year))
+        for (i=0; i<NumberOfRecurrences-1; i++)
         {
+            if (i > 0)
+            {
+                date = createDate(new->date->day, new->date->month, new->date->year);
+            }
             new = createEmptyEvent();
+            free(new->date);
             sprintf(new->title, "%s", title);
             sprintf(new->desc, "%s", desc);
             new->recurrences = main;
@@ -347,9 +358,14 @@ Event* createRecurrentEvents (Event *main, char *title, char *desc, Date *starti
     else if (recurrency == 3)
     {
         date = createDate(first->date->day, first->date->month, first->date->year);
-        for (i=0; i<NumberOfRecurrences-1; i++, date=createDate(new->date->day, new->date->month, new->date->year))
+        for (i=0; i<NumberOfRecurrences-1; i++)
         {
+            if (i > 0)
+            {
+                date = createDate(new->date->day, new->date->month, new->date->year);
+            }
             new = createEmptyEvent();
+            free(new->date);
             sprintf(new->title, "%s", title);
             sprintf(new->desc, "%s", desc);
             new->recurrences = main;

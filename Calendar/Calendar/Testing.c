@@ -11,10 +11,11 @@
 void testing (void)
 {
     
-    Calendar *calendar = importCalendarFromMainDirectory(NULL);
+    Calendar *cal = importCalendarFromMainDirectory(NULL);
     
-    freeAllEvents(&calendar->events);
-    free(calendar);
+    freeAllEvents(&cal->events);
+    free(cal);
+    
     
     getchar();
 }

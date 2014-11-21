@@ -93,6 +93,7 @@ void userEditEvent (Calendar *calendar)
         
         if (option == 0)
         {
+            free(date);
             return;
         }
         else if (option>optionNumber)
@@ -300,6 +301,7 @@ SearchingHp* userSearchEventByDate (Calendar *calendar)
     date->day = getNumber();
     date->month = getNumber();
     date->year = getNumber();
+    SearchingHp *hp = NULL;
     
     if (!validDate(date))
     {
@@ -309,7 +311,9 @@ SearchingHp* userSearchEventByDate (Calendar *calendar)
         return userSearchEventByDate(calendar);
     }
     
-    return enqueueEventsWithProvidedDate(NULL, dateSearchTable, date->day, date->month, date->year);
+    hp = enqueueEventsWithProvidedDate(NULL, dateSearchTable, date->day, date->month, date->year);
+    free(date);
+    return hp;
 }
 
 SearchingHp* userSearchEventByKeywords (Calendar *calendar)

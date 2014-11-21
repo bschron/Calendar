@@ -111,12 +111,20 @@ Calendar* importCalendarFromFile (Calendar* calendar, FILE *file)
     }
     else if (character == '+')
     {
-        Event *new = createEmptyEvent();
+        Event *provisory = createEmptyEvent();
+        Event *new = NULL;
+        int *provFrequency = (int*) malloc(sizeof(int));
         
-        new = getEventMainInformationsFromStream(file, new);
-        new = getRecurrentAdditionalInformationsFromStream(file, new);
+        provisory = getEventMainInformationsFromStream(file, provisory);
+        provisory = getRecurrentAdditionalInformationsFromStream(file, provisory);
+        //using createEvent function so recurrences will be created.
+        new = createEvent(provisory->date->day, provisory->date->month, provisory->date->year, provisory->desc, provisory->title, provisory->recurrency, provisory->frequency);
         
         calendar = insertEvent(calendar, new);
+        
+        //created a new provisory frequency, just to evoid SIGNALRBIT while running
+        provisory->frequency = provFrequency;
+        freeEvent(&provisory);
         
         return importCalendarFromFile(calendar, file);
     }

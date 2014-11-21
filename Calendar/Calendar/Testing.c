@@ -10,7 +10,11 @@
 
 void testing (void)
 {
-    avlTestCases();
+    
+    Calendar *calendar = importCalendarFromMainDirectory(NULL);
+    
+    freeAllEvents(&calendar->events);
+    free(calendar);
     
     getchar();
 }

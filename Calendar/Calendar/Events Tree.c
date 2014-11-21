@@ -72,7 +72,20 @@ Calendar* insertEvent (Calendar *calendar, Event *event)
         return insertEvent(createEmptyCalendar(), event);
     }
     
-    Event *new = createEvent(event->date->day, event->date->month, event->date->year, event->desc, event->title, event->recurrency, event->frequency);
+    removeEventReferences(event);
+    
+    Event *new = (Event*) malloc(sizeof(Event));
+    
+    new->date = event->date;
+    strcpy(new->desc, event->desc);
+    new->frequency = event->frequency;
+    new->next = event->next;
+    new->previous = event->previous;
+    new->recurrences = event->recurrences;
+    new->recurrency = event->recurrency;
+    strcpy(new->title, event->title);
+    
+    mapEventOnSearchTables(new);
     
     free(event);
     
@@ -89,8 +102,6 @@ Calendar* insertEvent (Calendar *calendar, Event *event)
         calendar->events->previous = new;
         calendar->events = new;
     }
-    //map event on searching tables
-    mapEventOnSearchTables(new);
     
     return calendar;
 }

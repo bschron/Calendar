@@ -138,7 +138,8 @@ EventBinarySearchTree* removeEventBinarySearchTree (EventBinarySearchTree *root,
             root = NULL;
         }
         
-        free(*remove);
+        //free(*remove);
+        freeEventBinarySearchTree(remove);
         
         *remove = NULL;
         
@@ -155,7 +156,8 @@ EventBinarySearchTree* removeEventBinarySearchTree (EventBinarySearchTree *root,
         *(*remove)->rightChild->parent = *(*remove)->parent;
         *remove = (*remove)->rightChild;
         
-        free(rmv);
+        //free(rmv);
+        freeEventBinarySearchTree(&rmv);
         
         if (*(*remove)->parent == NULL)
         {
@@ -171,7 +173,8 @@ EventBinarySearchTree* removeEventBinarySearchTree (EventBinarySearchTree *root,
         *(*remove)->leftChild->parent = *(*remove)->parent;
         *remove = (*remove)->leftChild;
         
-        free(rmv);
+        //free(rmv);
+        freeEventBinarySearchTree(&rmv);
         
         if (*(*remove)->parent == NULL)
         {
@@ -201,89 +204,6 @@ EventBinarySearchTree* removeEventBinarySearchTree (EventBinarySearchTree *root,
     
     return root;
 }
-/*
-{
-    if (remove == NULL)
-    {
-        return root;
-    }
-    else if (*remove == NULL)
-    {
-        return root;
-    }
-    else if (root == NULL)
-    {
-        return root;
-    }
-    
-    if ((*remove)->leftChild == NULL && (*remove)->rightChild == NULL)
-    {
-        
-        EventBinarySearchTree *removeParent = *(*remove)->parent;
-        
-        free(*remove);
-        *remove = NULL;
-
-        //root = balanceTillRoot(removeParent, root);
-    }
-    else if ((*remove)->leftChild == NULL)
-    {
-        EventBinarySearchTree *rmv = *remove;
-        
-        *(*remove)->rightChild->parent = *(*remove)->parent;
-        *remove = (*remove)->rightChild;
-        
-        //*remove = balanceEventBinarySearchTree(*remove);
-        //balanceTillRoot(remove);
-        
-        free(rmv);
-        rmv = NULL;
-        
-        //root = balanceTillRoot(*remove, root);
-    }
-    else if ((*remove)->rightChild == NULL)
-    {
-        EventBinarySearchTree *rmv = *remove;
-        
-        (*remove)->leftChild->parent = (*remove)->parent;
-        *remove = (*remove)->leftChild;
-        
-        //*remove = balanceEventBinarySearchTree(*remove);
-        //balanceTillRoot(remove);
-        
-        free(rmv);
-        rmv = NULL;
-        
-        //root = balanceTillRoot(*remove, root);
-    }
-    else if (eventBinarySearchThreeHeigth((*remove)->leftChild) > eventBinarySearchThreeHeigth((*remove)->rightChild))
-    {
-        EventBinarySearchTree **substitute = eventBinarySearchTreeRightMostChild(&(*remove)->leftChild);
-        
-        (*remove)->event = (*substitute)->event;
-        (*remove)->nameHash = (*substitute)->nameHash;
-        
-        removeEventBinarySearchTree(root, substitute);
-        
-        //*remove = balanceEventBinarySearchTree(*remove);
-        //balanceTillRoot(remove);
-    }
-    else
-    {
-        EventBinarySearchTree **substitute = eventBinarySearchTreeLeftMostChild(&(*remove)->rightChild);
-        
-        (*remove)->event = (*substitute)->event;
-        (*remove)->nameHash = (*substitute)->nameHash;
-        
-        removeEventBinarySearchTree(root, substitute);
-        
-        //*remove = balanceEventBinarySearchTree(*remove);
-        //balanceTillRoot(remove);
-    }
-    
-    return root;
-}
-*/
 EventBinarySearchTree** eventBinarySearchTreeLeftMostChild (EventBinarySearchTree **root)
 {
     if ((*root)->leftChild == NULL)
@@ -564,4 +484,23 @@ EventBinarySearchTree* balanceTillRoot (EventBinarySearchTree *start, EventBinar
     }
     
     return start;
+}
+
+void freeEventBinarySearchTree (EventBinarySearchTree **tree)
+{
+    if (tree == NULL)
+    {
+        return;
+    }
+    else if (*tree == NULL)
+    {
+        return;
+    }
+    
+    free(*tree);
+    free((*tree)->parent);
+    
+    *tree = NULL;
+    
+    return;
 }

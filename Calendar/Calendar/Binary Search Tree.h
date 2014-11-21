@@ -33,6 +33,8 @@ EventBinarySearchTree* removeEventBinarySearchTree (EventBinarySearchTree *root,
 TWC* EventBinarySearchTreeToList (EventBinarySearchTree *root, TWC *list);
 /*takes a double pointer to EventBinarySearchTree as argument. Frees every element of the provided tree and set the provided pointer to NULL.*/
 void freeAllEventBinarySearchTree (EventBinarySearchTree **root);
+/*Takes a double pointer to EventBinarySearchTree as argument. Frees te provided tree and attributes NULL to it's pointer.*/
+void freeEventBinarySearchTree (EventBinarySearchTree **tree);
 //AVL
 /*the functions below are responsible to balancing the tree for a LOGn search*/
 EventBinarySearchTree* eventBinarySearchTreeLLCase (EventBinarySearchTree *root);

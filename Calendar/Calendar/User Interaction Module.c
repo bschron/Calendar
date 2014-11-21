@@ -455,5 +455,7 @@ void userSetupRecorrentEventYearlyEvent (Event *event)
         event->frequency[1] = getNumber();
     } while (event->frequency[0] < 1 || event->frequency[0] > daysInMonth(event->frequency[1]) || event->frequency[1] < 1 || event->frequency[1] > 12);
     
+    //apply informations
+    event->recurrency = 3;
     return;
 }

@@ -9,7 +9,7 @@
 #include "Headers.h"
 
 int main(void)
-{
+{getchar();
     titleSearchTable = createEmptySearchTable();
     descriptionSearchTable = createEmptySearchTable();
     dateSearchTable = createEmptySearchTable();

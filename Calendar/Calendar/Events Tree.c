@@ -73,21 +73,14 @@ Calendar* insertEvent (Calendar *calendar, Event *event)
     }
     
     removeEventReferences(event);
+    int *provFrequency = (int*) malloc(sizeof(int));
     
-    Event *new = (Event*) malloc(sizeof(Event));
+    Event *new = createEvent(event->date->day, event->date->month, event->date->year, event->desc, event->title, event->recurrency, event->frequency);
     
-    new->date = event->date;
-    strcpy(new->desc, event->desc);
-    new->frequency = event->frequency;
-    new->next = event->next;
-    new->previous = event->previous;
-    new->recurrences = event->recurrences;
-    new->recurrency = event->recurrency;
-    strcpy(new->title, event->title);
+    event->frequency = provFrequency;
+    freeEvent(&event);
     
     mapEventOnSearchTables(new);
-    
-    free(event);
     
     if (calendar->events == NULL)
     {

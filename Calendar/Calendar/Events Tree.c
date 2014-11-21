@@ -408,11 +408,11 @@ void freeAllEvents (Event **events)
         return;
     }
     
-    Event *tofeed = *events;
+    Event *tofee = *events;
     
     *events = (*events)->next;
     
-    free(tofeed);
+    freeEvent(&tofee);
     
     return freeAllEvents(events);
 }

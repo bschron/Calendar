@@ -14,66 +14,70 @@ int avlTestCases (void)
     FILE *outputf = stdout;//output file
     EventBinarySearchTree *tree = NULL;
     int finalResult = 1;
-    fprintf(outputf, "AVL test cases: %d\n", nOfEventsForTesting);
     
-    //list of events for testing
-    Event *testCasesEvents = createRandomSetOfEvents(NULL, nOfEventsForTesting);
-    //insert testing events to AVL
-    tree = insertDataToEventBinarySearchTree(tree, NULL, testCasesEvents, nOfEventsForTesting, insertEventBinarySearchTree);
-    
-    //check if all elements are on the list
+    for (nOfEventsForTesting = 660; nOfEventsForTesting <= 666; nOfEventsForTesting ++)
     {
-        int result = checkIfGotEveryEventFromList(tree, testCasesEvents);
-        fprintf(outputf, "Inserting - %d\n", result);
-        if (result == 0)
+        fprintf(outputf, "AVL test cases: %d\n", nOfEventsForTesting);
+        
+        //list of events for testing
+        Event *testCasesEvents = createRandomSetOfEvents(NULL, nOfEventsForTesting);
+        //insert testing events to AVL
+        tree = insertDataToEventBinarySearchTree(tree, NULL, testCasesEvents, nOfEventsForTesting, insertEventBinarySearchTree);
+        
+        //check if all elements are on the list
         {
-            finalResult--;
+            int result = checkIfGotEveryEventFromList(tree, testCasesEvents);
+            fprintf(outputf, "Inserting - %d\n", result);
+            if (result == 0)
+            {
+                finalResult--;
+            }
         }
-    }
-    
-    //check if balancing is ok
-    {
-        int initial = 1;
-        int result = checkIfEveryNodeIsBalanced(initial, tree);
-        fprintf(outputf, "Balancing - %d\n", result/initial);
-        if (result != initial)
+        
+        //check if balancing is ok
         {
-            finalResult--;
+            int initial = 1;
+            int result = checkIfEveryNodeIsBalanced(initial, tree);
+            fprintf(outputf, "Balancing - %d\n", result/initial);
+            if (result != initial)
+            {
+                finalResult--;
+            }
         }
-    }
-    //check if searching is ok
-    {
-        int initial = 1;
-        int result = checkSearching(initial, &tree, testCasesEvents);
-        fprintf(outputf, "Searching - %d\n", result/initial);
-        if (result != initial)
+        //check if searching is ok
         {
-            finalResult--;
+            int initial = 1;
+            int result = checkSearching(initial, &tree, testCasesEvents);
+            fprintf(outputf, "Searching - %d\n", result/initial);
+            if (result != initial)
+            {
+                finalResult--;
+            }
         }
-    }
-    //check if removing is ok
-    {
-        int initial = 1;
-        int result = checkRemoval(initial, testCasesEvents, nOfEventsForTesting, insertEventBinarySearchTree);
-        fprintf(outputf, "Removing - %d\n", result/initial);
-        if (result != initial)
+        //check if removing is ok
         {
-            finalResult--;
+            int initial = 1;
+            int result = checkRemoval(initial, testCasesEvents, nOfEventsForTesting, insertEventBinarySearchTree);
+            fprintf(outputf, "Removing - %d\n", result/initial);
+            if (result != initial)
+            {
+                finalResult--;
+            }
         }
-    }
-    //check removal balance
-    {
-        int initial  = 1;
-        int result = checkRemovalBalance(initial, testCasesEvents, nOfEventsForTesting, insertEventBinarySearchTree);
-        fprintf(outputf, "Removal Balance - %d\n", result/initial);
-        if (result != initial)
+        //check removal balance
         {
-            finalResult--;
+            int initial = 1;
+            int result = checkRemovalBalance(initial, testCasesEvents, nOfEventsForTesting, insertEventBinarySearchTree);
+            fprintf(outputf, "Removal Balance - %d\n", result/initial);
+            if (result != initial)
+            {
+                finalResult--;
+            }
         }
+        //free
+        freeAllEvents(&testCasesEvents);
+        freeAllEventBinarySearchTree(&tree);
     }
-    //free
-    freeAllEvents(&testCasesEvents);
-    freeAllEventBinarySearchTree(&tree);
     
     fprintf(outputf, "\n\nFinal Result: %d\n", finalResult);
     

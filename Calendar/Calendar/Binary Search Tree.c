@@ -30,8 +30,10 @@ EventBinarySearchTree returnEmptyEventBinarySearchTree (void)
 
 EventBinarySearchTree* createEventBinarySearchTree (Event *event)
 {
-    EventBinarySearchTree *new = createEmptyEventBinaryTree();
+    EventBinarySearchTree *new = (EventBinarySearchTree*) malloc(sizeof(EventBinarySearchTree));
     
+    new->leftChild = NULL;
+    new->rightChild = NULL;
     new->event = event;
     new->nameHash = hashWord(event->title)+hashWord(event->desc);
     new->parent = (EventBinarySearchTree**) malloc(sizeof(EventBinarySearchTree*));
@@ -83,17 +85,17 @@ EventBinarySearchTree** searchEventBinarySearchTree (EventBinarySearchTree **roo
     
     if ((*root)->event == wantedStaple->event)
     {
-        free(wantedStaple);
+        freeEventBinarySearchTree(&wantedStaple);
         return root;
     }
     else if ((*root)->event < wantedStaple->event)
     {
-        free(wantedStaple);
+        freeEventBinarySearchTree(&wantedStaple);
         return searchEventBinarySearchTree(&(*root)->rightChild, wanted);
     }
     else
     {
-        free(wantedStaple);
+        freeEventBinarySearchTree(&wantedStaple);
         return searchEventBinarySearchTree(&(*root)->leftChild, wanted);
     }
 }
@@ -454,7 +456,7 @@ EventBinarySearchTree* balanceTillRoot (EventBinarySearchTree *start, EventBinar
     int side = 0;
     EventBinarySearchTree *parent = *start->parent;
     
-    if (start == root)
+    if (start == root || *start->parent == NULL)
     {
         end = 1;
     }
@@ -496,9 +498,12 @@ void freeEventBinarySearchTree (EventBinarySearchTree **tree)
     {
         return;
     }
+
+    free((*tree)->parent);
+    
+    (*tree)->parent = NULL;
     
     free(*tree);
-    free((*tree)->parent);
     
     *tree = NULL;
     

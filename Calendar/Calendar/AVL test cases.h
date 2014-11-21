@@ -39,4 +39,5 @@ int checkSearching (int result, EventBinarySearchTree **root, Event *list);
 int checkRemoval (int result, Event *list, int nOfData, void (*insert) (EventBinarySearchTree **, EventBinarySearchTree *, EventBinarySearchTree *));
 /*Takes a integer result, a pointer to Event list, a integer nOfData and a pointer ot function insert as arguments. Creates a EventBinarySearchTree with every element on the provided list, using the provided inserting function, removes every element on it and checks the balance for every element remove from the tree. For any element removed imbalance found on the tree, decreases the result by one. Returns result decreased by one if provided list is NULL. Returns result value unchanged if no imbalance is found.*/
 int checkRemovalBalance (int result, Event *list, int nOfData, void (*insert) (EventBinarySearchTree **, EventBinarySearchTree *, EventBinarySearchTree *));
+
 #endif /* defined(__Calendar__AVL_test_cases__) */

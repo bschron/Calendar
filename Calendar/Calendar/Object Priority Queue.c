@@ -56,11 +56,12 @@ PriorityQueue* enqueuePriorityQueue (PriorityQueue *queue, PQC* capsule, void* o
     }
     else if (capsule == NULL)
     {
-        return enqueuePriorityQueue(queue, createPQC(object, priority), NULL, not_in_use);
+        return enqueuePriorityQueue(queue, createPQC(object, priority), object, priority);
     }
     
     if (queue->length <= 0)
     {
+        capsule->next = NULL;
         queue->first = capsule;
     }
     else

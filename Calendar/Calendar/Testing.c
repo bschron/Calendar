@@ -10,12 +10,28 @@
 
 void testing (void)
 {
+    int priority = 0;
+    Event *list = createRandomSetOfEvents(NULL, 666);
+    Event *current = NULL;
     
-    Calendar *cal = importCalendarFromMainDirectory(NULL);
+    PriorityQueue *queue = createPriorityQueue();
     
-    freeAllEvents(&cal->events);
-    free(cal);
+    for (current = list, priority = 0; current != NULL; current = current->next, priority++)
+    {
+        queue = enqueuePriorityQueue(queue, NULL, current, priority);
+    }
     
+    PriorityQueue *queue2 = NULL;
+    
+    for (current = list, priority = 666; current != NULL; priority--, current = current->next)
+    {
+        queue = enqueuePriorityQueue(queue, NULL, current, priority);
+    }
+    
+    freeAllEvents(&list);
+    
+    freePriorityQueue(&queue);
+    freePriorityQueue(&queue2);
     
     getchar();
 }

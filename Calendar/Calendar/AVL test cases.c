@@ -15,7 +15,7 @@ int avlTestCases (void)
     EventBinarySearchTree *tree = NULL;
     int finalResult = 1;
     
-    for (nOfEventsForTesting = 660; nOfEventsForTesting <= 666; nOfEventsForTesting ++)
+    for (nOfEventsForTesting = 600; nOfEventsForTesting <= 666; nOfEventsForTesting ++)
     {
         fprintf(outputf, "AVL test cases: %d\n", nOfEventsForTesting);
         

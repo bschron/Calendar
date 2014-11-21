@@ -8,9 +8,18 @@
 
 #include "Testing.h"
 
-void testing (Calendar *main)
+void testing (void)
 {
     avlTestCases();
+    /*
+    int n = 8;
     
+    Event *list = createRandomSetOfEvents(NULL, n);
+    EventBinarySearchTree *tree = insertDataToEventBinarySearchTree(NULL, NULL, list, n, insertEventBinarySearchTree);
+    
+    tree = balanceTillRoot(*eventBinarySearchTreeLeftMostChild(&tree), tree);
+    
+    int i = checkIfEveryNodeIsBalanced(1, tree);
+    */
     getchar();
 }

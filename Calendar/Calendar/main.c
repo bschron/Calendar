@@ -14,10 +14,10 @@ int main(void)
     descriptionSearchTable = createEmptySearchTable();
     dateSearchTable = createEmptySearchTable();
     
+    testing();
+    
     Calendar *main = importCalendarFromMainDirectory(NULL);
     main = updateCalendar(main);
-    
-    testing(main);
  
     do
     {

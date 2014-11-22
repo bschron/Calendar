@@ -55,5 +55,6 @@ SearchTable *dateSearchTable;
 
 #include "Testing.h"
 #include "AVL test cases.h"
+#include "Priority Queue Test Cases.h"
 
 #endif

@@ -26,7 +26,8 @@ int main(void)
         printMainMenu();
         
         printf("\n\nEventos Agendados para esta Semana:\n");
-        printEventQueueTitles(eventQueueEnqueueEventsForThisWeek(NULL));
+        PriorityQueue *queue = enqueuePriorityQueueEventsForThisWeek(NULL);
+        printEventsTitleOfObjectPriorityQueue(&queue);
         
         exportEvents(main);
     } while (getMainMenuOptions(main));

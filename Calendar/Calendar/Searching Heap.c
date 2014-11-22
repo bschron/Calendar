@@ -303,15 +303,68 @@ SearchingHp* enqueueEventsWithProvidedDate (SearchingHp *hp, SearchTable *table,
         return enqueueEventsWithProvidedDate(createEmptyHp(), table, day, month, year);
     }
     
+    char strDay[6], strMonth[6], strYear[Max];
+    
+    snprintf(strDay, sizeof(strDay)/sizeof(char)-1, "%d", day);
+    snprintf(strMonth, sizeof(strMonth)/sizeof(char)-1, "%d", month);
+    snprintf(strYear, sizeof(strYear)/sizeof(char)-1, "%d", year);
+    
+    TWC *provisory = NULL;
+    TWC *list = NULL;
+    TWC* current = NULL;
+    TWC *next = NULL;
+    
+    hp = searchTableElementsToSearchingHp(hp, table, hashWord(strDay));
+    hp = searchTableElementsToSearchingHp(hp, table, hashWord(strMonth));
+    hp = searchTableElementsToSearchingHp(hp, table, hashWord(strYear));
+    
+    while (hp->hpLength > 0)
+    {
+        Event *current = NULL;
+        if (peekHpHighestPriority(hp) >= 3)
+        {
+            current = dequeueSearchingHp(hp);
+        }
+        else
+        {
+            dequeueSearchingHp(hp);
+        }
+        
+        if (current != NULL)
+        {
+            provisory = insertTWC(provisory, createTWC(current));
+        }
+    }
+    
+    for (current = provisory; current != NULL; current = next)
+    {
+        next = current->next;
+        Event* popped = popObject(&provisory);
+        
+        if (popped->date->day == day && popped->date->month == month && popped->date->year == year)
+        {
+            list = insertTWC(list, createTWC(popped));
+        }
+    }
+    
+    while (list != NULL)
+    {
+        Event *current = popObject(&list);
+        hp = enqueueSearchingHp(hp, current);
+    }
+    
+    return hp;
+    
+    /*
     SearchingHp *provisory = NULL;
     SearchingHp *provisory2 = NULL;
     Event *dequeued = NULL;
     
-    char strDay[4], strMonth[4], strYear[Max];
+    char strDay[6], strMonth[6], strYear[Max];
     
-    snprintf(strDay, sizeof(strDay)/sizeof(char), "%d", day);
-    snprintf(strMonth, sizeof(strMonth)/sizeof(char), "%d", month);
-    snprintf(strYear, sizeof(strYear)/sizeof(char), "%d", year);
+    snprintf(strDay, sizeof(strDay)/sizeof(char)-1, "%d", day);
+    snprintf(strMonth, sizeof(strMonth)/sizeof(char)-1, "%d", month);
+    snprintf(strYear, sizeof(strYear)/sizeof(char)-1, "%d", year);
     
     provisory = searchTableElementsToSearchingHp(provisory, table, hashWord(strDay));
     provisory = searchTableElementsToSearchingHp(provisory, table, hashWord(strMonth));
@@ -337,6 +390,7 @@ SearchingHp* enqueueEventsWithProvidedDate (SearchingHp *hp, SearchTable *table,
     free(provisory2);
     
     return hp;
+    */
 }
 
 SearchingHp* enqueueEventsForThisWeek (SearchingHp *hp, Date *now)

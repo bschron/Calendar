@@ -185,3 +185,43 @@ PriorityQueue* copyPriorityQueue (PriorityQueue *dest, PriorityQueue *source)
     
     return dest;
 }
+
+PriorityQueue* enqueuePriorityQueueEventsForNextNDays (PriorityQueue *queue, Date *startingDate, int remainingDays)
+{
+    if (queue == NULL)
+    {
+        return enqueuePriorityQueueEventsForNextNDays(createPriorityQueue(), startingDate, remainingDays);
+    }
+    else if (startingDate == NULL)
+    {
+        return enqueuePriorityQueueEventsForNextNDays(queue, getDate(NULL), remainingDays);
+    }
+    else if (remainingDays <= 0)
+    {
+        free(startingDate);
+        return queue;
+    }
+
+    SearchingHp *hp = enqueueEventsWithProvidedDate(NULL, dateSearchTable, startingDate->day, startingDate->month, startingDate->year);
+    
+    queue = searchingHpToPriorityQueueOrderedByDate(queue, hp);
+    
+    free(hp);
+    
+    return enqueuePriorityQueueEventsForNextNDays(queue, increaseDate(startingDate), remainingDays-1);
+}
+
+PriorityQueue* enqueuePriorityQueueEventsForThisWeek (PriorityQueue *queue)
+{
+    if (queue == NULL)
+    {
+        return enqueuePriorityQueueEventsForThisWeek(createPriorityQueue());
+    }
+    
+    Date *now = getDate(NULL);
+    int weekday = dayOfWeek(NULL, now);
+    
+    queue = enqueuePriorityQueueEventsForNextNDays(queue, now, 8-weekday);
+    
+    return queue;
+}

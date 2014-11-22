@@ -105,7 +105,7 @@ Event* createRandomSetOfEvents (Event *events, int nOfEvents)
     }
     
     int n = 1;
-    Date *date = createDate(1, 2, 2014);
+    Date *date = getDate(NULL);
     
     if (events != NULL)
     {
@@ -117,7 +117,7 @@ Event* createRandomSetOfEvents (Event *events, int nOfEvents)
     
     char *title = (char*) malloc(sizeof(char)*Max);
     sprintf(title, "test %d", n);
-    events = eventInsertEvent(events, createEvent(1, 2, 2012, "testing event", title, 0, NULL));
+    events = eventInsertEvent(events, createEvent(date->day, date->month, date->year, "testing event", title, 0, NULL));
     free(title);
     free(date);
     return createRandomSetOfEvents(events, nOfEvents-1);

@@ -35,4 +35,6 @@ void confirmSucess (void);
 void printEventQueue (EventQueue *queue);
 /*Takes pointer to EventQueue as argument. Dequeues provided queue until it's empty and print's the Title and basic info of event on it. Function stops whe queue length is zero or dequeued event is NULL. If provided pointer to EventQueue is NULL< returns.*/
 void printEventQueueTitles (EventQueue *queue);
+/*Takes a double pointer to priority queue as argument. Dequeues and print the title of every element on the provided queue, stops when queue is empty, frees queue. Returns whitout output if queue length is already zero or if queue is NULL.*/
+void printEventsTitleOfObjectPriorityQueue (PriorityQueue **queue);
 #endif /* defined(__Calendar__Output__) */

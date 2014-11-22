@@ -30,6 +30,10 @@ PQC* insertInRightPosition (PQC *first, PQC* capsule);
 void* dequeuePriorityQueue (PriorityQueue *queue);
 /*Takes a double pointer to PriorityQueue as argument. Dequeues all elements from provided queue, frees the queue and attributes NULL to it's pointer. Returns unchanged if the provided double pointer is NULL or if the single pointer is NULL.*/
 void freePriorityQueue (PriorityQueue **queue);
+/*Takes a pointer to PriorityQyeye and a pointer to Date as arguments. Searches for events on the provided date and n-1 days after that, enqueues them to a Searching heap than enqueues to PriorityQueue, ordered by date, returns pointer to this queue. Creates a new queue if provided is NULL. Gets computers current time if provided startingDate is NULL. Returns empty queue is provided remaining days is lesser or equal to one. Frees the provided Date.*/
+PriorityQueue* enqueuePriorityQueueEventsForNextNDays (PriorityQueue *queue, Date *startingDate, int remainingDays);
+/*Takes a pointer to PriorityQueue as argument. Calculates the remaining days in this week (includes next sunday) and calls enqueuePriorityQueueEventsForNextNdays to that queue for the remaining days in week.*/
+PriorityQueue* enqueuePriorityQueueEventsForThisWeek (PriorityQueue *queue);
 
 //transfering
 /*Takes a pointer to PriorityQueue and a pointer to SearchingHp as arguments. Dequeues the provided SearchingHp and inserts it's events into the provided PriorityQueue, the priority will be defined by distance between computer's current time and the event date. Returns a pointer to the PriorityQueue. Returns the provided queue unchanged if the provided SearchingHp is NULL or if it's length is equal or lesser to zero. Creates a new PriorityQueue if the provided is NULL.*/

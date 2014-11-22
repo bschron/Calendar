@@ -192,3 +192,26 @@ void printEventQueueTitles (EventQueue *queue)
     
     return printEventQueueTitles(queue);
 }
+
+void printEventsTitleOfObjectPriorityQueue (PriorityQueue **queue)
+{
+    if (queue == NULL)
+    {
+        return;
+    }
+    else if (*queue == NULL)
+    {
+        return;
+    }
+    else if ((*queue)->length == 0)
+    {
+        freePriorityQueue(queue);
+        return;
+    }
+    
+    Event *current = dequeuePriorityQueue(*queue);
+    
+    printEventTitle(stdout, current);
+    
+    return printEventsTitleOfObjectPriorityQueue(queue);
+}

@@ -13,7 +13,7 @@
 #define description 300
 #define SearchTableSize 661
 #define not_in_use -1
-#define SearchHpSize 60
+#define SearchHpSize 600
 #define MainDir "/Documents/spyridonsCalendar"
 #define MainCalendar "calendar"
 #define CalendarFileExtension ".spyridon"

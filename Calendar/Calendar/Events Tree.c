@@ -191,24 +191,28 @@ Date* createDate (int day, int month, int year)
     return new;
 }
 
-void editEvent (Event *event, Date *date, char *title, char *desc)
+void editEvent (Calendar *calendar, Event *event, Date *date, char *title, char *desc)
 {
     if (event == NULL || date == NULL || title == NULL || desc == NULL)
     {
         return;
     }
+    else if (event->recurrency < 0)
+    {
+        return editEvent(calendar, event->recurrences, date, title, desc);
+    }
     
-    //remove references
-    removeEventReferences(event);
+    //The outdate event's frequency was given to the new edited event, so we need to allocate a new provisory frequency for this event that will be removed, to avoid free-ing issues
+    int *provFrequency = (int*) malloc(sizeof(int));
     
-    event->date->day = date->day;
-    event->date->month = date->month;
-    event->date->year = date->year;
-    sprintf(event->title, "%s", title);
-    sprintf(event->desc, "%s", desc);
+    //new edited event
+    Event *edited = createEvent(date->day, date->month, date->year, desc, title, event->recurrency, event->frequency);
+    //insert Event to calendar
+    calendar = insertEvent(calendar, edited);
     
-    //renew references
-    mapEventOnSearchTables(event);
+    //remove outdated event
+    event->frequency = provFrequency;
+    calendar = removeEvent(calendar, event);
     
     return;
 }

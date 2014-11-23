@@ -18,7 +18,8 @@ Event returnEmptyEvent (void);
 Event* createEmptyEvent (void);
 /*returns a pointer to a new event with the provided content*/
 Event* createEvent (int day, int month, int year, char *desc, char *title, int recurrency, int *frequency);
-void editEvent (Event *event, Date *date, char *title, char *desc);
+
+void editEvent (Calendar *calendar, Event *event, Date *date, char *title, char *desc);
 /*Takes double pointer to Event. Frees event and event Date. If Event == NULL, returns*/
 void freeEvent (Event **event);
 /*takes two pointer to Event as argument, the first been the first node of a list of events and the second is the new node to be inserted on that lins of events. This functions insertes the new node to the provided list of events and return a pointer to eh first element. Returns NULL is the provided new element is a NULL pointer.*/

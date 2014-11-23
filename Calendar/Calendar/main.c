@@ -9,7 +9,7 @@
 #include "Headers.h"
 
 int main(void)
-{
+{getchar();
     titleSearchTable = createEmptySearchTable();
     descriptionSearchTable = createEmptySearchTable();
     dateSearchTable = createEmptySearchTable();
@@ -34,8 +34,7 @@ int main(void)
     
     exportEvents(main);
     
-    getchar();
-    
+    return 0;
 }
 
 void printMainMenu (void)
@@ -70,6 +69,7 @@ int getMainMenuOptions (Calendar *calendar)
             break;
         case 4:
             printEvent(stdout, userSearchEvent(calendar));
+            enterToContinue();
             break;
             
         default:

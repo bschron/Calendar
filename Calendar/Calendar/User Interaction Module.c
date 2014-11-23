@@ -93,8 +93,7 @@ void userEditEvent (Calendar *calendar)
         
         if (option == 0)
         {
-            free(date);
-            return;
+            break;
         }
         else if (option>optionNumber)
         {
@@ -105,10 +104,22 @@ void userEditEvent (Calendar *calendar)
         {
             userEditEventGetInput(option, date, input, sizeof(input)/sizeof(char));
             userEditEventEditEvent(option, date, input, sizeof(input)/sizeof(char), edit, calendar);
+            
+            //breaks so editing is no longer available when event is removed.
+            if (option == 4)
+            {
+                break;
+            }
+            else//renovates event, since edited event was actually removed and a new was created (first on calendar's list)
+            {
+                edit = calendar->events;
+            }
         }
     }
     
     free(date);
+    
+    return;
 }
 
 void userEditEventGetInput (int option, Date *date, char *dest, int destLength)
@@ -160,16 +171,21 @@ void userEditEventGetInput (int option, Date *date, char *dest, int destLength)
 
 void userEditEventEditEvent (int option, Date *date, char *str, int destLength, Event *event, Calendar *calendar)
 {
+    if (event->recurrency < 0)//force editing original event, not mirrored recurrency
+    {
+        return userEditEventEditEvent(option, date, str, destLength, event->recurrences, calendar);
+    }
+    
     switch (option)
     {
         case 1:
-            editEvent(event, event->date, str, event->desc);
+            editEvent(calendar, event, event->date, str, event->desc);
             break;
         case 2:
-            editEvent(event, event->date, event->title, str);
+            editEvent(calendar, event, event->date, event->title, str);
             break;
         case 3:
-            editEvent(event, date, event->title, event->desc);
+            editEvent(calendar, event, date, event->title, event->desc);
             break;
         case 4:
             calendar = removeEvent(calendar, event);

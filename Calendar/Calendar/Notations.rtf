@@ -1,0 +1,38 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1343\cocoasubrtf160
+{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fnil\fcharset0 Monaco;}
+{\colortbl;\red255\green255\blue255;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{hyphen\}}{\leveltext\leveltemplateid1\'01\uc0\u8259 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}}
+\margl1440\margr1440\vieww9000\viewh8400\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl480\slmult1\pardirnatural
+
+\f0\fs22 \cf0  Data Structures used on this project:\
+ \
+\pard\tx220\tx720\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\li720\fi-720\sl480\slmult1\pardirnatural
+\ls1\ilvl0\cf0 {\listtext	
+\f1 \uc0\u8259 
+\f0 	}Events List -> A simple list of Events that's usually given to a calendar\
+{\listtext	
+\f1 \uc0\u8259 
+\f0 	} Search Table -> A simple HashTable that's used for mapping the events and helps to speed searches, edits and removals up.\
+{\listtext	
+\f1 \uc0\u8259 
+\f0 	} EventBinarySearchTree -> AVL used for solving conflicts on SearchTable while providing faster searching, editing and removal of events.\
+{\listtext	
+\f1 \uc0\u8259 
+\f0 	} Node is a simple double linked list that contais a string and a integer, really useful on some applications\
+{\listtext	
+\f1 \uc0\u8259 
+\f0 	} Searching Heap -> a Heap that usually receives searching data, keeping the most recurrent ones on top. Most recurrent events are the ones who are most likely to be the desired ones, so this Heap helps to keep them on top while with a greater performance.\
+{\listtext	
+\f1 \uc0\u8259 
+\f0 	} Event Queue -> A simple Queue for Events, really in handy when FIFO is needed (EX.: When needed to prints event's in Date order).\
+{\listtext	
+\f1 \uc0\u8259 
+\f0 	} Event Capsule -> A alternative way to insert events on a list without affecting it's calendar's properties (It's used by EventQueue)\
+{\listtext	
+\f1 \uc0\u8259 
+\f0 	} Object Priority Queue -> A priority queue that's not attached to any particular TYPE, uses a void* pointer to keep object's address. This Structure was implemented on the end of project (Has idea too late), was not used very frequently since all other structures was working just fine (Used to print searched events on date order, in this case EventQueue could not be used since the events could be added in any order).\
+{\listtext	
+\f1 \uc0\u8259 
+\f0 	} Object List -> Same idea of Object Priority Queue, was not also used frequently since was added on end of project, it's not attached to any particular TYPE, but it's a simple list. (Was used for listing events without affecting calendar's proprieties. Used also for listing every element of EventBinarySearchTree that's used on AVL test cases).}

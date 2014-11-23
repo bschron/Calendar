@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 UNIUM automação. All rights reserved.
 //
 
-#include "Events Tree.h"
+#include "Events List.h"
 
 Event* createEmptyEvent (void)
 {

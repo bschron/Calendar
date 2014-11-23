@@ -12,7 +12,7 @@
 		862432FF1A0F8041004ADD65 /* File Management.c in Sources */ = {isa = PBXBuildFile; fileRef = 862432FD1A0F8041004ADD65 /* File Management.c */; };
 		86279BBD1A0ACFF200A5E6B5 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 86279BBC1A0ACFF200A5E6B5 /* main.c */; };
 		86279BCD1A0AD06100A5E6B5 /* Binary Search Tree.c in Sources */ = {isa = PBXBuildFile; fileRef = 86279BC31A0AD06100A5E6B5 /* Binary Search Tree.c */; };
-		86279BCE1A0AD06100A5E6B5 /* Events Tree.c in Sources */ = {isa = PBXBuildFile; fileRef = 86279BC51A0AD06100A5E6B5 /* Events Tree.c */; };
+		86279BCE1A0AD06100A5E6B5 /* Events List.c in Sources */ = {isa = PBXBuildFile; fileRef = 86279BC51A0AD06100A5E6B5 /* Events List.c */; };
 		86279BCF1A0AD06100A5E6B5 /* Search Table.c in Sources */ = {isa = PBXBuildFile; fileRef = 86279BC81A0AD06100A5E6B5 /* Search Table.c */; };
 		86279BD01A0AD06100A5E6B5 /* Support Functions.c in Sources */ = {isa = PBXBuildFile; fileRef = 86279BCB1A0AD06100A5E6B5 /* Support Functions.c */; };
 		863062211A1A86D7009E801E /* Object Priority Queue.c in Sources */ = {isa = PBXBuildFile; fileRef = 8630621F1A1A86D7009E801E /* Object Priority Queue.c */; };
@@ -52,8 +52,8 @@
 		86279BBC1A0ACFF200A5E6B5 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		86279BC31A0AD06100A5E6B5 /* Binary Search Tree.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "Binary Search Tree.c"; sourceTree = "<group>"; };
 		86279BC41A0AD06100A5E6B5 /* Binary Search Tree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Binary Search Tree.h"; sourceTree = "<group>"; };
-		86279BC51A0AD06100A5E6B5 /* Events Tree.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "Events Tree.c"; sourceTree = "<group>"; };
-		86279BC61A0AD06100A5E6B5 /* Events Tree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Events Tree.h"; sourceTree = "<group>"; };
+		86279BC51A0AD06100A5E6B5 /* Events List.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "Events List.c"; sourceTree = "<group>"; };
+		86279BC61A0AD06100A5E6B5 /* Events List.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Events List.h"; sourceTree = "<group>"; };
 		86279BC71A0AD06100A5E6B5 /* Headers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Headers.h; sourceTree = "<group>"; };
 		86279BC81A0AD06100A5E6B5 /* Search Table.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "Search Table.c"; sourceTree = "<group>"; };
 		86279BC91A0AD06100A5E6B5 /* Search Table.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Search Table.h"; sourceTree = "<group>"; };
@@ -62,6 +62,7 @@
 		86279BCC1A0AD06100A5E6B5 /* Support Functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Support Functions.h"; sourceTree = "<group>"; };
 		8630621F1A1A86D7009E801E /* Object Priority Queue.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "Object Priority Queue.c"; sourceTree = "<group>"; };
 		863062201A1A86D7009E801E /* Object Priority Queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Object Priority Queue.h"; sourceTree = "<group>"; };
+		863A34991A216A3B0096CAA4 /* Notations.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Notations.rtf; sourceTree = "<group>"; };
 		863B25A11A139097002AC7BE /* Event Queue.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "Event Queue.c"; sourceTree = "<group>"; };
 		863B25A21A139097002AC7BE /* Event Queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Event Queue.h"; sourceTree = "<group>"; };
 		863B25A41A13E795002AC7BE /* Event Capsule.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "Event Capsule.c"; sourceTree = "<group>"; };
@@ -121,8 +122,8 @@
 				86D7A44B1A0BB4BA009C67EF /* Main.h */,
 				86279BC31A0AD06100A5E6B5 /* Binary Search Tree.c */,
 				86279BC41A0AD06100A5E6B5 /* Binary Search Tree.h */,
-				86279BC51A0AD06100A5E6B5 /* Events Tree.c */,
-				86279BC61A0AD06100A5E6B5 /* Events Tree.h */,
+				86279BC51A0AD06100A5E6B5 /* Events List.c */,
+				86279BC61A0AD06100A5E6B5 /* Events List.h */,
 				86279BC81A0AD06100A5E6B5 /* Search Table.c */,
 				86279BC91A0AD06100A5E6B5 /* Search Table.h */,
 				86279BCB1A0AD06100A5E6B5 /* Support Functions.c */,
@@ -147,6 +148,7 @@
 				863062201A1A86D7009E801E /* Object Priority Queue.h */,
 				8654A9351A1D11D90057A69A /* Object List.c */,
 				8654A9361A1D11D90057A69A /* Object List.h */,
+				863A34991A216A3B0096CAA4 /* Notations.rtf */,
 				86D7A4521A0CC442009C67EF /* Testing */,
 			);
 			path = Calendar;
@@ -236,7 +238,7 @@
 				86C7306E1A2007A900D2C025 /* Priority Queue Test Cases.c in Sources */,
 				86279BD01A0AD06100A5E6B5 /* Support Functions.c in Sources */,
 				86E017FD1A1CCED10063B9EF /* AVL test cases.c in Sources */,
-				86279BCE1A0AD06100A5E6B5 /* Events Tree.c in Sources */,
+				86279BCE1A0AD06100A5E6B5 /* Events List.c in Sources */,
 				86D7A44E1A0BB7B1009C67EF /* Searching Heap.c in Sources */,
 				86279BBD1A0ACFF200A5E6B5 /* main.c in Sources */,
 				861FFE741A10F1A0004BC3EE /* Output.c in Sources */,

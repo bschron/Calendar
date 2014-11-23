@@ -38,7 +38,7 @@ SearchTable *descriptionSearchTable;
 SearchTable *dateSearchTable;
 
 #include "Main.h"
-#include"Events Tree.h"
+#include"Events List.h"
 #include"Search Table.h"
 #include"Binary Search Tree.h"
 #include"Support Functions.h"

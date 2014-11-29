@@ -15,7 +15,7 @@ void printBulletedListLine (FILE *stream, char *str)
         return;
     }
     
-    fprintf(stream, "*%s\n", str);
+    fprintf(stream, "%s*%s%s\n", KBLU, RESET, str);
 }
 
 void printEvent (FILE *stream, Event *event)
@@ -32,9 +32,92 @@ void printEvent (FILE *stream, Event *event)
     char weekDay[10];
     dayOfWeek(weekDay, event->date);
     
-    fprintf(stream, "*%s\n", event->title);
-    fprintf(stream, "%s - %d/%d/%d\n", weekDay, event->date->day, event->date->month, event->date->year);
-    fprintf(stream, "%s\n\n", event->desc);
+    fprintf(stream, "%s*%s%s\n", KBLU, RESET, event->title);
+    fprintf(stream, "%s%s%s - %d/%d/%d\n", KBLU, RESET, weekDay, event->date->day, event->date->month, event->date->year);
+    fprintf(stream, "%s\n", event->desc);
+    
+    if (event->recurrency == 1 || event->recurrency == -1)
+    {
+        fprintf(stream, "Ocorrencias: ");
+        if (event->frequency[0] == 1)
+        {
+            fprintf(stream, "%sD%s-", KBLU, RESET);
+        }
+        else
+        {
+            fprintf(stream, "d-");
+        }
+        if (event->frequency[1] == 1)
+        {
+            fprintf(stream, "%sS%s-", KBLU, RESET);
+        }
+        else
+        {
+            fprintf(stream, "s-");
+        }
+        if (event->frequency[2] == 1)
+        {
+            fprintf(stream, "%sT%s-", KBLU, RESET);
+        }
+        else
+        {
+            fprintf(stream, "t-");
+        }
+        if (event->frequency[3] == 1)
+        {
+            fprintf(stream, "%sQ%s-", KBLU, RESET);
+        }
+        else
+        {
+            fprintf(stream, "q-");
+        }
+        if (event->frequency[4] == 1)
+        {
+            fprintf(stream, "%sQ%s-", KBLU, RESET);
+        }
+        else
+        {
+            fprintf(stream, "q-");
+        }
+        if (event->frequency[5] == 1)
+        {
+            fprintf(stream, "%sS%s-", KBLU, RESET);
+        }
+        else
+        {
+            fprintf(stream, "s-");
+        }
+        if (event->frequency[6] == 1)
+        {
+            fprintf(stream, "%sS%s", KBLU, RESET);
+        }
+        else
+        {
+            fprintf(stream, "s");
+        }
+        fprintf(stream, "\n");
+    }
+    else if (event->recurrency == 2 || event->recurrency == -2)
+    {
+        fprintf(stream, "Ocorrencias: ");
+        int i;
+        int *frequency = event->frequency;
+        if (event->recurrency == -2)
+        {
+            frequency = event->recurrences->frequency;
+        }
+        
+        for (i = 0; i<31; i++)
+        {
+            if (frequency[i] == 1)
+            {
+                fprintf(stream, "%s%d%s ", KBLU, i+1, RESET);
+            }
+        }
+        fprintf(stream, "\n");
+    }
+    
+    fprintf(stream, "\n");
     
     return;
 }
@@ -53,7 +136,7 @@ void printEventTitle (FILE *stream, Event *event)
     char weekDay[10];
     dayOfWeek(weekDay, event->date);
     
-    fprintf(stream, "*%s   -%s\n", event->title, weekDay);
+    fprintf(stream, "%s*%s%s   -%s%s%s\n", KBLU, RESET, event->title, KMAG, weekDay, RESET);
     
     return;
 }
@@ -113,7 +196,7 @@ void resetScreen (void)
     Date *date = getDate(NULL);
     dayOfWeek(day, date);
     
-    fprintf(stdout, "Calendario Spyridon          %s-%d/%d/%d\n", day, date->day, date->month, date->year);
+    fprintf(stdout, "%sCalendario Spyridon%s          %s-%d/%d/%d\n%s", KBLU, KCYN, day, date->day, date->month, date->year, RESET);
     fprintf(stdout, "0-Voltar/Cancelar\n");
     
     free(date);
@@ -127,19 +210,19 @@ void printOption (int *optionNumber, char *str)
 
 void enterToContinue (void)
 {
-    printf("Aperte Enter para continuar:");
+    printf("%sAperte %sEnter%s para continuar:%s", KBLU, KCYN, KBLU, RESET);
     getchar();
 }
 
 void wrongInput (void)
 {
-    printf("\nVoce forneceu uma entrada errada, por favor, tente novamente:\n");
+    printf("\n%sVoce forneceu uma entrada errada, por favor, tente novamente:%s\n", KRED, RESET);
     //enterToContinue();
 }
 
 void confirmSucess (void)
 {
-    printf("Operacao efetuada com sucesso.\n");
+    printf("%sOperacao efetuada com sucesso.%s\n", KGRN, RESET);
     enterToContinue();
 }
 

@@ -144,7 +144,6 @@ SearchingHp* enqueueSearchingHp (SearchingHp *hp, Event *item)
     
     if (item == returnSearchingHeapItemItem(hp, i))
     {
-        (hp->priority[i])++;
         attributeInfoToSearchingHpPosition(hp, i, returnSearchingHeapItemItem(hp, i), returnSearchingHeapItemPriority(hp, i)+1);
         hpfySearchingHp(hp, i);
     }
@@ -189,11 +188,10 @@ Event* dequeueSearchingHp (SearchingHp *hp)
     Event *dequeued = hp->hp[0];
     
     //replace first with last
-    hp->hp[0] = hp->hp[hp->hpLength-1];
-    hp->priority[0] = hp->priority[hp->hpLength-1];
+    hp->hp[0] = returnSearchingHeapItemItem(hp, hp->hpLength-1);
+    hp->priority[0] = returnSearchingHeapItemPriority(hp, hp->hpLength-1);
     //remove last
-    hp->hp[hp->hpLength-1] = NULL;
-    hp->priority[hp->hpLength-1] = -1;
+    attributeInfoToSearchingHpPosition(hp, hp->hpLength-1, NULL, -1);
     //decrease hp length
     (hp->hpLength)--;
     
@@ -206,14 +204,18 @@ Event* dequeueSearchingHp (SearchingHp *hp)
 
 int maxSearchingHpChild (SearchingHp *hp, int left, int right)
 {
-    if (hp->priority[left] > hp->priority[right])
+    int bigger;
+    
+    if (returnSearchingHeapItemPriority(hp, left) > returnSearchingHeapItemPriority(hp, right))
     {
-        return left;
+        bigger = left;
     }
     else
     {
-        return right;
+        bigger = right;
     }
+    
+    return bigger;
 }
 
 SearchingHp* searchTableElementsToSearchingHp (SearchingHp *hp, SearchTable *table, int hash)
@@ -369,43 +371,6 @@ SearchingHp* enqueueEventsWithProvidedDate (SearchingHp *hp, SearchTable *table,
     }
     
     return hp;
-    
-    /*
-    SearchingHp *provisory = NULL;
-    SearchingHp *provisory2 = NULL;
-    Event *dequeued = NULL;
-    
-    char strDay[6], strMonth[6], strYear[Max];
-    
-    snprintf(strDay, sizeof(strDay)/sizeof(char)-1, "%d", day);
-    snprintf(strMonth, sizeof(strMonth)/sizeof(char)-1, "%d", month);
-    snprintf(strYear, sizeof(strYear)/sizeof(char)-1, "%d", year);
-    
-    provisory = searchTableElementsToSearchingHp(provisory, table, hashWord(strDay));
-    provisory = searchTableElementsToSearchingHp(provisory, table, hashWord(strMonth));
-    provisory = searchTableElementsToSearchingHp(provisory, table, hashWord(strYear));
-    //get only Events with at least 3 matchings
-    while (peekHpHighestPriority(provisory) >= 3)
-    {
-        dequeued = dequeueSearchingHp(provisory);
-        provisory2 = enqueueSearchingHp(provisory2, dequeued);
-    }
-    //clear provisory heap
-    for (dequeued = dequeueSearchingHp(provisory); dequeued != NULL; dequeued = dequeueSearchingHp(provisory));
-    //get only events with that exact date
-    for (dequeued = dequeueSearchingHp(provisory2); dequeued != NULL; dequeued = dequeueSearchingHp(provisory2))
-    {
-        if (dequeued->date->day == day && dequeued->date->month == month && dequeued->date->year == year)
-        {
-            hp = enqueueSearchingHp(hp, dequeued);
-        }
-    }
-    
-    free(provisory);
-    free(provisory2);
-    
-    return hp;
-    */
 }
 
 SearchingHp* enqueueEventsForThisWeek (SearchingHp *hp, Date *now)
@@ -464,8 +429,7 @@ SearchingHp* duplicateSearchingHp (SearchingHp *hp)
     int i;
     for (i = 0; i<hp->hpLength; i++)
     {
-        new->hp[i] = hp->hp[i];
-        new->priority[i] = hp->priority[i];
+        attributeInfoToSearchingHpPosition(new, i, returnSearchingHeapItemItem(hp, i), returnSearchingHeapItemPriority(hp, i));
     }
     new->hpLength = hp->hpLength;
     

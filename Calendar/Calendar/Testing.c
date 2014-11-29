@@ -10,7 +10,20 @@
 
 void testing (void)
 {
-    PQTEstCases();
+    int length = 3;
+    
+    Event* list = createRandomSetOfEvents(NULL, length);
+    SearchingHp *hp = NULL;
+    Event *current = NULL;
+    int i;
+    
+    for (i = 0; i < 2; i++)
+    {
+        for (current = list; current != NULL; current = current->next)
+        {
+            hp = enqueueSearchingHp(hp, current);
+        }
+    }
     
     getchar();
 }

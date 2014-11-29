@@ -33,8 +33,12 @@ Event* dequeueSearchingHp (SearchingHp *hp);
 int maxSearchingHpChild (SearchingHp *hp, int left, int right);
 /*enqueues every single node from a EventBinarySearchTree to the provided heap. If the root is NULL, will return the with no changes made to the heap, else if the heap is null, will return NULL*/
 SearchingHp* eventBinarySearchTreeToSearchingHp (SearchingHp *hp, EventBinarySearchTree *root);
+/*enqueues every single node that's not a mirrored recurrency from a EventBinarySearchTree to the provided heap. If the root is NULL, will return the with no changes made to the heap, else if the heap is null, will return NULL*/
+SearchingHp* eventBinarySearchTreeNotRecurrentToSearchingHp (SearchingHp *hp, EventBinarySearchTree *root);
 /*enqueues every single node from the tree of a specific (defined by the hash variable) array position of the provided SearchTable. Creates a new heap, if the provided is NULL and will return the heap with no changes if it satisfies one if the following conditions: provided table is NULL, provided hash variable is smaller than zero or bigger than the array size, that spoecific position of the array is NULL*/
 SearchingHp* searchTableElementsToSearchingHp (SearchingHp *hp, SearchTable *table, int hash);
+/*enqueues every single node that's not a recurrency from the tree of a specific (defined by the hash variable) array position of the provided SearchTable. Creates a new heap, if the provided is NULL and will return the heap with no changes if it satisfies one if the following conditions: provided table is NULL, provided hash variable is smaller than zero or bigger than the array size, that spoecific position of the array is NULL*/
+SearchingHp* searchTableNotRecurrentElementsToSearchingHp (SearchingHp *hp, SearchTable *table, int hash);
 /*enqueues events with a hash equal to the provided word. will create a new heap if the heap is NULL and return it unchanged if table is NULL or word is equal to ""*/
 SearchingHp* enqueueEventsWithSimilarWord (SearchingHp *hp, SearchTable *table, char *word);
 /*gets word by word from provided text and enqueues events with similar words, will create a new heap if the provided heap is NULL and return it unchanged if the provided table is NULL or the title is equal to ""*/

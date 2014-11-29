@@ -242,6 +242,30 @@ SearchingHp* searchTableElementsToSearchingHp (SearchingHp *hp, SearchTable *tab
     return hp;
 }
 
+SearchingHp* searchTableNotRecurrentElementsToSearchingHp (SearchingHp *hp, SearchTable *table, int hash)
+{
+    if (table == NULL)
+    {
+        return hp;
+    }
+    else if (hash < 0 || hash >= SearchTableSize)
+    {
+        return hp;
+    }
+    else if (table->table[hash] == NULL)
+    {
+        return hp;
+    }
+    else if (hp == NULL)
+    {
+        return searchTableNotRecurrentElementsToSearchingHp(createEmptyHp(), table, hash);
+    }
+    
+    hp = eventBinarySearchTreeNotRecurrentToSearchingHp(hp, table->table[hash]);
+    
+    return hp;
+}
+
 SearchingHp* eventBinarySearchTreeToSearchingHp (SearchingHp *hp, EventBinarySearchTree *root)
 {
     if (root == NULL)
@@ -260,6 +284,27 @@ SearchingHp* eventBinarySearchTreeToSearchingHp (SearchingHp *hp, EventBinarySea
     return hp;
 }
 
+SearchingHp* eventBinarySearchTreeNotRecurrentToSearchingHp (SearchingHp *hp, EventBinarySearchTree *root)
+{
+    if (root == NULL)
+    {
+        return hp;
+    }
+    else if (hp == NULL)
+    {
+        return NULL;
+    }
+    
+    if (root->event->recurrency >= 0)
+    {
+        hp = enqueueSearchingHp(hp, root->event);
+    }
+    hp = eventBinarySearchTreeNotRecurrentToSearchingHp(hp, root->leftChild);
+    hp = eventBinarySearchTreeNotRecurrentToSearchingHp(hp, root->rightChild);
+    
+    return hp;
+}
+
 SearchingHp* enqueueEventsWithSimilarWord (SearchingHp *hp, SearchTable *table, char *word)
 {
     if (table == NULL || strcmp(word, "") == 0)
@@ -273,7 +318,7 @@ SearchingHp* enqueueEventsWithSimilarWord (SearchingHp *hp, SearchTable *table, 
     
     int hash = hashWord(word);
     
-    return searchTableElementsToSearchingHp(hp, table, hash);
+    return searchTableNotRecurrentElementsToSearchingHp(hp, table, hash);
 }
 
 SearchingHp* enqueueEventsWithSimilarText (SearchingHp *hp, SearchTable *table, char *text)

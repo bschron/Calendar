@@ -13,7 +13,7 @@
 
 /*returns a pointer to a new EventBinarySearchTree with empty flags*/
 EventBinarySearchTree* createEmptyEventBinaryTree (void);
-/*returns a pointer to a new EventBinarySearchTree with the provided event values*/
+/*Takes a pointer to Event *events as argument. Allocates a new EventBinarySearchTree, attributes the provided pointer as argument and returns a pointer to the newly allocated EventBinarySearchTree.*/
 EventBinarySearchTree* createEventBinarySearchTree (Event *event);
 /*returns a EventBinarySearchTree with empty flags*/
 EventBinarySearchTree returnEmptyEventBinarySearchTree (void);

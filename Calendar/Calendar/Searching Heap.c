@@ -63,7 +63,7 @@ void hpfySearchingHp (SearchingHp *hp, int parent)
     {
         return;
     }
-    else if (hp->hp[parent] == NULL)
+    else if (returnSearchingHeapItemItem(hp, parent) == NULL)
     {
         return;
     }
@@ -71,7 +71,7 @@ void hpfySearchingHp (SearchingHp *hp, int parent)
     {
         int parentParent = hpParent(parent);
         
-        if (hp->priority[parent] > hp->priority[parentParent])
+        if (returnSearchingHeapItemPriority(hp, parent) > returnSearchingHeapItemPriority(hp, parentParent))
         {
             hpfySearchingHp(hp, parentParent);
         }
@@ -79,17 +79,17 @@ void hpfySearchingHp (SearchingHp *hp, int parent)
     
     int leftChild = hpLeftChild(parent);
     int rightChild = hpRightChild(parent);
-    if (hp->hp[leftChild] == NULL || leftChild >= SearchHpSize)
+    if (returnSearchingHeapItemItem(hp, leftChild) == NULL)
     {
         leftChild = -1;
     }
-    if (hp->hp[rightChild] == NULL || rightChild >= SearchHpSize)
+    if (returnSearchingHeapItemItem(hp, rightChild) == NULL)
     {
         rightChild = -1;
     }
     int biggestChild = maxSearchingHpChild(hp, leftChild, rightChild);
     
-    if (hp->hp[biggestChild] != NULL && hp->priority[parent] < hp->priority[biggestChild])
+    if (returnSearchingHeapItemItem(hp, biggestChild) != NULL && returnSearchingHeapItemPriority(hp, parent) < returnSearchingHeapItemPriority(hp, biggestChild))
     {
         switchSearchingHpItems(hp, parent, biggestChild);
         hpfySearchingHp(hp, biggestChild);
@@ -103,15 +103,28 @@ void switchSearchingHpItems (SearchingHp *hp, int item1, int item2)
 {
     int transitionInt;
     Event *transitionEvent;
+    SearchingHp *hp1 = getRightSearchingHeapItem(hp, item1, NULL, NULL);
+    SearchingHp *hp2 = getRightSearchingHeapItem(hp, item2, NULL, NULL);
     
-    transitionEvent = hp->hp[item1];
-    transitionInt = hp->priority[item1];
+    if (hp1->hpNumber != 0)
+    {
+        item1 = item1 % (hp1->hpNumber*SearchHpSize);
+    }
+    if (hp2->hpNumber != 0)
+    {
+        item2 = item2 % (hp2->hpNumber*SearchHpSize);
+    }
     
-    hp->hp[item1] = hp->hp[item2];
-    hp->priority[item1] = hp->priority[item2];
+    transitionEvent = hp1->hp[item1];
+    transitionInt = hp1->priority[item1];
     
-    hp->hp[item2] = transitionEvent;
-    hp->priority[item2] = transitionInt;
+    hp1->hp[item1] = hp2->hp[item2];
+    hp1->priority[item1] = hp2->priority[item2];
+    
+    hp2->hp[item2] = transitionEvent;
+    hp2->priority[item2] = transitionInt;
+    
+    return;
 }
 
 SearchingHp* enqueueSearchingHp (SearchingHp *hp, Event *item)
@@ -146,7 +159,6 @@ SearchingHp* enqueueSearchingHp (SearchingHp *hp, Event *item)
 }
 
 void initializeSearchingHp (SearchingHp *hp)
-
 {
     int i;
     
@@ -157,6 +169,9 @@ void initializeSearchingHp (SearchingHp *hp)
     }
     
     hp->hpLength = 0;
+    hp->hpNumber = 0;
+    hp->next = NULL;
+    hp->previous = 0;
 }
 
 Event* dequeueSearchingHp (SearchingHp *hp)
@@ -455,4 +470,103 @@ SearchingHp* duplicateSearchingHp (SearchingHp *hp)
     new->hpLength = hp->hpLength;
     
     return new;
+}
+
+SearchingHp* getRightSearchingHeapItem (SearchingHp *hp, int position, Event **object, int *priority)
+{
+    if (hp == NULL)
+    {
+        return NULL;
+    }
+    else if (position < 0)
+    {
+        return hp;
+    }
+    //get desired Heap Number
+    int hpNumber = position/SearchHpSize;
+    //recursively go to desired heap
+    if (hp->hpNumber < hpNumber)
+    {
+        if (hp->next == NULL)
+        {
+            hp->next = createEmptyHp();
+            hp->next->hpNumber = hp->hpNumber+1;
+            hp->next->previous = hp;
+        }
+        
+        return getRightSearchingHeapItem(hp->next, position, object, priority);
+    }
+    else if (hp->hpNumber > hpNumber)
+    {
+        return getRightSearchingHeapItem(hp->previous, position, object, priority);
+    }
+    
+    //from now, we are already on the right heap
+    int hpPosition = 0;
+    if (hpNumber == 0)
+    {
+        hpPosition = position;
+    }
+    else
+    {
+        hpPosition = position % (hpNumber*SearchHpSize);
+    }
+    
+    if (object != NULL)
+    {
+        *object = hp->hp[hpPosition];
+    }
+    if (priority != NULL)
+    {
+        *priority = hp->priority[hpPosition];
+    }
+    
+    //cleanHp(&hp);
+    
+    return hp;
+}
+
+void cleanHp (SearchingHp **hp)
+{
+    if (hp == NULL)
+    {
+        return;
+    }
+    else if (*hp == NULL)
+    {
+        return;
+    }
+    //go to last heap
+    if ((*hp)->next != NULL)
+    {
+        cleanHp(&(*hp)->next);
+    }
+    
+    if ((*hp)->next == NULL && (*hp)->hpLength <= 0 && (*hp)->previous != NULL)
+    {
+        (*hp)->previous->next = NULL;
+        free(*hp);
+    }
+    
+    return;
+}
+
+int returnSearchingHeapItemPriority (SearchingHp *hp, int position)
+{
+    Event *object;
+    int priority;
+    
+    getRightSearchingHeapItem(hp, position, &object, &priority);
+    
+    return priority;
+}
+
+Event* returnSearchingHeapItemItem (SearchingHp *hp, int position)
+{
+    Event *object;
+    int priority;
+    
+    getRightSearchingHeapItem(hp, position, &object, &priority);
+    
+    return object;
 }

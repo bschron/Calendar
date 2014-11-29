@@ -84,6 +84,9 @@ struct searchingHp
     Event *hp[SearchHpSize];
     int priority[SearchHpSize];
     int hpLength;
+    int hpNumber;
+    SearchingHp *previous;
+    SearchingHp *next;
 };
 
 struct date

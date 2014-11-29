@@ -49,5 +49,13 @@ SearchingHp* enqueueEventsForThisWeek (SearchingHp *hp, Date *now);
 SearchingHp* enqueueEventsForThisMonth (SearchingHp *hp, Date *now);
 /*takes a pointer to a SearchingHp as argument, returns a pointer to a new Searching heap with the same values as the provided SearchingHeap. if the provided pointer is NULL, returns NULL*/
 SearchingHp* duplicateSearchingHp (SearchingHp *hp);
+/*takes a pointer to SearchingHp *hp, a integer position, a double pointer to Event **object and a pointer to integer *priority as arguments. Navigates to the required position of the required heap, attributes it's object and priority to it. Returns a pointer to that position's heap.*/
+SearchingHp* getRightSearchingHeapItem (SearchingHp *hp, int position, Event **object, int *priority);
+/*Takes a double pointer to SearchingHp **hp as argument. Navigates until the last heap and free's it if it's empty. This function is for memory saving onyl.*/
+void cleanHp (SearchingHp **hp);
+/*Takes a pointer to SearchingHp *hp and a integer position that represents the desired item's position on that heap. Returns a integer representing the priority of the required item.*/
+int returnSearchingHeapItemPriority (SearchingHp *hp, int position);
+/*Takes a pointer to SearchingHp *hp and a integer position that represents the desired item's position on that heap. Returns a pointer to the required position's item.*/
+Event* returnSearchingHeapItemItem (SearchingHp *hp, int position);
 
 #endif /* defined(__Calendar__Searching_Hp__) */

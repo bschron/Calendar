@@ -20,7 +20,7 @@ void testing (void)
     
     for (i = 0; i < 10; i++)
     {
-        for (current = list, i2 = 0; current != NULL && i2 < length-(i*i); current = current->next, i2++)
+        for (current = list, i2 = 0; current != NULL && i2 < length-(i*i); moveToNextEvent(&current), i2++)
         {
             hp = enqueueSearchingHp(hp, current);
         }

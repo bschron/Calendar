@@ -68,9 +68,9 @@ Node* listEventsExportingStr (Node *list, Event *events)
     char output[Max*5];
     
     //treat recurrent event differently than regular events
-    if (events->recurrency == 0)
+    if (peekEventRecurrency(events) == 0)
     {
-        snprintf(output, sizeof(output)/sizeof(char), "*%s-%s-%d/%d/%d", events->title, events->desc, events->date->day, events->date->month, events->date->year);
+        snprintf(output, sizeof(output)/sizeof(char), "*%s-%s-%d/%d/%d", peekEventTitle(events), peekEventDesc(events), peekEventDateDay(events), peekEventDateMonth(events), peekEventDateYear(events));
     }
     else
     {
@@ -79,7 +79,7 @@ Node* listEventsExportingStr (Node *list, Event *events)
     
     list = insertNode(list, output, not_in_use);
     
-    return listEventsExportingStr(list, events->next);
+    return listEventsExportingStr(list, peekNextEvent(events));
 }
 
 Calendar* importCalendarFromFile (Calendar* calendar, FILE *file)
@@ -118,12 +118,12 @@ Calendar* importCalendarFromFile (Calendar* calendar, FILE *file)
         provisory = getEventMainInformationsFromStream(file, provisory);
         provisory = getRecurrentAdditionalInformationsFromStream(file, provisory);
         //using createEvent function so recurrences will be created.
-        new = createEvent(provisory->date->day, provisory->date->month, provisory->date->year, provisory->desc, provisory->title, provisory->recurrency, provisory->frequency);
+        new = createEvent(peekEventDateDay(provisory), peekEventDateMonth(provisory), peekEventDateYear(provisory), peekEventDesc(provisory), peekEventTitle(provisory), peekEventRecurrency(provisory), peekEventFrequency(provisory));
         
         calendar = insertEvent(calendar, new);
         
         //created a new provisory frequency, just to evoid SIGNALRBIT while running
-        provisory->frequency = provFrequency;
+        setEventFrequency(provisory, provFrequency);
         freeEvent(&provisory);
         
         return importCalendarFromFile(calendar, file);
@@ -161,32 +161,34 @@ void printRecurrentEventFileExportingToStr (char *dest, int destLength, Event *e
 {
     char frequencyStr[Max];
     
-    if (event->recurrency != 3)
+    if (peekEventRecurrency(event) != 3)
     {
         int frequecyLength = 0;
         int i;
-        if (event->recurrency == 1)
+        if (peekEventRecurrency(event) == 1)
         {
             frequecyLength = 7;
         }
-        else if (event->recurrency == 2)
+        else if (peekEventRecurrency(event) == 2)
         {
             frequecyLength = 31;
         }
         
+        int *frequency = peekEventFrequency(event);
         for (i=0; i<frequecyLength; i++)
         {
-            frequencyStr[i] = event->frequency[i]+'0';
+            frequencyStr[i] = frequency[i]+'0';
         }
     }
     
-    if (event->recurrency == 1 || event->recurrency == 2)
+    if (peekEventRecurrency(event) == 1 || peekEventRecurrency(event) == 2)
     {
-        snprintf(dest, destLength, "+%s-%s-%d/%d/%d-%d-%s", event->title, event->desc, event->date->day, event->date->month, event->date->year, event->recurrency, frequencyStr);
+        snprintf(dest, destLength, "+%s-%s-%d/%d/%d-%d-%s", peekEventTitle(event), peekEventDesc(event), peekEventDateDay(event), peekEventDateMonth(event), peekEventDateYear(event), peekEventRecurrency(event), frequencyStr);
     }
-    else if (event->recurrency == 3)
+    else if (peekEventRecurrency(event) == 3)
     {
-        snprintf(dest, destLength, "+%s-%s-%d/%d/%d-%d-%d/%d", event->title, event->desc, event->date->day, event->date->month, event->date->year, event->recurrency, event->frequency[0], event->frequency[1]);
+        int *frequency = peekEventFrequency(event);
+        snprintf(dest, destLength, "+%s-%s-%d/%d/%d-%d-%d/%d", peekEventTitle(event), peekEventDesc(event), peekEventDateDay(event), peekEventDateMonth(event), peekEventDateYear(event), peekEventRecurrency(event), frequency[0], frequency[1]);
     }
     
     return;
@@ -203,14 +205,20 @@ Event* getEventMainInformationsFromStream (FILE *stream, Event *event)
         return getEventMainInformationsFromStream(stream, createEmptyEvent());
     }
     
-    unwantedgets(event->title, Max, '-', stream);
-    unwantedgets(event->desc, description, '-', stream);
-    fscanf(stream, "%d", &event->date->day);
+    int day, month, year;
+    
+    unwantedgets(peekEventTitle(event), Max, '-', stream);
+    unwantedgets(peekEventDesc(event), description, '-', stream);
+    fscanf(stream, "%d", &day);
     fgetc(stream);
-    fscanf(stream, "%d", &event->date->month);
+    fscanf(stream, "%d", &month);
     fgetc(stream);
-    fscanf(stream, "%d", &event->date->year);
+    fscanf(stream, "%d", &year);
     fgetc(stream);
+    
+    setEventDateDay(event, day);
+    setEventDateMonth(event, month);
+    setEventDateYear(event, year);
     
     return event;
 }
@@ -224,33 +232,37 @@ Event *getRecurrentAdditionalInformationsFromStream (FILE *stream, Event *event)
     
     int frequencyLength = 0;
     int i;
+    int *frequency = NULL;
     
-    event->recurrency = fgetNumber(stream);
+    setEventRecurrency(event, fgetNumber(stream));
 
-    if (event->recurrency == 1)
+    if (peekEventRecurrency(event) == 1)
     {
         frequencyLength = 7;
     }
-    else if (event->recurrency == 2)
+    else if (peekEventRecurrency(event) == 2)
     {
         frequencyLength = 31;
     }
     
-    if (event->recurrency == 1 || event->recurrency == 2)
+    if (peekEventRecurrency(event) == 1 || peekEventRecurrency(event) == 2)
     {
-        event->frequency = (int*) malloc(sizeof(int)*frequencyLength);
+        frequency = (int*) malloc(sizeof(int)*frequencyLength);
+        setEventFrequency(event, frequency);
         
         for (i = 0; i < frequencyLength; i++)
         {
-            event->frequency[i] = fgetc(stream) - '0';
+            frequency[i] = fgetc(stream) - '0';
         }
         fgetc(stream);//gets line break
     }
-    else if (event->recurrency == 3)
+    else if (peekEventRecurrency(event) == 3)
     {
-        event->frequency = (int*) malloc(sizeof(int)*2);
-        event->frequency[0] = fgetNumber(stream);
-        event->frequency[1] = fgetNumber(stream);//gets like break
+        frequency = (int*) malloc(sizeof(int)*2);
+        setEventFrequency(event, frequency);
+        
+        frequency[0] = fgetNumber(stream);
+        frequency[1] = fgetNumber(stream);//gets like break
     }
     
     return event;

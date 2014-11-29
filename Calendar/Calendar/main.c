@@ -64,6 +64,7 @@ int getMainMenuOptions (Calendar *calendar)
             userEditEvent(calendar);
             break;
         case 3:
+            resetScreen();
             printEventQueue(eventQueueEnqueueEventsForThisMonth(NULL));
             enterToContinue();
             break;

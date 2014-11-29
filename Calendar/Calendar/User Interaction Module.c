@@ -22,10 +22,10 @@ void userAddEvent (Calendar *calendar)
     do
     {
         printf("Insira um titulo para o Evento:\n");
-        nbgets(new->title, sizeof(new->title)/sizeof(char), stdin);
-    } while (sizeOfStr(new->title) == 0);
+        nbgets(peekEventTitle(new), Max, stdin);
+    } while (sizeOfStr(peekEventTitle(new)) == 0);
     
-    if (strcmp(new->title, "0") == 0)
+    if (strcmp(peekEventTitle(new), "0") == 0)
     {
         freeEvent(&new);
         return;
@@ -34,10 +34,10 @@ void userAddEvent (Calendar *calendar)
     do
     {
         printf("Insira uma descricao para o Evento:\n");
-        nbgets(new->desc, sizeof(new->desc)/sizeof(char), stdin);
-    } while (sizeOfStr(new->desc) == 0);
+        nbgets(peekEventDesc(new), description, stdin);
+    } while (sizeOfStr(peekEventDesc(new)) == 0);
     
-    if (strcmp(new->desc, "0") == 0)
+    if (strcmp(peekEventDesc(new), "0") == 0)
     {
         freeEvent(&new);
         return;
@@ -46,10 +46,10 @@ void userAddEvent (Calendar *calendar)
     do
     {
         printf("Insira a data formatada para o Evento: (dd/mm/yyyy)\n");
-        new->date->day = getNumber();
-        new->date->month = getNumber();
-        new->date->year = getNumber();
-    } while (!validDate(new->date));
+        setEventDateDay(new, getNumber());
+        setEventDateMonth(new, getNumber());
+        setEventDateYear(new, getNumber());
+    } while (!validDate(peekEventDate(new)));
     
     printf("Voce deseja tornar este evento recorrente?\n");
     if (get1or0())
@@ -171,21 +171,21 @@ void userEditEventGetInput (int option, Date *date, char *dest, int destLength)
 
 void userEditEventEditEvent (int option, Date *date, char *str, int destLength, Event *event, Calendar *calendar)
 {
-    if (event->recurrency < 0)//force editing original event, not mirrored recurrency
+    if (peekEventRecurrency(event) < 0)//force editing original event, not mirrored recurrency
     {
-        return userEditEventEditEvent(option, date, str, destLength, event->recurrences, calendar);
+        return userEditEventEditEvent(option, date, str, destLength, peekEventRecurrences(event), calendar);
     }
     
     switch (option)
     {
         case 1:
-            editEvent(calendar, event, event->date, str, event->desc);
+            editEvent(calendar, event, peekEventDate(event), str, peekEventDesc(event));
             break;
         case 2:
-            editEvent(calendar, event, event->date, event->title, str);
+            editEvent(calendar, event, peekEventDate(event), peekEventTitle(event), str);
             break;
         case 3:
-            editEvent(calendar, event, date, event->title, event->desc);
+            editEvent(calendar, event, date, peekEventTitle(event), peekEventDesc(event));
             break;
         case 4:
             calendar = removeEvent(calendar, event);
@@ -263,8 +263,8 @@ Event* userSearchEvent (Calendar *calendar)
     for (i=0, optionNumber = 1; i<SearchingLimit && orderedResults->length > 0; i++)
     {
         dequeued = dequeuePriorityQueue(orderedResults);
-        dayOfWeek(weekd, dequeued->date);
-        sprintf(output, "%s  %s-%d/%d/%d", dequeued->title, weekd, dequeued->date->day, dequeued->date->month, dequeued->date->year);
+        dayOfWeek(weekd, peekEventDate(dequeued));
+        sprintf(output, "%s  %s-%d/%d/%d", peekEventTitle(dequeued), weekd, peekEventDateDay(dequeued), peekEventDateMonth(dequeued), peekEventDateYear(dequeued));
         printOption(&optionNumber, output);
     }
     freePriorityQueue(&orderedResults);
@@ -385,23 +385,26 @@ void userSetupRecorrentEventWeeklyEvent (Event *event)
     char output[Max];
     char weekDay[10];
     
-    event->frequency = (int*) malloc(sizeof(int)*7);
+    int *frequency = (int*) malloc(sizeof(int)*7);
     
     for (i = 0; i<7; i++)
     {
-        event->frequency[i] = 0;
+        frequency[i] = 0;
     }
+    
+    setEventFrequency(event, frequency);
+    
     //get information from user
     do
     {
         resetScreen();
         
-        printf("Marque com 1 os dias da semana que voce deseja repetir %s:\n", event->title);
+        printf("Marque com 1 os dias da semana que voce deseja repetir %s:\n", peekEventTitle(event));
         printf("Selecione 0 para finalizar.\n");
         for (i = 1; i<=7;)
         {
             weekDayIntToStr(weekDay, i-1);
-            snprintf(output, sizeof(output)/sizeof(char), "%s-%d", weekDay, event->frequency[i-1]);
+            snprintf(output, sizeof(output)/sizeof(char), "%s-%d", weekDay, frequency[i-1]);
             printOption(&i, output);
         }
         
@@ -412,10 +415,10 @@ void userSetupRecorrentEventWeeklyEvent (Event *event)
             break;
         }
         
-        event->frequency[i-1] = !event->frequency[i-1];
+        frequency[i-1] = !frequency[i-1];
     } while (1);
     //apply informations
-    event->recurrency = 1;
+    setEventRecurrency(event, 1);
     
     return;
 }
@@ -425,21 +428,23 @@ void userSetupRecorrentEventMonthlyEvent (Event *event)
     int i;
     char output[3];
     
-    event->frequency = (int*) malloc(sizeof(int)*31);
+    int *frequency = (int*) malloc(sizeof(int)*31);
+    
+    setEventFrequency(event, frequency);
     
     for (i = 0; i<31; i++)
     {
-        event->frequency[i] = 0;
+        frequency[i] = 0;
     }
     
     while (1)
     {
         resetScreen();
-        printf("Marque com 1 os dias do mes que voce deseja repetir %s:\n", event->title);
+        printf("Marque com 1 os dias do mes que voce deseja repetir %s:\n", peekEventTitle(event));
         printf("Alerta: Dependendo do mes, o agendamento dos dias 29 a 31 poderao não ocorrer.\n");
         for (i = 1; i<=31;)
         {
-            snprintf(output, sizeof(output)/sizeof(char), "%d", event->frequency[i-1]);
+            snprintf(output, sizeof(output)/sizeof(char), "%d", frequency[i-1]);
             printOption(&i, output);
         }
         
@@ -450,27 +455,29 @@ void userSetupRecorrentEventMonthlyEvent (Event *event)
             break;
         }
         
-        event->frequency[i-1] = !event->frequency[i-1];
+        frequency[i-1] = !frequency[i-1];
     }
     //apply informations
-    event->recurrency = 2;
+    setEventRecurrency(event, 2);
     
     return;
 }
 
 void userSetupRecorrentEventYearlyEvent (Event *event)
 {
-    event->frequency = (int*) malloc(sizeof(int)*2);
+    int *frequency = (int*) malloc(sizeof(int)*2);
+    
+    setEventFrequency(event, frequency);
     
     do
     {
         resetScreen();
-        printf("Insira a data do ano na qual voce deseja repetir %s: (dd/mm)\n", event->title);
-        event->frequency[0] = getNumber();
-        event->frequency[1] = getNumber();
-    } while (event->frequency[0] < 1 || event->frequency[0] > daysInMonth(event->frequency[1]) || event->frequency[1] < 1 || event->frequency[1] > 12);
+        printf("Insira a data do ano na qual voce deseja repetir %s: (dd/mm)\n", peekEventTitle(event));
+        frequency[0] = getNumber();
+        frequency[1] = getNumber();
+    } while (frequency[0] < 1 || frequency[0] > daysInMonth(frequency[1]) || frequency[1] < 1 || frequency[1] > 12);
     
     //apply informations
-    event->recurrency = 3;
+    setEventRecurrency(event, 3);
     return;
 }

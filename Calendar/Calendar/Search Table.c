@@ -86,7 +86,7 @@ void mapEventTitle (Event *event)
     Node *words = NULL;
     Node popped;
     
-    words = listWords(event->title, words);
+    words = listWords(peekEventTitle(event), words);
     
     for (popped = popNode(&words); !emptyNode(&popped); popped = popNode(&words))
     {
@@ -101,7 +101,7 @@ void mapEventDescription (Event *event)
     Node *words = NULL;
     Node popped;
     
-    words = listWords(event->desc, words);
+    words = listWords(peekEventDesc(event), words);
     
     for (popped = popNode(&words); !emptyNode(&popped); popped = popNode(&words))
     {
@@ -117,9 +117,9 @@ void mapEventDate (Event *event)
     char month[3];
     char year[Max];
     
-    sprintf(day, "%d", event->date->day);
-    sprintf(month, "%d", event->date->month);
-    sprintf(year, "%d", event->date->year);
+    sprintf(day, "%d", peekEventDateDay(event));
+    sprintf(month, "%d", peekEventDateMonth(event));
+    sprintf(year, "%d", peekEventDateYear(event));
     
     insertEventBinarySearchTree(&dateSearchTable->table[hashWord(day)], createEventBinarySearchTree(event), NULL);
     insertEventBinarySearchTree(&dateSearchTable->table[hashWord(month)], createEventBinarySearchTree(event), NULL);
@@ -145,9 +145,9 @@ void removeEventDateReference (Event *event)
     char day[3], month[3], year[Max];
     int dayHash, monthHash, yearHash;
     
-    sprintf(day, "%d", event->date->day);
-    sprintf(month, "%d", event->date->month);
-    sprintf(year, "%d", event->date->year);
+    sprintf(day, "%d", peekEventDateDay(event));
+    sprintf(month, "%d", peekEventDateMonth(event));
+    sprintf(year, "%d", peekEventDateMonth(event));
     
     dayHash = hashWord(day);
     monthHash = hashWord(month);
@@ -172,7 +172,7 @@ void removeEventTitleReference (Event *event)
     Node pop;
     EventBinarySearchTree **result = NULL;
     
-    words = listWords(event->title, words);
+    words = listWords(peekEventTitle(event), words);
     
     for (pop = popNode(&words); !emptyNode(&pop); pop = popNode(&words))
     {
@@ -189,7 +189,7 @@ void removeEventDescReference (Event *event)
     Node pop;
     EventBinarySearchTree **result = NULL;
     
-    words = listWords(event->desc, words);
+    words = listWords(peekEventDesc(event), words);
     
     for (pop = popNode(&words); !emptyNode(&pop); pop = popNode(&words))
     {

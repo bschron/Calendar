@@ -21,7 +21,7 @@ PriorityQueue* insertDataToPriorityQueue (PriorityQueue *queue, Event *list, int
     
     queue = enqueuePriorityQueue(queue, NULL, list, startingPriority);
     
-    return insertDataToPriorityQueue(queue, list->next, startingPriority+1);
+    return insertDataToPriorityQueue(queue, peekNextEvent(list), startingPriority+1);
 }
 
 int checkPQEnqueueing (Event *list, int listLength, int result)
@@ -35,7 +35,7 @@ int checkPQEnqueueing (Event *list, int listLength, int result)
     
     for (current = dequeuePriorityQueue(queue); current != NULL; current = dequeuePriorityQueue(queue))
     {
-        for (notFound = 1, current2 = list; current2 != NULL; current2 = current2->next)
+        for (notFound = 1, current2 = list; current2 != NULL; moveToNextEvent(&current2))
         {
             if (current == current2)
             {

@@ -295,7 +295,7 @@ SearchingHp* eventBinarySearchTreeNotRecurrentToSearchingHp (SearchingHp *hp, Ev
         return NULL;
     }
     
-    if (root->event->recurrency >= 0)
+    if (peekEventRecurrency(root->event) >= 0)
     {
         hp = enqueueSearchingHp(hp, root->event);
     }
@@ -403,7 +403,7 @@ SearchingHp* enqueueEventsWithProvidedDate (SearchingHp *hp, SearchTable *table,
         next = current->next;
         Event* popped = popObject(&provisory);
         
-        if (popped->date->day == day && popped->date->month == month && popped->date->year == year)
+        if (peekEventDateDay(popped) == day && peekEventDateMonth(popped) == month && peekEventDateYear(popped) == year)
         {
             list = insertTWC(list, createTWC(popped));
         }

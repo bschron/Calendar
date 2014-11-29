@@ -35,7 +35,7 @@ EventBinarySearchTree* createEventBinarySearchTree (Event *event)
     new->leftChild = NULL;
     new->rightChild = NULL;
     new->event = event;
-    new->nameHash = hashWord(event->title)+hashWord(event->desc);
+    new->nameHash = hashWord(peekEventTitle(event))+hashWord(peekEventDesc(event));
     new->parent = (EventBinarySearchTree**) malloc(sizeof(EventBinarySearchTree*));
     *(new->parent) = NULL;
     

@@ -94,7 +94,7 @@ EventBinarySearchTree* insertDataToEventBinarySearchTree (EventBinarySearchTree 
     //insertEventBinarySearchTree(&root, data);
     (*insert) (&root, createEventBinarySearchTree(data), parent);
     
-    return insertDataToEventBinarySearchTree(root, parent, data->next, nOfData-1, insert);
+    return insertDataToEventBinarySearchTree(root, parent, peekNextEvent(data), nOfData-1, insert);
 }
 
 Event* createRandomSetOfEvents (Event *events, int nOfEvents)
@@ -109,9 +109,9 @@ Event* createRandomSetOfEvents (Event *events, int nOfEvents)
     
     if (events != NULL)
     {
-        sscanf(events->title, "%*s %d", &n);
+        sscanf(peekEventTitle(events), "%*s %d", &n);
         n++;
-        *date = *events->date;
+        *date = *peekEventDate(events);
         date = increaseDate(date);
     }
     
@@ -155,7 +155,7 @@ int checkIfGotEveryEventFromList (EventBinarySearchTree *root, Event *list)
     {
         if (i != 0)//if not first
         {
-            events[length-1] = events[length-1]->next;
+            moveToNextEvent(&events[length-1]);
         }
         events[i] = events[length-1];
         enlistedEvents[i] = popObject(&enlisted);
@@ -198,7 +198,7 @@ int eventListLength (Event *list)
         return 0;
     }
     
-    return eventListLength(list->next) + 1;
+    return eventListLength(peekNextEvent(list)) + 1;
 }
 
 int checkIfEveryNodeIsBalanced (int result, EventBinarySearchTree *root)
@@ -241,7 +241,7 @@ int checkSearching (int result, EventBinarySearchTree **root, Event *list)
         result--;
     }
     
-    return checkSearching(result, root, list->next);
+    return checkSearching(result, root, peekNextEvent(list));
 }
 
 int checkRemoval (int result, Event *list, int nOfData, void (*insert) (EventBinarySearchTree **, EventBinarySearchTree *, EventBinarySearchTree *))
@@ -254,7 +254,7 @@ int checkRemoval (int result, Event *list, int nOfData, void (*insert) (EventBin
     Event *current = NULL;
     EventBinarySearchTree *tree = insertDataToEventBinarySearchTree(NULL, NULL, list, nOfData, insert);
     
-    for (current = list; current!= NULL; current = current->next)
+    for (current = list; current!= NULL; moveToNextEvent(&current))
     {
         EventBinarySearchTree **remove = searchEventBinarySearchTree(&tree, current);
         Event *event = (*remove)->event;
@@ -266,9 +266,9 @@ int checkRemoval (int result, Event *list, int nOfData, void (*insert) (EventBin
     }
     freeAllEventBinarySearchTree(&tree);
     //goes straigth to last element of the list
-    for (current = list; current->next != NULL; current = current->next);
+    for (current = list; peekNextEvent(current) != NULL; moveToNextEvent(&current));
     tree = insertDataToEventBinarySearchTree(NULL, NULL, list, nOfData, insert);
-    for (; current != NULL; current = current->previous)
+    for (; current != NULL; moveToPreviousEvent(&current))
     {
         EventBinarySearchTree **remove = searchEventBinarySearchTree(&tree, current);
         Event *event = (*remove)->event;
@@ -292,7 +292,7 @@ int checkRemovalBalance (int result, Event *list, int nOfData, void (*insert) (E
     
     Event *current = NULL;
     EventBinarySearchTree *tree = insertDataToEventBinarySearchTree(NULL, NULL, list, nOfData, insert);
-    for (current = list; current!=NULL; current = current->next)
+    for (current = list; current!=NULL; moveToNextEvent(&current))
     {
         EventBinarySearchTree **remove = searchEventBinarySearchTree(&tree, current);
         tree = removeEventBinarySearchTree(tree, remove);

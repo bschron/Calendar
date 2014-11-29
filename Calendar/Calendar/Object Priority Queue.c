@@ -136,7 +136,7 @@ PriorityQueue* searchingHpToPriorityQueueOrderedByDate (PriorityQueue *queue, Se
     Event *object = dequeueSearchingHp(hp);
     Date *now = getDate(NULL);
     
-    queue = enqueuePriorityQueue(queue, NULL, object, daysBetweenDates(object->date, now));
+    queue = enqueuePriorityQueue(queue, NULL, object, daysBetweenDates(peekEventDate(object), now));
     
     free(now);
     return searchingHpToPriorityQueueOrderedByDate(queue, hp);

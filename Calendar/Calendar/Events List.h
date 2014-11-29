@@ -30,6 +30,44 @@ int recurrentEventFrequencyLength (int recurrency);
 Calendar* updateCalendar (Calendar *calendar);
 /*Takes a double pointer to Event events as argument. Frees every node on the provided list.*/
 void freeAllEvents (Event **events);
+/*Takes a double pointer to Event as argument. Attributes the next Event in list to the provided pointer's pointer and returns a pointer to the next element in list. Attributes and returns NULL is the next is NULL.*/
+Event* moveToNextEvent (Event **current);
+/*Takes a double pointer to Event as argument. Attributes the previous Event in list to the provided pointer's pointer and returns a pointer to the previous element in list. Attributes and returns NULL is the previous is NULL.*/
+Event* moveToPreviousEvent (Event **current);
+/*Takes a pointer to Event as argument. Returns a pointer to the Event's title's string. Returns NULL if the provided pointer is NULL.*/
+char* peekEventTitle (Event *event);
+/*Takes a pointer to Event as argument. Returns a pointer to the Event's description's string. Returns NULL if the provided pointer is NULL.*/
+char* peekEventDesc (Event *event);
+/*Takes a pointer to Event *event and a integer day. Attributes the provided day to the provoded event's Date's day and returns 0. Returns 1 if provided pointer is NULL or provided day is invalid.*/
+int setEventDateDay (Event *event, int day);
+/*Takes a pointer to Event *event and a integer month. Attributes the provided month to the provoded event's Date's day and returns 0. Returns 1 if provided pointer is NULL or provided month is invalid.*/
+int setEventDateMonth (Event *event, int month);
+/*Takes a pointer to Event *event and a integer year. Attributes the provided year to the provoded event's Date's year and returns 0. Returns 1 if provided pointer is NULL or provided year is invalid.*/
+int setEventDateYear (Event *event, int year);
+/*Takes a pointer to Event *event as argument. Returns a pointer to the provided event's Date. Returns NULL if provided event is NULL or event's date is NULL.*/
+Date* peekEventDate (Event *event);
+/*Takes a pointer to Event *event as argument. Returns a pointer to the next event in list. Returns NULL if provided pointer is NULL or next element is NULL.*/
+Event* peekNextEvent (Event *event);
+/*Takes a pointer to Event *event as argument. Returns a pointer to the previous event in list. Returns NULL if provided pointer is NULL or previous element is NULL.*/
+Event* peekPreviousEvent (Event *event);
+/*Takes a pointer to Event *event as argument. Returns the provided event's recurrency. Returns ERROR if provided event is NULL.*/
+int peekEventRecurrency (Event *event);
+/*Takes a pointer to Event *event as argument. Returns the provide event's recurrence list. Returns NULL if provided event is NULL.*/
+Event* peekEventRecurrences (Event *event);
+/*Takes a pointer to Event *event as argument. Returns the provided event's frequency data. Returns NULL if provided event is NULL.*/
+int* peekEventFrequency (Event *event);
+/*Takes a pointer to Event *event as argument. Returns the provided event's date's day. Returns ERROR if provided event is NULL or provided event's date is NULL.*/
+int peekEventDateDay (Event *event);
+/*Takes a pointer to Event *event as argument. Returns the provided event's date's month. Returns ERROR if provided event is NULL or provided event's date is NULL.*/
+int peekEventDateMonth (Event *event);
+/*Takes a pointer to Event *event as argument. Returns the provided event's date's year. Returns ERROR if provided event is NULL or provided event's date is NULL.*/
+int peekEventDateYear (Event *event);
+/*Takes a pointer to Event *event and a pointer to integer *frequency as arguments. Attributes the provided frequency to the provided event and returns 0. returns ERROR if provided pointer to event is NULL.*/
+int setEventFrequency (Event *event, int *frequency);
+/*Takes a pointer to Event *event and a integer recurrency as arguments. Attributes the provided recurrency to the providede event and returns 0. Returns -1 and unchanged if provided pointer to event is NULL.*/
+int setEventRecurrency (Event *event, int recurrency);
+/*Takes a pointer to Event *event and a pointer to Event *recurrences as arguments. Attributes the provided recurrences to the provided event and returns 0. Returns 0 and unchanged if the provided *event pointer is NULL.*/
+int setEventRecurrences (Event *event, Event *recurrences);
 
 //Calendar
 /*returns a Calendar with empty falgs*/

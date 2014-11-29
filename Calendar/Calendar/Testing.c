@@ -10,20 +10,23 @@
 
 void testing (void)
 {
-    int length = 3;
+    int length = 100;
     
     Event* list = createRandomSetOfEvents(NULL, length);
     SearchingHp *hp = NULL;
     Event *current = NULL;
-    int i;
+    Event *dequeued = NULL;
+    int i, i2;
     
-    for (i = 0; i < 2; i++)
+    for (i = 0; i < 10; i++)
     {
-        for (current = list; current != NULL; current = current->next)
+        for (current = list, i2 = 0; current != NULL && i2 < length-(i*i); current = current->next, i2++)
         {
             hp = enqueueSearchingHp(hp, current);
         }
     }
+    
+    for (dequeued = dequeueSearchingHp(hp); dequeued != NULL; dequeued = dequeueSearchingHp(hp));
     
     getchar();
 }

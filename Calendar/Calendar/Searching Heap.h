@@ -65,5 +65,7 @@ Event* returnSearchingHeapItemItem (SearchingHp *hp, int position);
 int totalHpSize (SearchingHp *hp);
 /*Takes a pointer to SearchingHp *hp, a integer position, a pointer to Event *object and a integer priority as arguments. Attributes the provided object and the provided priority to the provided hp on the provided position.*/
 void attributeInfoToSearchingHpPosition (SearchingHp *hp, int position, Event* object, int priority);
+/*Takes a double pointer to SearchingHp **hp as argument. Frees the provided *hp and any *hp that comes after it on the list.*/
+void freeSearchingHp (SearchingHp **hp);
 
 #endif /* defined(__Calendar__Searching_Hp__) */

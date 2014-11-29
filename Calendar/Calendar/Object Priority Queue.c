@@ -225,7 +225,7 @@ PriorityQueue* enqueuePriorityQueueEventsForNextNDays (PriorityQueue *queue, Dat
     
     queue = searchingHpToPriorityQueueOrderedByDate(queue, hp);
     
-    free(hp);
+    freeSearchingHp(&hp);
     
     return enqueuePriorityQueueEventsForNextNDays(queue, increaseDate(startingDate), remainingDays-1);
 }

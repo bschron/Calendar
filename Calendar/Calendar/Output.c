@@ -149,7 +149,7 @@ void printHeapOfEvents (FILE *stream, SearchingHp *events)
     }
     else if (events->hpLength == 0)
     {
-        free(events);
+        freeSearchingHp(&events);
         return;
     }
     
@@ -173,7 +173,7 @@ void printEventTitlesOfHeapOfEvents (FILE *stream, SearchingHp *events)
     }
     else if (events->hpLength == 0)
     {
-        free(events);
+        freeSearchingHp(&events);
         return;
     }
     

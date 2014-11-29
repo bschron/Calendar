@@ -118,7 +118,7 @@ EventQueue* eventQueueEnqueueEventsForNDays (int numberOfDays, EventQueue *queue
         }
     }
     
-    free(result);
+    freeSearchingHp(&result);
     
     return queue;
 }

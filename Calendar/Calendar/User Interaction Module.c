@@ -251,7 +251,7 @@ Event* userSearchEvent (Calendar *calendar)
     
     PriorityQueue *orderedResults = createPriorityQueue();
     orderedResults = searchingHpToPriorityQueueOrderedByDate(orderedResults, results);
-    free(results);
+    freeSearchingHp(&results);
     PriorityQueue *copy = copyPriorityQueue(NULL, orderedResults);
     int i;
     Event *dequeued = NULL;

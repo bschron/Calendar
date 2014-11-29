@@ -609,3 +609,25 @@ void attributeInfoToSearchingHpPosition (SearchingHp *hp, int position, Event* o
     
     return;
 }
+
+void freeSearchingHp (SearchingHp **hp)
+{
+    if (hp == NULL)
+    {
+        return;
+    }
+    else if (*hp == NULL)
+    {
+        return;
+    }
+    
+    if ((*hp)->next != NULL)
+    {
+        freeSearchingHp(&(*hp)->next);
+    }
+    
+    free(*hp);
+    *hp = NULL;
+    
+    return;
+}

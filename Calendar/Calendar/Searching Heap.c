@@ -140,17 +140,17 @@ SearchingHp* enqueueSearchingHp (SearchingHp *hp, Event *item)
     
     int i;
     
-    for (i = 0; i<SearchHpSize && item != hp->hp[i] && hp->hp[i] != NULL; i++);
+    for (i = 0; i<totalHpSize(hp) && item != returnSearchingHeapItemItem(hp, i) && NULL != returnSearchingHeapItemItem(hp, i); i++);
     
-    if (item == hp->hp[i])
+    if (item == returnSearchingHeapItemItem(hp, i))
     {
         (hp->priority[i])++;
+        attributeInfoToSearchingHpPosition(hp, i, returnSearchingHeapItemItem(hp, i), returnSearchingHeapItemPriority(hp, i)+1);
         hpfySearchingHp(hp, i);
     }
-    else if (hp->hpLength < SearchHpSize)
+    else
     {
-        hp->hp[i] = item;
-        hp->priority[i] = 1;
+        attributeInfoToSearchingHpPosition(hp, i, item, 1);
         hpfySearchingHp(hp, i);
         (hp->hpLength)++;
     }
@@ -569,4 +569,34 @@ Event* returnSearchingHeapItemItem (SearchingHp *hp, int position)
     getRightSearchingHeapItem(hp, position, &object, &priority);
     
     return object;
+}
+
+int totalHpSize (SearchingHp *hp)
+{
+    if (hp == NULL)
+    {
+        return -1;
+    }
+    
+    if (hp->next != NULL)
+    {
+        return totalHpSize(hp->next);
+    }
+    
+    return (hp->hpNumber+1)*SearchHpSize;
+}
+
+void attributeInfoToSearchingHpPosition (SearchingHp *hp, int position, Event* object, int priority)
+{
+    hp = getRightSearchingHeapItem(hp, position, NULL, NULL);
+    
+    if (hp->hpNumber != 0)
+    {
+        position = position % (hp->hpNumber * SearchHpSize);
+    }
+    
+    hp->hp[position] = object;
+    hp->priority[position] = priority;
+    
+    return;
 }

@@ -63,7 +63,7 @@ void hpfySearchingHp (SearchingHp *hp, int parent)
     {
         return;
     }
-    else if (hp->hp[parent] == NULL)
+    else if (returnSearchingHeapItemItem(hp, parent) == NULL)
     {
         return;
     }
@@ -71,7 +71,7 @@ void hpfySearchingHp (SearchingHp *hp, int parent)
     {
         int parentParent = hpParent(parent);
         
-        if (hp->priority[parent] > hp->priority[parentParent])
+        if (returnSearchingHeapItemPriority(hp, parent) > returnSearchingHeapItemPriority(hp, parentParent))
         {
             hpfySearchingHp(hp, parentParent);
         }
@@ -79,17 +79,17 @@ void hpfySearchingHp (SearchingHp *hp, int parent)
     
     int leftChild = hpLeftChild(parent);
     int rightChild = hpRightChild(parent);
-    if (hp->hp[leftChild] == NULL || leftChild >= SearchHpSize)
+    if (returnSearchingHeapItemItem(hp, leftChild) == NULL)
     {
         leftChild = -1;
     }
-    if (hp->hp[rightChild] == NULL || rightChild >= SearchHpSize)
+    if (returnSearchingHeapItemItem(hp, rightChild) == NULL)
     {
         rightChild = -1;
     }
     int biggestChild = maxSearchingHpChild(hp, leftChild, rightChild);
     
-    if (hp->hp[biggestChild] != NULL && hp->priority[parent] < hp->priority[biggestChild])
+    if (returnSearchingHeapItemItem(hp, biggestChild) != NULL && returnSearchingHeapItemPriority(hp, parent) < returnSearchingHeapItemPriority(hp, biggestChild))
     {
         switchSearchingHpItems(hp, parent, biggestChild);
         hpfySearchingHp(hp, biggestChild);
@@ -103,15 +103,28 @@ void switchSearchingHpItems (SearchingHp *hp, int item1, int item2)
 {
     int transitionInt;
     Event *transitionEvent;
+    SearchingHp *hp1 = getRightSearchingHeapItem(hp, item1, NULL, NULL);
+    SearchingHp *hp2 = getRightSearchingHeapItem(hp, item2, NULL, NULL);
     
-    transitionEvent = hp->hp[item1];
-    transitionInt = hp->priority[item1];
+    if (hp1->hpNumber != 0)
+    {
+        item1 = item1 % (hp1->hpNumber*SearchHpSize);
+    }
+    if (hp2->hpNumber != 0)
+    {
+        item2 = item2 % (hp2->hpNumber*SearchHpSize);
+    }
     
-    hp->hp[item1] = hp->hp[item2];
-    hp->priority[item1] = hp->priority[item2];
+    transitionEvent = hp1->hp[item1];
+    transitionInt = hp1->priority[item1];
     
-    hp->hp[item2] = transitionEvent;
-    hp->priority[item2] = transitionInt;
+    hp1->hp[item1] = hp2->hp[item2];
+    hp1->priority[item1] = hp2->priority[item2];
+    
+    hp2->hp[item2] = transitionEvent;
+    hp2->priority[item2] = transitionInt;
+    
+    return;
 }
 
 SearchingHp* enqueueSearchingHp (SearchingHp *hp, Event *item)
@@ -127,17 +140,16 @@ SearchingHp* enqueueSearchingHp (SearchingHp *hp, Event *item)
     
     int i;
     
-    for (i = 0; i<SearchHpSize && item != hp->hp[i] && hp->hp[i] != NULL; i++);
+    for (i = 0; i<totalHpSize(hp) && item != returnSearchingHeapItemItem(hp, i) && NULL != returnSearchingHeapItemItem(hp, i); i++);
     
-    if (item == hp->hp[i])
+    if (item == returnSearchingHeapItemItem(hp, i))
     {
-        (hp->priority[i])++;
+        attributeInfoToSearchingHpPosition(hp, i, returnSearchingHeapItemItem(hp, i), returnSearchingHeapItemPriority(hp, i)+1);
         hpfySearchingHp(hp, i);
     }
-    else if (hp->hpLength < SearchHpSize)
+    else
     {
-        hp->hp[i] = item;
-        hp->priority[i] = 1;
+        attributeInfoToSearchingHpPosition(hp, i, item, 1);
         hpfySearchingHp(hp, i);
         (hp->hpLength)++;
     }
@@ -146,7 +158,6 @@ SearchingHp* enqueueSearchingHp (SearchingHp *hp, Event *item)
 }
 
 void initializeSearchingHp (SearchingHp *hp)
-
 {
     int i;
     
@@ -157,6 +168,9 @@ void initializeSearchingHp (SearchingHp *hp)
     }
     
     hp->hpLength = 0;
+    hp->hpNumber = 0;
+    hp->next = NULL;
+    hp->previous = 0;
 }
 
 Event* dequeueSearchingHp (SearchingHp *hp)
@@ -174,11 +188,10 @@ Event* dequeueSearchingHp (SearchingHp *hp)
     Event *dequeued = hp->hp[0];
     
     //replace first with last
-    hp->hp[0] = hp->hp[hp->hpLength-1];
-    hp->priority[0] = hp->priority[hp->hpLength-1];
+    hp->hp[0] = returnSearchingHeapItemItem(hp, hp->hpLength-1);
+    hp->priority[0] = returnSearchingHeapItemPriority(hp, hp->hpLength-1);
     //remove last
-    hp->hp[hp->hpLength-1] = NULL;
-    hp->priority[hp->hpLength-1] = -1;
+    attributeInfoToSearchingHpPosition(hp, hp->hpLength-1, NULL, -1);
     //decrease hp length
     (hp->hpLength)--;
     
@@ -191,14 +204,18 @@ Event* dequeueSearchingHp (SearchingHp *hp)
 
 int maxSearchingHpChild (SearchingHp *hp, int left, int right)
 {
-    if (hp->priority[left] > hp->priority[right])
+    int bigger;
+    
+    if (returnSearchingHeapItemPriority(hp, left) > returnSearchingHeapItemPriority(hp, right))
     {
-        return left;
+        bigger = left;
     }
     else
     {
-        return right;
+        bigger = right;
     }
+    
+    return bigger;
 }
 
 SearchingHp* searchTableElementsToSearchingHp (SearchingHp *hp, SearchTable *table, int hash)
@@ -354,43 +371,6 @@ SearchingHp* enqueueEventsWithProvidedDate (SearchingHp *hp, SearchTable *table,
     }
     
     return hp;
-    
-    /*
-    SearchingHp *provisory = NULL;
-    SearchingHp *provisory2 = NULL;
-    Event *dequeued = NULL;
-    
-    char strDay[6], strMonth[6], strYear[Max];
-    
-    snprintf(strDay, sizeof(strDay)/sizeof(char)-1, "%d", day);
-    snprintf(strMonth, sizeof(strMonth)/sizeof(char)-1, "%d", month);
-    snprintf(strYear, sizeof(strYear)/sizeof(char)-1, "%d", year);
-    
-    provisory = searchTableElementsToSearchingHp(provisory, table, hashWord(strDay));
-    provisory = searchTableElementsToSearchingHp(provisory, table, hashWord(strMonth));
-    provisory = searchTableElementsToSearchingHp(provisory, table, hashWord(strYear));
-    //get only Events with at least 3 matchings
-    while (peekHpHighestPriority(provisory) >= 3)
-    {
-        dequeued = dequeueSearchingHp(provisory);
-        provisory2 = enqueueSearchingHp(provisory2, dequeued);
-    }
-    //clear provisory heap
-    for (dequeued = dequeueSearchingHp(provisory); dequeued != NULL; dequeued = dequeueSearchingHp(provisory));
-    //get only events with that exact date
-    for (dequeued = dequeueSearchingHp(provisory2); dequeued != NULL; dequeued = dequeueSearchingHp(provisory2))
-    {
-        if (dequeued->date->day == day && dequeued->date->month == month && dequeued->date->year == year)
-        {
-            hp = enqueueSearchingHp(hp, dequeued);
-        }
-    }
-    
-    free(provisory);
-    free(provisory2);
-    
-    return hp;
-    */
 }
 
 SearchingHp* enqueueEventsForThisWeek (SearchingHp *hp, Date *now)
@@ -449,10 +429,138 @@ SearchingHp* duplicateSearchingHp (SearchingHp *hp)
     int i;
     for (i = 0; i<hp->hpLength; i++)
     {
-        new->hp[i] = hp->hp[i];
-        new->priority[i] = hp->priority[i];
+        attributeInfoToSearchingHpPosition(new, i, returnSearchingHeapItemItem(hp, i), returnSearchingHeapItemPriority(hp, i));
     }
     new->hpLength = hp->hpLength;
     
     return new;
+}
+
+SearchingHp* getRightSearchingHeapItem (SearchingHp *hp, int position, Event **object, int *priority)
+{
+    if (hp == NULL)
+    {
+        return NULL;
+    }
+    else if (position < 0)
+    {
+        return hp;
+    }
+    //get desired Heap Number
+    int hpNumber = position/SearchHpSize;
+    //recursively go to desired heap
+    if (hp->hpNumber < hpNumber)
+    {
+        if (hp->next == NULL)
+        {
+            hp->next = createEmptyHp();
+            hp->next->hpNumber = hp->hpNumber+1;
+            hp->next->previous = hp;
+        }
+        
+        return getRightSearchingHeapItem(hp->next, position, object, priority);
+    }
+    else if (hp->hpNumber > hpNumber)
+    {
+        return getRightSearchingHeapItem(hp->previous, position, object, priority);
+    }
+    
+    //from now, we are already on the right heap
+    int hpPosition = 0;
+    if (hpNumber == 0)
+    {
+        hpPosition = position;
+    }
+    else
+    {
+        hpPosition = position % (hpNumber*SearchHpSize);
+    }
+    
+    if (object != NULL)
+    {
+        *object = hp->hp[hpPosition];
+    }
+    if (priority != NULL)
+    {
+        *priority = hp->priority[hpPosition];
+    }
+    
+    //cleanHp(&hp);
+    
+    return hp;
+}
+
+void cleanHp (SearchingHp **hp)
+{
+    if (hp == NULL)
+    {
+        return;
+    }
+    else if (*hp == NULL)
+    {
+        return;
+    }
+    //go to last heap
+    if ((*hp)->next != NULL)
+    {
+        cleanHp(&(*hp)->next);
+    }
+    
+    if ((*hp)->next == NULL && (*hp)->hpLength <= 0 && (*hp)->previous != NULL)
+    {
+        (*hp)->previous->next = NULL;
+        free(*hp);
+    }
+    
+    return;
+}
+
+int returnSearchingHeapItemPriority (SearchingHp *hp, int position)
+{
+    Event *object;
+    int priority;
+    
+    getRightSearchingHeapItem(hp, position, &object, &priority);
+    
+    return priority;
+}
+
+Event* returnSearchingHeapItemItem (SearchingHp *hp, int position)
+{
+    Event *object;
+    int priority;
+    
+    getRightSearchingHeapItem(hp, position, &object, &priority);
+    
+    return object;
+}
+
+int totalHpSize (SearchingHp *hp)
+{
+    if (hp == NULL)
+    {
+        return -1;
+    }
+    
+    if (hp->next != NULL)
+    {
+        return totalHpSize(hp->next);
+    }
+    
+    return (hp->hpNumber+1)*SearchHpSize;
+}
+
+void attributeInfoToSearchingHpPosition (SearchingHp *hp, int position, Event* object, int priority)
+{
+    hp = getRightSearchingHeapItem(hp, position, NULL, NULL);
+    
+    if (hp->hpNumber != 0)
+    {
+        position = position % (hp->hpNumber * SearchHpSize);
+    }
+    
+    hp->hp[position] = object;
+    hp->priority[position] = priority;
+    
+    return;
 }

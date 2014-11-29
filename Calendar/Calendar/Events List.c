@@ -8,6 +8,14 @@
 
 #include "Events List.h"
 
+//TADs
+struct calendar
+{
+    Event *events;
+};
+
+//Functions
+
 Event* createEmptyEvent (void)
 {
     Event *new = (Event*) malloc(sizeof(Event));
@@ -439,4 +447,29 @@ void freeAllEvents (Event **events)
     freeEvent(&tofee);
     
     return freeAllEvents(events);
+}
+
+Event* peekCalendarFirstEvent (Calendar *calendar)
+{
+    return calendar->events;
+}
+
+int emptyCalendar (Calendar *calendar)
+{
+    int output;
+    
+    if (calendar == NULL)
+    {
+        output = -1;
+    }
+    else if (calendar->events == NULL)
+    {
+        output = 1;
+    }
+    else
+    {
+        output = 0;
+    }
+    
+    return output;
 }

@@ -14,7 +14,7 @@ void exportEvents (Calendar *calendar)
     {
         return;
     }
-    else if (calendar->events == NULL)
+    else if (emptyCalendar(calendar))
     {
         return;
     }
@@ -36,7 +36,7 @@ void exportEvents (Calendar *calendar)
     FILE *export = fopen(output2, "w");
     Node pop;
     //inserts every formated data on the lists Node->name
-    list = listEventsExportingStr(list, calendar->events);
+    list = listEventsExportingStr(list, peekCalendarFirstEvent(calendar));
     //prints every event on the list
     for (pop = popNode(&list); !emptyNode(&pop); pop=popNode(&list))
     {

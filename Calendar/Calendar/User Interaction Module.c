@@ -112,7 +112,7 @@ void userEditEvent (Calendar *calendar)
             }
             else//renovates event, since edited event was actually removed and a new was created (first on calendar's list)
             {
-                edit = calendar->events;
+                edit = peekCalendarFirstEvent(calendar);
             }
         }
     }

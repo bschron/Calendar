@@ -41,6 +41,10 @@ Calendar* insertEvent (Calendar *calendar, Event *event);
 /*this function will remove a event provided from a provided calendar, if calendar is NULL, will return NULL*/
 Calendar* removeEvent (Calendar *calendar, Event *event);
 /*takes a pointer to Event, a pointer to Date, pointer title str and pointer to description str. Attribute those new values to provided event and returns. if any of the provided pointers is NULL, returns without changes to the event*/
+/*Takes a pointer to calendar as argument, returns a pointer to the first element from the provided calendar's Event list. Returns NULL if calendar is empty.*/
+Event* peekCalendarFirstEvent (Calendar *calendar);
+/*Takes a pointer to calendar as argument. Returns 1 if provided calendar is empty, 0 if not. Returns -1 if provided pointer is NULL.*/
+int emptyCalendar (Calendar *calendar);
 
 //Date
 /*creates a new date TAD and sets its values to empty flags, returns the pointer to the new Date*/

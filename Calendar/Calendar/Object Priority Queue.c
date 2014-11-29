@@ -171,17 +171,36 @@ PriorityQueue* copyPriorityQueue (PriorityQueue *dest, PriorityQueue *source)
     {
         return dest;
     }
-    else if (dest == NULL)
+    
+    PQC *first = source->first;
+    PQC *capsule = NULL;
+    PQC *destCapsule = NULL;
+    PQC *destFirst = NULL;
+    
+    for (capsule = source->first; capsule != NULL; capsule = capsule->next)
     {
-        return copyPriorityQueue(createPriorityQueue(), source);
+        if (capsule == first)
+        {
+            destCapsule = createPQC(capsule->object, capsule->priority);
+            destFirst = destCapsule;
+        }
+        else
+        {
+            destCapsule = destCapsule->next;
+            destCapsule->object = capsule->object;
+            destCapsule->priority = capsule->priority;
+        }
+        
+        if (capsule->next != NULL)
+        {
+            destCapsule->next = createEmptyPQC();
+        }
     }
     
-    PQC *capsule;
-    
-    for (capsule = source->first; capsule!= NULL; capsule = capsule->next)
-    {
-        dest = enqueuePriorityQueue(dest, NULL, capsule->object, capsule->priority);
-    }
+    freePriorityQueue(&dest);
+    dest = createPriorityQueue();
+    dest->first = destFirst;
+    dest->length = source->length;
     
     return dest;
 }

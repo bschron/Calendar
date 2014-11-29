@@ -47,6 +47,7 @@
 SearchTable *titleSearchTable;
 SearchTable *descriptionSearchTable;
 SearchTable *dateSearchTable;
+int loadState, loadDelay;
 
 #include "Main.h"
 #include"Events List.h"

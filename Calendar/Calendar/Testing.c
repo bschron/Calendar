@@ -10,23 +10,5 @@
 
 void testing (void)
 {
-    int length = 100;
-    
-    Event* list = createRandomSetOfEvents(NULL, length);
-    SearchingHp *hp = NULL;
-    Event *current = NULL;
-    Event *dequeued = NULL;
-    int i, i2;
-    
-    for (i = 0; i < 10; i++)
-    {
-        for (current = list, i2 = 0; current != NULL && i2 < length-(i*i); moveToNextEvent(&current), i2++)
-        {
-            hp = enqueueSearchingHp(hp, current);
-        }
-    }
-    
-    for (dequeued = dequeueSearchingHp(hp); dequeued != NULL; dequeued = dequeueSearchingHp(hp));
-    
-    getchar();
+    avlTestCases();
 }

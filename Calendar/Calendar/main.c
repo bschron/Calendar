@@ -10,6 +10,8 @@
 
 int main(void)
 {
+    loadState = 0;
+    loadDelay = 0;
     titleSearchTable = createEmptySearchTable();
     descriptionSearchTable = createEmptySearchTable();
     dateSearchTable = createEmptySearchTable();

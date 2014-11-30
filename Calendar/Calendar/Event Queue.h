@@ -24,5 +24,7 @@ EventQueue* eventQueueEnqueueEventsForNDays (int numberOfDays, EventQueue *queue
 EventQueue* eventQueueEnqueueEventsForThisMonth (EventQueue *queue);
 /*Takes a pointer to EventQueue as argument. Calculastes the remaining days on the current month and calls eventQueueEnqueueEventsForNDays, for that whole month. Returns a pointer to the EventQueue.*/
 EventQueue* eventQueueEnqueueEventsForThisWeek (EventQueue *queue);
+/*Takes a pointer to EventQueue *queue as argument. Returns the provided queue length. Returns ERROR if provided pointer is NULL.*/
+int peekEventQueueLength (EventQueue *queue);
 
 #endif /* defined(__Calendar__Event_Queue__) */

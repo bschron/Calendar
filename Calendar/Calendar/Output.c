@@ -234,7 +234,7 @@ void printEventQueue (EventQueue *queue)
     {
         return;
     }
-    else if (queue->queueLength == 0)
+    else if (peekEventQueueLength(queue) == 0)
     {
         free(queue);
         return;
@@ -259,7 +259,7 @@ void printEventQueueTitles (EventQueue *queue)
     {
         return;
     }
-    else if (queue->queueLength == 0)
+    else if (peekEventQueueLength(queue) == 0)
     {
         free(queue);
         return;

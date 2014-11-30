@@ -8,6 +8,18 @@
 
 #include "Event Queue.h"
 
+//TADs
+
+struct eventQueue
+{
+    EventCapsule *first;
+    EventCapsule *last;
+    int queueLength;
+    
+};
+
+//Functions
+
 EventQueue* createEmptyQueue (void)
 {
     EventQueue *new = (EventQueue*) malloc(sizeof(EventQueue));
@@ -145,4 +157,14 @@ EventQueue* eventQueueEnqueueEventsForThisMonth (EventQueue *queue)
     
     free(now);
     return queue;
+}
+
+int peekEventQueueLength (EventQueue *queue)
+{
+    if (queue == NULL)
+    {
+        return ERROR;
+    }
+    
+    return queue->queueLength;
 }

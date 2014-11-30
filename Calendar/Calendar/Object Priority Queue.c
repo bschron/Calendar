@@ -124,7 +124,7 @@ PriorityQueue* searchingHpToPriorityQueueOrderedByDate (PriorityQueue *queue, Se
     {
         return queue;
     }
-    else if (hp->hpLength <= 0)
+    else if (peekSearchingHpLength(hp) <= 0)
     {
         return queue;
     }

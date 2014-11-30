@@ -8,6 +8,20 @@
 
 #include "Searching Heap.h"
 
+//TADs
+
+struct searchingHp
+{
+    Event *hp[SearchHpSize];
+    int priority[SearchHpSize];
+    int hpLength;
+    int hpNumber;
+    SearchingHp *previous;
+    SearchingHp *next;
+};
+
+//Functions
+
 int hpParent (int child)
 {
     if (child == 0)
@@ -630,4 +644,14 @@ void freeSearchingHp (SearchingHp **hp)
     *hp = NULL;
     
     return;
+}
+
+int peekSearchingHpLength (SearchingHp *hp)
+{
+    if (hp == NULL)
+    {
+        return ERROR;
+    }
+    
+    return hp->hpLength;
 }

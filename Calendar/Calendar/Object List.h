@@ -27,5 +27,7 @@ void freeAllTWC (TWC **first);
 int objectListLength (TWC* first);
 /*Takes a double pointer to TWC first as argument. first is the first element from a provided object list, removes the first TWC from the provided list and returns a pointer to it's object.*/
 void* popObject (TWC **first);
+/*Takes a pointer to TWC *capsule as argument. Returns a pointer to the next TWC in list, NULL if there is none. Returns ERROR if provided pointer is NULL.*/
+TWC* peekNextTWC (TWC *capsule);
 
 #endif /* defined(__Calendar__Object_List__) */

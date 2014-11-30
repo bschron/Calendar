@@ -414,7 +414,7 @@ SearchingHp* enqueueEventsWithProvidedDate (SearchingHp *hp, SearchTable *table,
     
     for (current = provisory; current != NULL; current = next)
     {
-        next = current->next;
+        next = peekNextTWC(current);
         Event* popped = popObject(&provisory);
         
         if (peekEventDateDay(popped) == day && peekEventDateMonth(popped) == month && peekEventDateYear(popped) == year)

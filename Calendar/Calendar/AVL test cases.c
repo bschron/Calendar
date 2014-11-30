@@ -220,8 +220,8 @@ int checkIfEveryNodeIsBalanced (int result, EventBinarySearchTree *root)
         result--;
     }
     
-    result = checkIfEveryNodeIsBalanced(result, root->leftChild);
-    result = checkIfEveryNodeIsBalanced(result, root->rightChild);
+    result = checkIfEveryNodeIsBalanced(result, peekLeftChild(root));
+    result = checkIfEveryNodeIsBalanced(result, peekRightChild(root));
     
     return result;
 }
@@ -243,7 +243,7 @@ int checkSearching (int result, EventBinarySearchTree **root, Event *list)
     
     EventBinarySearchTree **found = searchEventBinarySearchTree(root, list);
     
-    if ((*found)->event != list)
+    if (peekTreeEvent(*found) != list)
     {
         result--;
     }
@@ -264,7 +264,7 @@ int checkRemoval (int result, Event *list, int nOfData, void (*insert) (EventBin
     for (current = list; current!= NULL; moveToNextEvent(&current))
     {
         EventBinarySearchTree **remove = searchEventBinarySearchTree(&tree, current);
-        Event *event = (*remove)->event;
+        Event *event = peekTreeEvent(*remove);
         tree = removeEventBinarySearchTree(tree, remove);
         if (searchEventBinarySearchTree(&tree, event) != NULL)
         {
@@ -278,7 +278,7 @@ int checkRemoval (int result, Event *list, int nOfData, void (*insert) (EventBin
     for (; current != NULL; moveToPreviousEvent(&current))
     {
         EventBinarySearchTree **remove = searchEventBinarySearchTree(&tree, current);
-        Event *event = (*remove)->event;
+        Event *event = peekTreeEvent(*remove);
         tree = removeEventBinarySearchTree(tree, remove);
         if (searchEventBinarySearchTree(&tree, event) != NULL)
         {

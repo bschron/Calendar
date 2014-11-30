@@ -277,9 +277,9 @@ SearchingHp* eventBinarySearchTreeToSearchingHp (SearchingHp *hp, EventBinarySea
         return NULL;
     }
     
-    hp = enqueueSearchingHp(hp, root->event);
-    hp = eventBinarySearchTreeToSearchingHp(hp, root->leftChild);
-    hp = eventBinarySearchTreeToSearchingHp(hp, root->rightChild);
+    hp = enqueueSearchingHp(hp, peekTreeEvent(root));
+    hp = eventBinarySearchTreeToSearchingHp(hp, peekLeftChild(root));
+    hp = eventBinarySearchTreeToSearchingHp(hp, peekRightChild(root));
     
     return hp;
 }
@@ -295,12 +295,12 @@ SearchingHp* eventBinarySearchTreeNotRecurrentToSearchingHp (SearchingHp *hp, Ev
         return NULL;
     }
     
-    if (peekEventRecurrency(root->event) >= 0)
+    if (peekEventRecurrency(peekTreeEvent(root)) >= 0)
     {
-        hp = enqueueSearchingHp(hp, root->event);
+        hp = enqueueSearchingHp(hp, peekTreeEvent(root));
     }
-    hp = eventBinarySearchTreeNotRecurrentToSearchingHp(hp, root->leftChild);
-    hp = eventBinarySearchTreeNotRecurrentToSearchingHp(hp, root->rightChild);
+    hp = eventBinarySearchTreeNotRecurrentToSearchingHp(hp, peekLeftChild(root));
+    hp = eventBinarySearchTreeNotRecurrentToSearchingHp(hp, peekRightChild(root));
     
     return hp;
 }

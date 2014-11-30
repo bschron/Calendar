@@ -288,7 +288,7 @@ void printEventsTitleOfObjectPriorityQueue (PriorityQueue **queue)
     {
         return;
     }
-    else if ((*queue)->length == 0)
+    else if (peekPriorityQueueLength(*queue) == 0)
     {
         freePriorityQueue(queue);
         return;

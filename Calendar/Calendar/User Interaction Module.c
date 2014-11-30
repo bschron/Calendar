@@ -258,7 +258,7 @@ Event* userSearchEvent (Calendar *calendar)
     
     printf("Qual dos eventos abaixo voce procura?\n");
     
-    for (i=0, optionNumber = 1; i<SearchingLimit && orderedResults->length > 0; i++)
+    for (i=0, optionNumber = 1; i<SearchingLimit && peekPriorityQueueLength(orderedResults) > 0; i++)
     {
         dequeued = dequeuePriorityQueue(orderedResults);
         dayOfWeek(weekd, peekEventDate(dequeued));

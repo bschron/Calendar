@@ -34,6 +34,8 @@ void freePriorityQueue (PriorityQueue **queue);
 PriorityQueue* enqueuePriorityQueueEventsForNextNDays (PriorityQueue *queue, Date *startingDate, int remainingDays);
 /*Takes a pointer to PriorityQueue as argument. Calculates the remaining days in this week (includes next sunday) and calls enqueuePriorityQueueEventsForNextNdays to that queue for the remaining days in week.*/
 PriorityQueue* enqueuePriorityQueueEventsForThisWeek (PriorityQueue *queue);
+/*Takes a pointer to PriorityQueue *queue as argument. Returns the provided queue length. Returns ERROR if provided pointer is NULL.*/
+int peekPriorityQueueLength (PriorityQueue *queue);
 
 //transfering
 /*Takes a pointer to PriorityQueue and a pointer to SearchingHp as arguments. Dequeues the provided SearchingHp and inserts it's events into the provided PriorityQueue, the priority will be defined by distance between computer's current time and the event date. Returns a pointer to the PriorityQueue. Returns the provided queue unchanged if the provided SearchingHp is NULL or if it's length is equal or lesser to zero. Creates a new PriorityQueue if the provided is NULL.*/

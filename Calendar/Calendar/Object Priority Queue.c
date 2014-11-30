@@ -8,6 +8,16 @@
 
 #include "Object Priority Queue.h"
 
+#ifndef priority_queue
+
+struct priorityQueue
+{
+    PQC *first;
+    int length;
+};
+
+#endif
+
 PQC returnEmptyPQC (void)
 {
     PQC empty;
@@ -243,4 +253,14 @@ PriorityQueue* enqueuePriorityQueueEventsForThisWeek (PriorityQueue *queue)
     queue = enqueuePriorityQueueEventsForNextNDays(queue, now, 8-weekday);
     
     return queue;
+}
+
+int peekPriorityQueueLength (PriorityQueue *queue)
+{
+    if (queue == NULL)
+    {
+        return ERROR;
+    }
+    
+    return queue->length;
 }

@@ -142,11 +142,6 @@ typedef struct twoWayCapsule TWC;
  TWC *previous points to the capsule on the list that's right before the current, is defined as NULL if there is no previous capsule
 */
 
-struct sTable
-{
-    EventBinarySearchTree *table[SearchTableSize];
-};
-
 struct eventBinarySearchTree
 {
     Event *event;

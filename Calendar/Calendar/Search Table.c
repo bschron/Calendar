@@ -8,6 +8,15 @@
 
 #include "Search Table.h"
 
+//TADs
+
+struct sTable
+{
+    EventBinarySearchTree *table[SearchTableSize];
+};
+
+//Functions
+
 SearchTable* createEmptySearchTable (void)
 {
     SearchTable *new = (SearchTable*) malloc(sizeof(SearchTable));
@@ -198,4 +207,14 @@ void removeEventDescReference (Event *event)
     }
     
     return;
+}
+
+EventBinarySearchTree** peekTable (SearchTable *table)
+{
+    if (table == NULL)
+    {
+        return NULL;
+    }
+    
+    return table->table;
 }

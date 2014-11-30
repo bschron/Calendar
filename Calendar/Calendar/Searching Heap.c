@@ -228,7 +228,7 @@ SearchingHp* searchTableElementsToSearchingHp (SearchingHp *hp, SearchTable *tab
     {
         return hp;
     }
-    else if (table->table[hash] == NULL)
+    else if (peekTable(table)[hash] == NULL)
     {
         return hp;
     }
@@ -237,7 +237,7 @@ SearchingHp* searchTableElementsToSearchingHp (SearchingHp *hp, SearchTable *tab
         return searchTableElementsToSearchingHp(createEmptyHp(), table, hash);
     }
     
-    hp = eventBinarySearchTreeToSearchingHp(hp, table->table[hash]);
+    hp = eventBinarySearchTreeToSearchingHp(hp, peekTable(table)[hash]);
     
     return hp;
 }
@@ -252,7 +252,7 @@ SearchingHp* searchTableNotRecurrentElementsToSearchingHp (SearchingHp *hp, Sear
     {
         return hp;
     }
-    else if (table->table[hash] == NULL)
+    else if (peekTable(table)[hash] == NULL)
     {
         return hp;
     }
@@ -261,7 +261,7 @@ SearchingHp* searchTableNotRecurrentElementsToSearchingHp (SearchingHp *hp, Sear
         return searchTableNotRecurrentElementsToSearchingHp(createEmptyHp(), table, hash);
     }
     
-    hp = eventBinarySearchTreeNotRecurrentToSearchingHp(hp, table->table[hash]);
+    hp = eventBinarySearchTreeNotRecurrentToSearchingHp(hp, peekTable(table)[hash]);
     
     return hp;
 }

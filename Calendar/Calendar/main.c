@@ -10,6 +10,8 @@
 
 int main(void)
 {
+    loadState = 0;
+    loadDelay = 0;
     titleSearchTable = createEmptySearchTable();
     descriptionSearchTable = createEmptySearchTable();
     dateSearchTable = createEmptySearchTable();
@@ -64,6 +66,7 @@ int getMainMenuOptions (Calendar *calendar)
             userEditEvent(calendar);
             break;
         case 3:
+            resetScreen();
             printEventQueue(eventQueueEnqueueEventsForThisMonth(NULL));
             enterToContinue();
             break;

@@ -30,16 +30,18 @@ void printEvent (FILE *stream, Event *event)
     }
     
     char weekDay[10];
-    dayOfWeek(weekDay, event->date);
+    dayOfWeek(weekDay, peekEventDate(event));
     
-    fprintf(stream, "%s*%s%s\n", KBLU, RESET, event->title);
-    fprintf(stream, "%s%s%s - %d/%d/%d\n", KBLU, RESET, weekDay, event->date->day, event->date->month, event->date->year);
-    fprintf(stream, "%s\n", event->desc);
+    fprintf(stream, "%s*%s%s\n", KBLU, RESET, peekEventTitle(event));
+    fprintf(stream, "%s%s%s - %d/%d/%d\n", KBLU, RESET, weekDay, peekEventDateDay(event), peekEventDateMonth(event), peekEventDateYear(event));
+    fprintf(stream, "%s\n", peekEventDesc(event));
     
-    if (event->recurrency == 1 || event->recurrency == -1)
+    if (peekEventRecurrency(event) == 1 || peekEventRecurrency(event) == -1)
     {
+        int *frequency = peekEventFrequency(event);
+        
         fprintf(stream, "Ocorrencias: ");
-        if (event->frequency[0] == 1)
+        if (frequency[0] == 1)
         {
             fprintf(stream, "%sD%s-", KBLU, RESET);
         }
@@ -47,7 +49,7 @@ void printEvent (FILE *stream, Event *event)
         {
             fprintf(stream, "d-");
         }
-        if (event->frequency[1] == 1)
+        if (frequency[1] == 1)
         {
             fprintf(stream, "%sS%s-", KBLU, RESET);
         }
@@ -55,7 +57,7 @@ void printEvent (FILE *stream, Event *event)
         {
             fprintf(stream, "s-");
         }
-        if (event->frequency[2] == 1)
+        if (frequency[2] == 1)
         {
             fprintf(stream, "%sT%s-", KBLU, RESET);
         }
@@ -63,7 +65,7 @@ void printEvent (FILE *stream, Event *event)
         {
             fprintf(stream, "t-");
         }
-        if (event->frequency[3] == 1)
+        if (frequency[3] == 1)
         {
             fprintf(stream, "%sQ%s-", KBLU, RESET);
         }
@@ -71,7 +73,7 @@ void printEvent (FILE *stream, Event *event)
         {
             fprintf(stream, "q-");
         }
-        if (event->frequency[4] == 1)
+        if (frequency[4] == 1)
         {
             fprintf(stream, "%sQ%s-", KBLU, RESET);
         }
@@ -79,7 +81,7 @@ void printEvent (FILE *stream, Event *event)
         {
             fprintf(stream, "q-");
         }
-        if (event->frequency[5] == 1)
+        if (frequency[5] == 1)
         {
             fprintf(stream, "%sS%s-", KBLU, RESET);
         }
@@ -87,7 +89,7 @@ void printEvent (FILE *stream, Event *event)
         {
             fprintf(stream, "s-");
         }
-        if (event->frequency[6] == 1)
+        if (frequency[6] == 1)
         {
             fprintf(stream, "%sS%s", KBLU, RESET);
         }
@@ -97,14 +99,14 @@ void printEvent (FILE *stream, Event *event)
         }
         fprintf(stream, "\n");
     }
-    else if (event->recurrency == 2 || event->recurrency == -2)
+    else if (peekEventRecurrency(event) == 2 || peekEventRecurrency(event) == -2)
     {
         fprintf(stream, "Ocorrencias: ");
         int i;
-        int *frequency = event->frequency;
-        if (event->recurrency == -2)
+        int *frequency = peekEventFrequency(event);
+        if (peekEventRecurrency(event) == -2)
         {
-            frequency = event->recurrences->frequency;
+            frequency = peekEventFrequency(peekEventRecurrences(event));
         }
         
         for (i = 0; i<31; i++)
@@ -134,9 +136,9 @@ void printEventTitle (FILE *stream, Event *event)
     }
     
     char weekDay[10];
-    dayOfWeek(weekDay, event->date);
+    dayOfWeek(weekDay, peekEventDate(event));
     
-    fprintf(stream, "%s*%s%s   -%s%s%s\n", KBLU, RESET, event->title, KMAG, weekDay, RESET);
+    fprintf(stream, "%s*%s%s   -%s%s%s\n", KBLU, RESET, peekEventTitle(event), KMAG, weekDay, RESET);
     
     return;
 }
@@ -147,7 +149,7 @@ void printHeapOfEvents (FILE *stream, SearchingHp *events)
     {
         return;
     }
-    else if (events->hpLength == 0)
+    else if (peekSearchingHpLength(events) == 0)
     {
         freeSearchingHp(&events);
         return;
@@ -171,7 +173,7 @@ void printEventTitlesOfHeapOfEvents (FILE *stream, SearchingHp *events)
     {
         return;
     }
-    else if (events->hpLength == 0)
+    else if (peekSearchingHpLength(events) == 0)
     {
         freeSearchingHp(&events);
         return;
@@ -196,7 +198,7 @@ void resetScreen (void)
     Date *date = getDate(NULL);
     dayOfWeek(day, date);
     
-    fprintf(stdout, "%sCalendario Spyridon%s          %s-%d/%d/%d\n%s", KBLU, KCYN, day, date->day, date->month, date->year, RESET);
+    fprintf(stdout, "%sCalendario Spyridon%s          %s-%d/%d/%d\n%s", KBLU, KCYN, day, peekDateDay(date), peekDateMonth(date), peekDateYear(date), RESET);
     fprintf(stdout, "0-Voltar/Cancelar\n");
     
     free(date);
@@ -232,7 +234,7 @@ void printEventQueue (EventQueue *queue)
     {
         return;
     }
-    else if (queue->queueLength == 0)
+    else if (peekEventQueueLength(queue) == 0)
     {
         free(queue);
         return;
@@ -257,7 +259,7 @@ void printEventQueueTitles (EventQueue *queue)
     {
         return;
     }
-    else if (queue->queueLength == 0)
+    else if (peekEventQueueLength(queue) == 0)
     {
         free(queue);
         return;
@@ -286,7 +288,7 @@ void printEventsTitleOfObjectPriorityQueue (PriorityQueue **queue)
     {
         return;
     }
-    else if ((*queue)->length == 0)
+    else if (peekPriorityQueueLength(*queue) == 0)
     {
         freePriorityQueue(queue);
         return;

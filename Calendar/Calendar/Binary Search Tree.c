@@ -8,6 +8,20 @@
 
 #include "Binary Search Tree.h"
 
+//TADs
+
+struct eventBinarySearchTree
+{
+    Event *event;
+    int nameHash;
+    
+    EventBinarySearchTree *leftChild;
+    EventBinarySearchTree *rightChild;
+    EventBinarySearchTree **parent;
+};
+
+//Functions
+
 EventBinarySearchTree* createEmptyEventBinaryTree (void)
 {
     EventBinarySearchTree *new = (EventBinarySearchTree*) malloc(sizeof(EventBinarySearchTree));
@@ -35,7 +49,7 @@ EventBinarySearchTree* createEventBinarySearchTree (Event *event)
     new->leftChild = NULL;
     new->rightChild = NULL;
     new->event = event;
-    new->nameHash = hashWord(event->title)+hashWord(event->desc);
+    new->nameHash = hashWord(peekEventTitle(event))+hashWord(peekEventDesc(event));
     new->parent = (EventBinarySearchTree**) malloc(sizeof(EventBinarySearchTree*));
     *(new->parent) = NULL;
     
@@ -508,4 +522,34 @@ void freeEventBinarySearchTree (EventBinarySearchTree **tree)
     *tree = NULL;
     
     return;
+}
+
+EventBinarySearchTree* peekLeftChild (EventBinarySearchTree *root)
+{
+    if (root == NULL)
+    {
+        return NULL;
+    }
+    
+    return root->leftChild;
+}
+
+EventBinarySearchTree* peekRightChild (EventBinarySearchTree *root)
+{
+    if (root == NULL)
+    {
+        return NULL;
+    }
+    
+    return root->rightChild;
+}
+
+Event* peekTreeEvent (EventBinarySearchTree *root)
+{
+    if (root == NULL)
+    {
+        return NULL;
+    }
+    
+    return root->event;
 }

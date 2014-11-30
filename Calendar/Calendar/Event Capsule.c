@@ -8,6 +8,17 @@
 
 #include "Event Capsule.h"
 
+#ifndef event_capsule
+
+struct eventCapsule
+{
+    Event *event;
+    EventCapsule *next;
+    EventCapsule *previous;
+};
+
+#endif
+
 EventCapsule* createEmptyEventCapsule (void)
 {
     EventCapsule *new = (EventCapsule*) malloc(sizeof(EventCapsule));

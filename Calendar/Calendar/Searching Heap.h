@@ -67,5 +67,7 @@ int totalHpSize (SearchingHp *hp);
 void attributeInfoToSearchingHpPosition (SearchingHp *hp, int position, Event* object, int priority);
 /*Takes a double pointer to SearchingHp **hp as argument. Frees the provided *hp and any *hp that comes after it on the list.*/
 void freeSearchingHp (SearchingHp **hp);
+/*Takes a pointer to SearchingHp *hp as argument. Returns the provided heaps's length. Returns ERROR if provided pointer is NULL.*/
+int peekSearchingHpLength (SearchingHp *hp);
 
 #endif /* defined(__Calendar__Searching_Hp__) */

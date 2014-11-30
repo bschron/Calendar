@@ -37,4 +37,6 @@ void removeEventTitleReference (Event *event);
 void removeEventDescReference (Event *event);
 /*takes pointer to event as argument and calls other remove event functions, fomr each table*/
 void removeEventReferences (Event *event);
+/*Takes a pointert to SearchTable *table as argument. Returns a double pointer to the table's pointer's array. Returns NULL if provided pointer is NULL.*/
+EventBinarySearchTree** peekTable (SearchTable *table);
 #endif /* defined(__calendar__Search_Table__) */

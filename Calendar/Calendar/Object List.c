@@ -8,6 +8,13 @@
 
 #include "Object List.h"
 
+struct twoWayCapsule
+{
+    void *object;
+    TWC *next;
+    TWC *previous;
+};
+
 TWC returnEmptyTWC (void)
 {
     TWC empty;
@@ -129,4 +136,14 @@ void* popObject (TWC **first)
     *first = removeTWC(*first, *first);
     
     return popped;
+}
+
+TWC* peekNextTWC (TWC *capsule)
+{
+    if (capsule == NULL)
+    {
+        return (TWC*) ERROR;
+    }
+    
+    return capsule->next;
 }

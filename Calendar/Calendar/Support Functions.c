@@ -172,23 +172,23 @@ int validDate (Date *date)
     
     int valid = 1;
     
-    if (date->year < 100)
+    if (peekDateYear(date) < 100)
     {
         valid = 0;
     }
-    else if (date->month > 12 || date->month < 1)
+    else if (peekDateMonth(date) > 12 || peekDateMonth(date) < 1)
     {
         valid = 0;
     }
-    else if (leapYear(date->year) && date->month == 2 && date->day > 29)
+    else if (leapYear(peekDateYear(date)) && peekDateMonth(date) == 2 && peekDateDay(date) > 29)
     {
         valid = 0;
     }
-    else if (date->day > daysInMonth(date->month))
+    else if (peekDateDay(date) > daysInMonth(peekDateMonth(date)))
     {
         valid = 0;
     }
-    else if (date->day < 1)
+    else if (peekDateDay(date) < 1)
     {
         valid = 0;
     }
@@ -225,4 +225,49 @@ void copyIntegerArray (int *dest, int *from, int smallestLength)
     *dest = *from;
     
     return copyIntegerArray(dest+1, from+1, smallestLength-1);
+}
+
+void loadingIcon (int *state, int *delay)
+{
+    char icon = '-';//  - \ | /
+    
+    if (*state > 3)
+    {
+        *state = 0;
+    }
+    /*
+    (*delay)++;
+    if (*delay >= 6666666)
+    {
+        delay = 0;
+    }
+    if (*delay != 1)
+    {
+        return;
+    }
+    */
+    switch (*state)
+    {
+        case 0:
+            icon = 92;
+            (*state)++;
+            break;
+        case 1:
+            icon = '|';
+            (*state)++;
+            break;
+        case 2:
+            icon = '/';
+            (*state)++;
+            break;
+        case 3:
+            icon = '-';
+            *state = 0;
+            break;
+            
+        default:
+            break;
+    }
+    system("clear");
+    printf("\nLOADING %c\n", icon);
 }

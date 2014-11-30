@@ -19,6 +19,7 @@
 #define CalendarFileExtension ".spyridon"
 #define SearchingLimit 10
 #define NumberOfRecurrences 31
+#define ERROR -999999
 
 #define KNRM  "\x1B[0m"
 #define KRED  "\x1B[31m"
@@ -46,6 +47,7 @@
 SearchTable *titleSearchTable;
 SearchTable *descriptionSearchTable;
 SearchTable *dateSearchTable;
+int loadState, loadDelay;
 
 #include "Main.h"
 #include"Events List.h"

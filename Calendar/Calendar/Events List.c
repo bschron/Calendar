@@ -8,6 +8,37 @@
 
 #include "Events List.h"
 
+//TADs
+struct calendar
+{
+    Event *events;
+};
+
+struct event
+{
+    Event *next;
+    Event *previous;
+    
+    char title[Max];
+    char desc[description];
+    Date *date;
+    
+    int recurrency;//0 is not recurrent, >0 is recurrent root, <0 is not root. 1/-1 is weekly recurrency, 2/-2 is monthly recurrency, 3/-3 is yearly recurrency
+    int *frequency;
+    Event *recurrences;
+};
+
+#ifndef date_structure
+struct date
+{
+    int day;
+    int month;
+    int year;
+};
+#endif
+
+//Functions
+
 Event* createEmptyEvent (void)
 {
     Event *new = (Event*) malloc(sizeof(Event));
@@ -439,4 +470,364 @@ void freeAllEvents (Event **events)
     freeEvent(&tofee);
     
     return freeAllEvents(events);
+}
+
+Event* peekCalendarFirstEvent (Calendar *calendar)
+{
+    return calendar->events;
+}
+
+int emptyCalendar (Calendar *calendar)
+{
+    int output;
+    
+    if (calendar == NULL)
+    {
+        output = -1;
+    }
+    else if (calendar->events == NULL)
+    {
+        output = 1;
+    }
+    else
+    {
+        output = 0;
+    }
+    
+    return output;
+}
+
+Event* moveToNextEvent (Event **current)
+{
+    if (current == NULL)
+    {
+        return NULL;
+    }
+    else if (*current == NULL)
+    {
+        return NULL;
+    }
+    
+    *current = (*current)->next;
+    
+    return *current;
+}
+
+Event* moveToPreviousEvent (Event **current)
+{
+    if (current == NULL)
+    {
+        return NULL;
+    }
+    else if (*current == NULL)
+    {
+        return NULL;
+    }
+    
+    *current = (*current)->previous;
+    
+    return *current;
+}
+
+char* peekEventTitle (Event *event)
+{
+    if (event == NULL)
+    {
+        return NULL;
+    }
+    
+    return event->title;
+}
+
+char* peekEventDesc (Event *event)
+{
+    if (event == NULL)
+    {
+        return NULL;
+    }
+    
+    return event->desc;
+}
+
+int setEventDateDay (Event *event, int day)
+{
+    if (event == NULL)
+    {
+        return 1;
+    }
+    else if (day < 1 || day > 31)
+    {
+        return 1;
+    }
+    
+    event->date->day = day;
+    
+    return 0;
+}
+
+int setEventDateMonth (Event *event, int month)
+{
+    if (event == NULL)
+    {
+        return 1;
+    }
+    else if (month < 1 || month > 12)
+    {
+        return 1;
+    }
+    
+    event->date->month = month;
+    
+    return 0;
+}
+
+int setEventDateYear (Event *event, int year)
+{
+    if (event == NULL)
+    {
+        return 1;
+    }
+    else if (year < 111)
+    {
+        return 1;
+    }
+    
+    event->date->year = year;
+    
+    return 0;
+}
+
+Date* peekEventDate (Event *event)
+{
+    if (event == NULL)
+    {
+        return NULL;
+    }
+    else if (event->date == NULL)
+    {
+        return NULL;
+    }
+    
+    return event->date;
+}
+
+Event* peekNextEvent (Event *event)
+{
+    if (event == NULL)
+    {
+        return NULL;
+    }
+    
+    return event->next;
+}
+
+int peekEventRecurrency (Event *event)
+{
+    if (event == NULL)
+    {
+        return ERROR;
+    }
+    
+    return event->recurrency;
+}
+
+Event* peekEventRecurrences (Event *event)
+{
+    if (event == NULL)
+    {
+        return NULL;
+    }
+    
+    return event->recurrences;
+}
+
+int* peekEventFrequency (Event *event)
+{
+    if (event == NULL)
+    {
+        return NULL;
+    }
+    
+    return event->frequency;
+}
+
+int peekEventDateDay (Event *event)
+{
+    if (event == NULL)
+    {
+        return ERROR;
+    }
+    else if (event->date == NULL)
+    {
+        return ERROR;
+    }
+    
+    return event->date->day;
+}
+
+int peekEventDateMonth (Event *event)
+{
+    if (event == NULL)
+    {
+        return ERROR;
+    }
+    else if (event->date == NULL)
+    {
+        return ERROR;
+    }
+    
+    return event->date->month;
+}
+
+int peekEventDateYear (Event *event)
+{
+    if (event == NULL)
+    {
+        return ERROR;
+    }
+    else if (event->date == NULL)
+    {
+        return ERROR;
+    }
+    
+    return event->date->year;
+}
+
+int setEventFrequency (Event *event, int *frequency)
+{
+    if (event == NULL)
+    {
+        return ERROR;
+    }
+    
+    event->frequency = frequency;
+    
+    return 0;
+}
+
+int setEventRecurrency (Event *event, int recurrency)
+{
+    if (event == NULL)
+    {
+        return ERROR;
+    }
+    
+    event->recurrency = recurrency;
+    
+    return 0;
+}
+
+int setEventRecurrences (Event *event, Event *recurrences)
+{
+    if (event == NULL)
+    {
+        return ERROR;
+    }
+    
+    event->recurrences = recurrences;
+    
+    return 0;
+}
+
+Event* peekPreviousEvent (Event *event)
+{
+    if (event == NULL)
+    {
+        return NULL;
+    }
+    
+    
+    return event->previous;
+}
+
+int peekDateDay (Date *date)
+{
+    if (date == NULL)
+    {
+        return ERROR;
+    }
+    
+    return date->day;
+}
+
+int peekDateMonth (Date *date)
+{
+    if (date == NULL)
+    {
+        return ERROR;
+    }
+    
+    return date->month;
+}
+
+int peekDateYear (Date *date)
+{
+    if (date == NULL)
+    {
+        return ERROR;
+    }
+    
+    return date->year;
+}
+
+Date* setDate (Date *date, int day, int month, int year)
+{
+    if (date == NULL)
+    {
+        return NULL;
+    }
+    
+    date->day = day;
+    date->month = month;
+    date->year = year;
+    
+    return date;
+}
+
+Date* setDateByDate (Date *dest, Date *source)
+{
+    if (source == NULL || dest == NULL)
+    {
+        return NULL;
+    }
+    
+    *dest = *source;
+    
+    return dest;
+}
+
+Date* setDateDay (Date *date, int day)
+{
+    if (date == NULL)
+    {
+        return (Date*)ERROR;
+    }
+    
+    date->day = day;
+    
+    return date;
+}
+
+Date* setDateMonth (Date *date, int month)
+{
+    if (date == NULL)
+    {
+        return (Date*)ERROR;
+    }
+    
+    date->month = month;
+    
+    return date;
+}
+
+Date* setDateYear (Date *date, int year)
+{
+    if (date == NULL)
+    {
+        return (Date*)ERROR;
+    }
+    
+    date->year = year;
+    
+    return date;
 }

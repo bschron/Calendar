@@ -8,6 +8,20 @@
 
 #include "Searching Heap.h"
 
+//TADs
+
+struct searchingHp
+{
+    Event *hp[SearchHpSize];
+    int priority[SearchHpSize];
+    int hpLength;
+    int hpNumber;
+    SearchingHp *previous;
+    SearchingHp *next;
+};
+
+//Functions
+
 int hpParent (int child)
 {
     if (child == 0)
@@ -228,7 +242,7 @@ SearchingHp* searchTableElementsToSearchingHp (SearchingHp *hp, SearchTable *tab
     {
         return hp;
     }
-    else if (table->table[hash] == NULL)
+    else if (peekTable(table)[hash] == NULL)
     {
         return hp;
     }
@@ -237,7 +251,7 @@ SearchingHp* searchTableElementsToSearchingHp (SearchingHp *hp, SearchTable *tab
         return searchTableElementsToSearchingHp(createEmptyHp(), table, hash);
     }
     
-    hp = eventBinarySearchTreeToSearchingHp(hp, table->table[hash]);
+    hp = eventBinarySearchTreeToSearchingHp(hp, peekTable(table)[hash]);
     
     return hp;
 }
@@ -252,7 +266,7 @@ SearchingHp* searchTableNotRecurrentElementsToSearchingHp (SearchingHp *hp, Sear
     {
         return hp;
     }
-    else if (table->table[hash] == NULL)
+    else if (peekTable(table)[hash] == NULL)
     {
         return hp;
     }
@@ -261,7 +275,7 @@ SearchingHp* searchTableNotRecurrentElementsToSearchingHp (SearchingHp *hp, Sear
         return searchTableNotRecurrentElementsToSearchingHp(createEmptyHp(), table, hash);
     }
     
-    hp = eventBinarySearchTreeNotRecurrentToSearchingHp(hp, table->table[hash]);
+    hp = eventBinarySearchTreeNotRecurrentToSearchingHp(hp, peekTable(table)[hash]);
     
     return hp;
 }
@@ -277,9 +291,9 @@ SearchingHp* eventBinarySearchTreeToSearchingHp (SearchingHp *hp, EventBinarySea
         return NULL;
     }
     
-    hp = enqueueSearchingHp(hp, root->event);
-    hp = eventBinarySearchTreeToSearchingHp(hp, root->leftChild);
-    hp = eventBinarySearchTreeToSearchingHp(hp, root->rightChild);
+    hp = enqueueSearchingHp(hp, peekTreeEvent(root));
+    hp = eventBinarySearchTreeToSearchingHp(hp, peekLeftChild(root));
+    hp = eventBinarySearchTreeToSearchingHp(hp, peekRightChild(root));
     
     return hp;
 }
@@ -295,12 +309,12 @@ SearchingHp* eventBinarySearchTreeNotRecurrentToSearchingHp (SearchingHp *hp, Ev
         return NULL;
     }
     
-    if (root->event->recurrency >= 0)
+    if (peekEventRecurrency(peekTreeEvent(root)) >= 0)
     {
-        hp = enqueueSearchingHp(hp, root->event);
+        hp = enqueueSearchingHp(hp, peekTreeEvent(root));
     }
-    hp = eventBinarySearchTreeNotRecurrentToSearchingHp(hp, root->leftChild);
-    hp = eventBinarySearchTreeNotRecurrentToSearchingHp(hp, root->rightChild);
+    hp = eventBinarySearchTreeNotRecurrentToSearchingHp(hp, peekLeftChild(root));
+    hp = eventBinarySearchTreeNotRecurrentToSearchingHp(hp, peekRightChild(root));
     
     return hp;
 }
@@ -340,11 +354,11 @@ SearchingHp* enqueueEventsWithSimilarText (SearchingHp *hp, SearchTable *table, 
         return hp;
     }
     
-    Node word;
+    Node *word;
     //enqueue events, word by word
-    for (word = popNode(&textWords); !emptyNode(&word); word = popNode(&textWords))
+    for (word = popNode(&textWords); !emptyNode(word); word = popNode(&textWords))
     {
-        hp = enqueueEventsWithSimilarWord(hp, table, word.name);
+        hp = enqueueEventsWithSimilarWord(hp, table, peekNodeName(word));
     }
     
     return hp;
@@ -400,10 +414,10 @@ SearchingHp* enqueueEventsWithProvidedDate (SearchingHp *hp, SearchTable *table,
     
     for (current = provisory; current != NULL; current = next)
     {
-        next = current->next;
+        next = peekNextTWC(current);
         Event* popped = popObject(&provisory);
         
-        if (popped->date->day == day && popped->date->month == month && popped->date->year == year)
+        if (peekEventDateDay(popped) == day && peekEventDateMonth(popped) == month && peekEventDateYear(popped) == year)
         {
             list = insertTWC(list, createTWC(popped));
         }
@@ -434,7 +448,7 @@ SearchingHp* enqueueEventsForThisWeek (SearchingHp *hp, Date *now)
     
     for (i=0; i<weekRemainingDays; i++, now=increaseDate(now))
     {
-        hp = enqueueEventsWithProvidedDate(hp, dateSearchTable, now->day, now->month, now->year);
+        hp = enqueueEventsWithProvidedDate(hp, dateSearchTable, peekDateDay(now), peekDateMonth(now), peekDateYear(now));
     }
     
     return hp;
@@ -456,7 +470,7 @@ SearchingHp* enqueueEventsForThisMonth (SearchingHp *hp, Date *now)
     
     for (i=0; i<=remainingDays; i++, now=increaseDate(now))
     {
-        hp = enqueueEventsWithProvidedDate(hp, dateSearchTable, now->day, now->month, now->year);
+        hp = enqueueEventsWithProvidedDate(hp, dateSearchTable, peekDateDay(now), peekDateMonth(now), peekDateYear(now));
     }
     
     return hp;
@@ -630,4 +644,14 @@ void freeSearchingHp (SearchingHp **hp)
     *hp = NULL;
     
     return;
+}
+
+int peekSearchingHpLength (SearchingHp *hp)
+{
+    if (hp == NULL)
+    {
+        return ERROR;
+    }
+    
+    return hp->hpLength;
 }

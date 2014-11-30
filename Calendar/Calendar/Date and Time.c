@@ -8,6 +8,18 @@
 
 #include "Date and Time.h"
 
+//TADs
+#ifndef date_structure
+struct date
+{
+    int day;
+    int month;
+    int year;
+};
+#endif
+
+//Functions
+
 Date* getDate (Date *date)
 {
     if (date == NULL)

@@ -35,6 +35,13 @@ TWC* EventBinarySearchTreeToList (EventBinarySearchTree *root, TWC *list);
 void freeAllEventBinarySearchTree (EventBinarySearchTree **root);
 /*Takes a double pointer to EventBinarySearchTree as argument. Frees te provided tree and attributes NULL to it's pointer.*/
 void freeEventBinarySearchTree (EventBinarySearchTree **tree);
+/*Takes a pointer to EventBinarySearchTRee *root as argument. Returns a pointer to the provided root's left child. Returns NULL if provided pointer is NULL.*/
+EventBinarySearchTree* peekLeftChild (EventBinarySearchTree *root);
+/*Takes a pointer to EventBinarySearchTRee *root as argument. Returns a pointer to the provided root's right child. Returns NULL if provided pointer is NULL.*/
+EventBinarySearchTree* peekRightChild (EventBinarySearchTree *root);
+/*Takes a pointer to EventBinarySearchTree *root s argument. Returns a pointer to the provided tree's event. Returns NULL if the provided pointer is NULL.*/
+Event* peekTreeEvent (EventBinarySearchTree *root);
+
 //AVL
 /*the functions below are responsible to balancing the tree for a LOGn search*/
 EventBinarySearchTree* eventBinarySearchTreeLLCase (EventBinarySearchTree *root);

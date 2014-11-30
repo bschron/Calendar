@@ -8,6 +8,23 @@
 
 #include "Object Priority Queue.h"
 
+#ifndef priority_queue
+
+struct priorityQueue
+{
+    PQC *first;
+    int length;
+};
+
+struct priorityQueueCapsule
+{
+    void *object;
+    PQC *next;
+    int priority;
+};
+
+#endif
+
 PQC returnEmptyPQC (void)
 {
     PQC empty;
@@ -124,7 +141,7 @@ PriorityQueue* searchingHpToPriorityQueueOrderedByDate (PriorityQueue *queue, Se
     {
         return queue;
     }
-    else if (hp->hpLength <= 0)
+    else if (peekSearchingHpLength(hp) <= 0)
     {
         return queue;
     }
@@ -136,7 +153,7 @@ PriorityQueue* searchingHpToPriorityQueueOrderedByDate (PriorityQueue *queue, Se
     Event *object = dequeueSearchingHp(hp);
     Date *now = getDate(NULL);
     
-    queue = enqueuePriorityQueue(queue, NULL, object, daysBetweenDates(object->date, now));
+    queue = enqueuePriorityQueue(queue, NULL, object, daysBetweenDates(peekEventDate(object), now));
     
     free(now);
     return searchingHpToPriorityQueueOrderedByDate(queue, hp);
@@ -221,7 +238,7 @@ PriorityQueue* enqueuePriorityQueueEventsForNextNDays (PriorityQueue *queue, Dat
         return queue;
     }
 
-    SearchingHp *hp = enqueueEventsWithProvidedDate(NULL, dateSearchTable, startingDate->day, startingDate->month, startingDate->year);
+    SearchingHp *hp = enqueueEventsWithProvidedDate(NULL, dateSearchTable, peekDateDay(startingDate), peekDateMonth(startingDate), peekDateYear(startingDate));
     
     queue = searchingHpToPriorityQueueOrderedByDate(queue, hp);
     
@@ -243,4 +260,14 @@ PriorityQueue* enqueuePriorityQueueEventsForThisWeek (PriorityQueue *queue)
     queue = enqueuePriorityQueueEventsForNextNDays(queue, now, 8-weekday);
     
     return queue;
+}
+
+int peekPriorityQueueLength (PriorityQueue *queue)
+{
+    if (queue == NULL)
+    {
+        return ERROR;
+    }
+    
+    return queue->length;
 }

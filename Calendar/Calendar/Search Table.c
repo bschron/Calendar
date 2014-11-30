@@ -8,6 +8,15 @@
 
 #include "Search Table.h"
 
+//TADs
+
+struct sTable
+{
+    EventBinarySearchTree *table[SearchTableSize];
+};
+
+//Functions
+
 SearchTable* createEmptySearchTable (void)
 {
     SearchTable *new = (SearchTable*) malloc(sizeof(SearchTable));
@@ -84,13 +93,13 @@ void mapEventOnSearchTables (Event *event)
 void mapEventTitle (Event *event)
 {
     Node *words = NULL;
-    Node popped;
+    Node *popped;
     
-    words = listWords(event->title, words);
+    words = listWords(peekEventTitle(event), words);
     
-    for (popped = popNode(&words); !emptyNode(&popped); popped = popNode(&words))
+    for (popped = popNode(&words); !emptyNode(popped); popped = popNode(&words))
     {
-        insertEventBinarySearchTree(&titleSearchTable->table[popped.index], createEventBinarySearchTree(event), NULL);
+        insertEventBinarySearchTree(&titleSearchTable->table[peekNodeIndex(popped)], createEventBinarySearchTree(event), NULL);
     }
     
     return;
@@ -99,13 +108,13 @@ void mapEventTitle (Event *event)
 void mapEventDescription (Event *event)
 {
     Node *words = NULL;
-    Node popped;
+    Node *popped;
     
-    words = listWords(event->desc, words);
+    words = listWords(peekEventDesc(event), words);
     
-    for (popped = popNode(&words); !emptyNode(&popped); popped = popNode(&words))
+    for (popped = popNode(&words); !emptyNode(popped); popped = popNode(&words))
     {
-        insertEventBinarySearchTree(&descriptionSearchTable->table[popped.index], createEventBinarySearchTree(event), NULL);
+        insertEventBinarySearchTree(&descriptionSearchTable->table[peekNodeIndex(popped)], createEventBinarySearchTree(event), NULL);
     }
     
     return;
@@ -117,9 +126,9 @@ void mapEventDate (Event *event)
     char month[3];
     char year[Max];
     
-    sprintf(day, "%d", event->date->day);
-    sprintf(month, "%d", event->date->month);
-    sprintf(year, "%d", event->date->year);
+    sprintf(day, "%d", peekEventDateDay(event));
+    sprintf(month, "%d", peekEventDateMonth(event));
+    sprintf(year, "%d", peekEventDateYear(event));
     
     insertEventBinarySearchTree(&dateSearchTable->table[hashWord(day)], createEventBinarySearchTree(event), NULL);
     insertEventBinarySearchTree(&dateSearchTable->table[hashWord(month)], createEventBinarySearchTree(event), NULL);
@@ -145,9 +154,9 @@ void removeEventDateReference (Event *event)
     char day[3], month[3], year[Max];
     int dayHash, monthHash, yearHash;
     
-    sprintf(day, "%d", event->date->day);
-    sprintf(month, "%d", event->date->month);
-    sprintf(year, "%d", event->date->year);
+    sprintf(day, "%d", peekEventDateDay(event));
+    sprintf(month, "%d", peekEventDateMonth(event));
+    sprintf(year, "%d", peekEventDateMonth(event));
     
     dayHash = hashWord(day);
     monthHash = hashWord(month);
@@ -169,15 +178,15 @@ void removeEventDateReference (Event *event)
 void removeEventTitleReference (Event *event)
 {
     Node *words = NULL;
-    Node pop;
+    Node *pop;
     EventBinarySearchTree **result = NULL;
     
-    words = listWords(event->title, words);
+    words = listWords(peekEventTitle(event), words);
     
-    for (pop = popNode(&words); !emptyNode(&pop); pop = popNode(&words))
+    for (pop = popNode(&words); !emptyNode(pop); pop = popNode(&words))
     {
-        result = searchEventBinarySearchTree(&titleSearchTable->table[pop.index], event);
-        titleSearchTable->table[pop.index] = removeEventBinarySearchTree(titleSearchTable->table[pop.index], result);
+        result = searchEventBinarySearchTree(&titleSearchTable->table[peekNodeIndex(pop)], event);
+        titleSearchTable->table[peekNodeIndex(pop)] = removeEventBinarySearchTree(titleSearchTable->table[peekNodeIndex(pop)], result);
     }
     
     return;
@@ -186,16 +195,26 @@ void removeEventTitleReference (Event *event)
 void removeEventDescReference (Event *event)
 {
     Node *words = NULL;
-    Node pop;
+    Node *pop;
     EventBinarySearchTree **result = NULL;
     
-    words = listWords(event->desc, words);
+    words = listWords(peekEventDesc(event), words);
     
-    for (pop = popNode(&words); !emptyNode(&pop); pop = popNode(&words))
+    for (pop = popNode(&words); !emptyNode(pop); pop = popNode(&words))
     {
-        result = searchEventBinarySearchTree(&descriptionSearchTable->table[pop.index], event);
-        descriptionSearchTable->table[pop.index] = removeEventBinarySearchTree(descriptionSearchTable->table[pop.index], result);
+        result = searchEventBinarySearchTree(&descriptionSearchTable->table[peekNodeIndex(pop)], event);
+        descriptionSearchTable->table[peekNodeIndex(pop)] = removeEventBinarySearchTree(descriptionSearchTable->table[peekNodeIndex(pop)], result);
     }
     
     return;
+}
+
+EventBinarySearchTree** peekTable (SearchTable *table)
+{
+    if (table == NULL)
+    {
+        return NULL;
+    }
+    
+    return table->table;
 }

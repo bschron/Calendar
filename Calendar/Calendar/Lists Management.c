@@ -8,6 +8,21 @@
 
 #include "Lists Management.h"
 
+//TADs
+
+struct node
+{
+    Node* previous;
+    Node* next;
+    char name[Max*5];
+    int index;
+};
+
+//Global Node Pop
+Node popped;
+
+//Functions
+
 Node *insertNode (Node* first, char* name, int index)
 {
     Node* pointer;
@@ -37,18 +52,24 @@ Node *insertNode (Node* first, char* name, int index)
     }
 }
 
-Node popNode (Node **first)
+Node* popNode (Node **first)
 {
-    if (*first == NULL)
+    if (first == NULL)
     {
-        return returnEmptyNode();
+        popped =  returnEmptyNode();
+        return &popped;
+    }
+    else if (*first == NULL)
+    {
+        popped =  returnEmptyNode();
+        return &popped;
     }
     
-    Node popped = **first;
+    popped = **first;
     
     *first = removeNode(*first, *first);
     
-    return popped;
+    return &popped;
 }
 
 Node* removeNode (Node* remove, Node* first)
@@ -181,4 +202,24 @@ Node returnEmptyNode (void)
     empty.next = NULL;
     empty.previous = NULL;
     return empty;
+}
+
+int peekNodeIndex (Node *node)
+{
+    if (node == NULL)
+    {
+        return ERROR;
+    }
+    
+    return node->index;
+}
+
+char* peekNodeName (Node *node)
+{
+    if (node == NULL)
+    {
+        return NULL;
+    }
+    
+    return node->name;
 }

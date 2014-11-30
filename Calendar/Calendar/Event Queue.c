@@ -18,6 +18,17 @@ struct eventQueue
     
 };
 
+#ifndef event_capsule
+
+struct eventCapsule
+{
+    Event *event;
+    EventCapsule *next;
+    EventCapsule *previous;
+};
+
+#endif
+
 //Functions
 
 EventQueue* createEmptyQueue (void)

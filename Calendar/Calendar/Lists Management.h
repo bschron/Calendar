@@ -25,7 +25,11 @@ Node* freeAllNodes (Node* first);
 int emptyNode (Node *item);
 /*returns a Node with empty flags*/
 Node returnEmptyNode (void);
-/*returns the value of the first node from the list and removes it. But if list is NULL, will return a node with empty flags*/
-Node popNode (Node **first);
+/*Takes a double pointer to Node **first as argument. Attributes the first's Node value to the this file's global Var "popped" and returns a pointer to it. popped variable receives emptyNode values if provided pointed pointer is NULL.*/
+Node* popNode (Node **first);
+/*Takes a pointer to Node *node as argument. Returns the provided Node's index. Returns ERROR if provided pointer is NULL.*/
+int peekNodeIndex (Node *node);
+/*Takes a pointer to Node *node as argument. Returns the provided Node's pointer to name. Returns NULL if provided pointer is NULL.*/
+char* peekNodeName (Node *node);
 
 #endif /* defined(__Calendar__Lists_Management__) */

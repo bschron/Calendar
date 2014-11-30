@@ -340,11 +340,11 @@ SearchingHp* enqueueEventsWithSimilarText (SearchingHp *hp, SearchTable *table, 
         return hp;
     }
     
-    Node word;
+    Node *word;
     //enqueue events, word by word
-    for (word = popNode(&textWords); !emptyNode(&word); word = popNode(&textWords))
+    for (word = popNode(&textWords); !emptyNode(word); word = popNode(&textWords))
     {
-        hp = enqueueEventsWithSimilarWord(hp, table, word.name);
+        hp = enqueueEventsWithSimilarWord(hp, table, peekNodeName(word));
     }
     
     return hp;

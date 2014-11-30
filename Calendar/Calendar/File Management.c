@@ -34,13 +34,13 @@ void exportEvents (Calendar *calendar)
     
     sprintf(output2, "%s/%s%s", output, MainCalendar, CalendarFileExtension);
     FILE *export = fopen(output2, "w");
-    Node pop;
+    Node *pop;
     //inserts every formated data on the lists Node->name
     list = listEventsExportingStr(list, peekCalendarFirstEvent(calendar));
     //prints every event on the list
-    for (pop = popNode(&list); !emptyNode(&pop); pop=popNode(&list))
+    for (pop = popNode(&list); !emptyNode(pop); pop=popNode(&list))
     {
-        fprintf(export, "%s\n", pop.name);
+        fprintf(export, "%s\n", peekNodeName(pop));
     }
     
     if (list != NULL)

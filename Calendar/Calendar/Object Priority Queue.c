@@ -16,6 +16,13 @@ struct priorityQueue
     int length;
 };
 
+struct priorityQueueCapsule
+{
+    void *object;
+    PQC *next;
+    int priority;
+};
+
 #endif
 
 PQC returnEmptyPQC (void)

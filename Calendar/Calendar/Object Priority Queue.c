@@ -221,7 +221,7 @@ PriorityQueue* enqueuePriorityQueueEventsForNextNDays (PriorityQueue *queue, Dat
         return queue;
     }
 
-    SearchingHp *hp = enqueueEventsWithProvidedDate(NULL, dateSearchTable, startingDate->day, startingDate->month, startingDate->year);
+    SearchingHp *hp = enqueueEventsWithProvidedDate(NULL, dateSearchTable, peekDateDay(startingDate), peekDateMonth(startingDate), peekDateYear(startingDate));
     
     queue = searchingHpToPriorityQueueOrderedByDate(queue, hp);
     

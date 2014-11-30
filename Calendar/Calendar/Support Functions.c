@@ -172,23 +172,23 @@ int validDate (Date *date)
     
     int valid = 1;
     
-    if (date->year < 100)
+    if (peekDateYear(date) < 100)
     {
         valid = 0;
     }
-    else if (date->month > 12 || date->month < 1)
+    else if (peekDateMonth(date) > 12 || peekDateMonth(date) < 1)
     {
         valid = 0;
     }
-    else if (leapYear(date->year) && date->month == 2 && date->day > 29)
+    else if (leapYear(peekDateYear(date)) && peekDateMonth(date) == 2 && peekDateDay(date) > 29)
     {
         valid = 0;
     }
-    else if (date->day > daysInMonth(date->month))
+    else if (peekDateDay(date) > daysInMonth(peekDateMonth(date)))
     {
         valid = 0;
     }
-    else if (date->day < 1)
+    else if (peekDateDay(date) < 1)
     {
         valid = 0;
     }

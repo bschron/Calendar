@@ -136,9 +136,7 @@ void userEditEventGetInput (int option, Date *date, char *dest, int destLength)
             break;
         case 3:
             printf("Nova data: (dd/mm/yyyy):\n");
-            date->day = getNumber();
-            date->month = getNumber();
-            date->year = getNumber();
+            setDate(date, getNumber(), getNumber(), getNumber());
             break;
         case 4:
             break;
@@ -314,9 +312,7 @@ SearchingHp* userSearchEventByDate (Calendar *calendar)
 {
     Date *date = createEmptyDate();
     printf("pesquisar: (dd/mm/yyy)\n");
-    date->day = getNumber();
-    date->month = getNumber();
-    date->year = getNumber();
+    setDate(date, getNumber(), getNumber(), getNumber());
     SearchingHp *hp = NULL;
     
     if (!validDate(date))
@@ -327,7 +323,7 @@ SearchingHp* userSearchEventByDate (Calendar *calendar)
         return userSearchEventByDate(calendar);
     }
     
-    hp = enqueueEventsWithProvidedDate(NULL, dateSearchTable, date->day, date->month, date->year);
+    hp = enqueueEventsWithProvidedDate(NULL, dateSearchTable, peekDateDay(date), peekDateMonth(date), peekDateYear(date));
     free(date);
     return hp;
 }

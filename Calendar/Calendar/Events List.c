@@ -28,6 +28,14 @@ struct event
     Event *recurrences;
 };
 
+#ifndef date_structure
+struct date
+{
+    int day;
+    int month;
+    int year;
+};
+#endif
 
 //Functions
 
@@ -730,4 +738,96 @@ Event* peekPreviousEvent (Event *event)
     
     
     return event->previous;
+}
+
+int peekDateDay (Date *date)
+{
+    if (date == NULL)
+    {
+        return ERROR;
+    }
+    
+    return date->day;
+}
+
+int peekDateMonth (Date *date)
+{
+    if (date == NULL)
+    {
+        return ERROR;
+    }
+    
+    return date->month;
+}
+
+int peekDateYear (Date *date)
+{
+    if (date == NULL)
+    {
+        return ERROR;
+    }
+    
+    return date->year;
+}
+
+Date* setDate (Date *date, int day, int month, int year)
+{
+    if (date == NULL)
+    {
+        return NULL;
+    }
+    
+    date->day = day;
+    date->month = month;
+    date->year = year;
+    
+    return date;
+}
+
+Date* setDateByDate (Date *dest, Date *source)
+{
+    if (source == NULL || dest == NULL)
+    {
+        return NULL;
+    }
+    
+    *dest = *source;
+    
+    return dest;
+}
+
+Date* setDateDay (Date *date, int day)
+{
+    if (date == NULL)
+    {
+        return (Date*)ERROR;
+    }
+    
+    date->day = day;
+    
+    return date;
+}
+
+Date* setDateMonth (Date *date, int month)
+{
+    if (date == NULL)
+    {
+        return (Date*)ERROR;
+    }
+    
+    date->month = month;
+    
+    return date;
+}
+
+Date* setDateYear (Date *date, int year)
+{
+    if (date == NULL)
+    {
+        return (Date*)ERROR;
+    }
+    
+    date->year = year;
+    
+    return date;
 }

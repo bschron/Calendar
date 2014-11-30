@@ -198,7 +198,7 @@ void resetScreen (void)
     Date *date = getDate(NULL);
     dayOfWeek(day, date);
     
-    fprintf(stdout, "%sCalendario Spyridon%s          %s-%d/%d/%d\n%s", KBLU, KCYN, day, date->day, date->month, date->year, RESET);
+    fprintf(stdout, "%sCalendario Spyridon%s          %s-%d/%d/%d\n%s", KBLU, KCYN, day, peekDateDay(date), peekDateMonth(date), peekDateYear(date), RESET);
     fprintf(stdout, "0-Voltar/Cancelar\n");
     
     free(date);

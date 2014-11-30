@@ -110,7 +110,7 @@ EventQueue* eventQueueEnqueueEventsForNDays (int numberOfDays, EventQueue *queue
     SearchingHp *result = NULL;
     Event *dequeued = NULL;
     
-    for (result = enqueueEventsWithProvidedDate(result, dateSearchTable, now->day, now->month, now->year); numberOfDays>0; numberOfDays--, now = increaseDate(now), result = enqueueEventsWithProvidedDate(result, dateSearchTable, now->day, now->month, now->year))
+    for (result = enqueueEventsWithProvidedDate(result, dateSearchTable, peekDateDay(now), peekDateMonth(now), peekDateYear(now)); numberOfDays>0; numberOfDays--, now = increaseDate(now), result = enqueueEventsWithProvidedDate(result, dateSearchTable, peekDateDay(now), peekDateMonth(now), peekDateYear(now)))
     {
         for (dequeued = dequeueSearchingHp(result); dequeued != NULL; dequeued = dequeueSearchingHp(result))
         {
@@ -134,9 +134,9 @@ EventQueue* eventQueueEnqueueEventsForThisWeek (EventQueue *queue)
 EventQueue* eventQueueEnqueueEventsForThisMonth (EventQueue *queue)
 {
     Date *now = getDate(NULL);
-    int nDays = (daysInMonth(now->month) - now->day) + 1;
+    int nDays = (daysInMonth(peekDateMonth(now)) - peekDateDay(now)) + 1;
     
-    if (now->month == 2 && now->day < 29 && leapYear(now->year))
+    if (peekDateMonth(now) == 2 && peekDateDay(now) < 29 && leapYear(peekDateYear(now)))
     {
         nDays++;
     }

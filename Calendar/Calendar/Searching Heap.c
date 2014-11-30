@@ -448,7 +448,7 @@ SearchingHp* enqueueEventsForThisWeek (SearchingHp *hp, Date *now)
     
     for (i=0; i<weekRemainingDays; i++, now=increaseDate(now))
     {
-        hp = enqueueEventsWithProvidedDate(hp, dateSearchTable, now->day, now->month, now->year);
+        hp = enqueueEventsWithProvidedDate(hp, dateSearchTable, peekDateDay(now), peekDateMonth(now), peekDateYear(now));
     }
     
     return hp;
@@ -470,7 +470,7 @@ SearchingHp* enqueueEventsForThisMonth (SearchingHp *hp, Date *now)
     
     for (i=0; i<=remainingDays; i++, now=increaseDate(now))
     {
-        hp = enqueueEventsWithProvidedDate(hp, dateSearchTable, now->day, now->month, now->year);
+        hp = enqueueEventsWithProvidedDate(hp, dateSearchTable, peekDateDay(now), peekDateMonth(now), peekDateYear(now));
     }
     
     return hp;

@@ -118,13 +118,13 @@ Event* createRandomSetOfEvents (Event *events, int nOfEvents)
     {
         sscanf(peekEventTitle(events), "%*s %d", &n);
         n++;
-        *date = *peekEventDate(events);
+        setDateByDate(date, peekEventDate(events));
         date = increaseDate(date);
     }
     
     char *title = (char*) malloc(sizeof(char)*Max);
     sprintf(title, "test %d", n);
-    events = eventInsertEvent(events, createEvent(date->day, date->month, date->year, "testing event", title, 0, NULL));
+    events = eventInsertEvent(events, createEvent(peekDateDay(date), peekDateMonth(date), peekDateYear(date), "testing event", title, 0, NULL));
     free(title);
     free(date);
     return createRandomSetOfEvents(events, nOfEvents-1);

@@ -91,5 +91,21 @@ Date* createEmptyDate (void);
 Date* createDate (int day, int month, int year);
 /*takes a pointer to char title, a pointer to char desc, a pointer to Date starting, a integer recurrency and a pointer to integer frequency as arguments. Tilte is the str of the event title and desc the str of event description. starting is a pointer to the root event date. recurrency is the integer that represents the kind of recurrency for this event. frequency is a array representing the way the events will repeat in time. This function creates NumberOfRecurrences recurrences for this event, inserts them in a list and returns a pointer to the first element of that list.*/
 Event* createRecurrentEvents (Event *main, char *title, char *desc, Date *starting, int recurrency, int *frequency);
+/*Takes a pointer to Date *date as argument. Returns the provided Date's day. Returns ERROR if provided pointer is NULL*/
+int peekDateDay (Date *date);
+/*Takes a pointer to Date *date as argument. Returns the provided Date's month. Returns ERROR if provided pointer is NULL*/
+int peekDateMonth (Date *date);
+/*Takes a pointer to Date *date as argument. Returns the provided Date's year. Returns ERROR if provided pointer is NULL*/
+int peekDateYear (Date *date);
+/*Takes a pointer to Date *date, a integer day, a integer month and a integer year as arguments. Sets the provided day, month and year to the provided Date and returns a pointer to the provided date. Returns NULL if provided date is NULL.*/
+Date* setDate (Date *date, int day, int month, int year);
+/*Takes a pointer to Date *dest and a pointer to Date *source as arguments. Attributes source's values to dest and returns a pointer to dest. Returns NULL if any of provided pointers is NULL.*/
+Date* setDateByDate (Date *dest, Date *source);
+/*Takes a pointer to Date *date and a integer day as arguments. Set's the provided day to provided date and returns a pointer to provided date. Returns ERROR if provided pointer is NULL.*/
+Date* setDateDay (Date *date, int day);
+/*Takes a pointer to Date *date and a integer month as arguments. Set's the provided month to provided date and returns a pointer to provided date. Returns ERROR if provided pointer is NULL.*/
+Date* setDateMonth (Date *date, int month);
+/*Takes a pointer to Date *date and a integer year as arguments. Set's the provided year to provided date and returns a pointer to provided date. Returns ERROR if provided pointer is NULL.*/
+Date* setDateYear (Date *date, int year);
 
 #endif /* defined(__calendar__Events_Tree__) */

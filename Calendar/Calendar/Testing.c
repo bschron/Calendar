@@ -10,7 +10,7 @@
 
 void testing (void)
 {
-    int length = 202;
+    int length = 22;
     
     Event* list = createRandomSetOfEvents(NULL, length);
     SearchingHp *hp = NULL;

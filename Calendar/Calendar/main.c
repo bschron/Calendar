@@ -16,7 +16,7 @@ int main(void)
     descriptionSearchTable = createEmptySearchTable();
     dateSearchTable = createEmptySearchTable();
     
-    testing();
+    //testing();
     
     Calendar *main = importCalendarFromMainDirectory(NULL);
     main = updateCalendar(main);

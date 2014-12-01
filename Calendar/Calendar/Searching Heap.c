@@ -214,6 +214,9 @@ Event* dequeueSearchingHp (SearchingHp *hp)
     //hpfy
     hpfySearchingHp(hp, 0);
     
+    //clean emptyy seconday heaps
+    cleanHp(&hp);
+    
     //return dequeued
     return dequeued;
 }

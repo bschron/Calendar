@@ -165,6 +165,7 @@ SearchingHp* enqueueSearchingHp (SearchingHp *hp, Event *item)
     {
         attributeInfoToSearchingHpPosition(hp, i, item, 1);
         hpfySearchingHp(hp, i);
+        increaseSecondaryHeapLength(hp, i);
         (hp->hpLength)++;
     }
     
@@ -654,4 +655,39 @@ int peekSearchingHpLength (SearchingHp *hp)
     }
     
     return hp->hpLength;
+}
+
+SearchingHp* increaseSecondaryHeapLength (SearchingHp *hp, int position)
+{
+    if (hp == NULL)
+    {
+        return (SearchingHp*) ERROR;
+    }
+    else if (position < SearchHpSize)//skips process if positions belongs to primary heap
+    {
+        return hp;
+    }
+    
+    int hpNumber = position/SearchHpSize;
+    //searches the right seconday heap
+    if (hp->hpNumber < hpNumber)
+    {
+        //Allocates next if there is none
+        if (hp->next == NULL)
+        {
+            hp->next = createEmptyHp();
+            hp->next->hpNumber = hp->hpNumber+1;
+            hp->next->previous = hp;
+        }
+        return increaseSecondaryHeapLength(hp->next, position);
+    }
+    else if (hp->hpNumber > hpNumber)
+    {
+        return increaseSecondaryHeapLength(hp->previous, position);
+    }
+    
+    //now, we are on the desired heap
+    (hp->hpLength)++;
+    
+    return hp;
 }

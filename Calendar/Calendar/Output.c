@@ -38,7 +38,16 @@ void printEvent (FILE *stream, Event *event)
     
     if (peekEventRecurrency(event) == 1 || peekEventRecurrency(event) == -1)
     {
-        int *frequency = peekEventFrequency(event);
+        int *frequency;
+        
+        if (peekEventRecurrency(event) == 1)
+        {
+            frequency = peekEventFrequency(event);
+        }
+        else
+        {
+            frequency = peekEventFrequency(peekEventRecurrences(event));
+        }
         
         fprintf(stream, "Ocorrencias: ");
         if (frequency[0] == 1)

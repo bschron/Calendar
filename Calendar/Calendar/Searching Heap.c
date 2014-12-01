@@ -208,6 +208,7 @@ Event* dequeueSearchingHp (SearchingHp *hp)
     //remove last
     attributeInfoToSearchingHpPosition(hp, hp->hpLength-1, NULL, -1);
     //decrease hp length
+    decreaseSecondaryHeapLength(hp, hp->hpLength-1);
     (hp->hpLength)--;
     
     //hpfy
@@ -688,6 +689,44 @@ SearchingHp* increaseSecondaryHeapLength (SearchingHp *hp, int position)
     
     //now, we are on the desired heap
     (hp->hpLength)++;
+    
+    return hp;
+}
+
+SearchingHp* decreaseSecondaryHeapLength (SearchingHp *hp, int position)
+{
+    if (hp == NULL)
+    {
+        return (SearchingHp*) ERROR;
+    }
+    else if (position < SearchHpSize)//skips process if positions belongs to primary heap
+    {
+        return hp;
+    }
+    
+    int hpNumber = position/SearchHpSize;
+    //searches the right seconday heap
+    if (hp->hpNumber < hpNumber)
+    {
+        //Allocates next if there is none
+        if (hp->next == NULL)
+        {
+            hp->next = createEmptyHp();
+            hp->next->hpNumber = hp->hpNumber+1;
+            hp->next->previous = hp;
+        }
+        return decreaseSecondaryHeapLength(hp->next, position);
+    }
+    else if (hp->hpNumber > hpNumber)
+    {
+        return decreaseSecondaryHeapLength(hp->previous, position);
+    }
+    
+    //now, we are on the desired heap
+    if (hp->hpLength >= 0)
+    {
+        (hp->hpLength)--;
+    }
     
     return hp;
 }

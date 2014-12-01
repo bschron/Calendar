@@ -69,7 +69,9 @@ void attributeInfoToSearchingHpPosition (SearchingHp *hp, int position, Event* o
 void freeSearchingHp (SearchingHp **hp);
 /*Takes a pointer to SearchingHp *hp as argument. Returns the provided heaps's length. Returns ERROR if provided pointer is NULL.*/
 int peekSearchingHpLength (SearchingHp *hp);
-/*Takes a pointer to SearchingHp *hp and a integer position. Searches the provided positions SearchingHp on the provided heap "list", increases that heap's length and returns a pointer to the heap. Returns ERROR if provided pointer is NULL. Returns the provided pointer if the provided position belong to the premary heap.*/
+/*Takes a pointer to SearchingHp *hp and a integer position. Searches the provided positions SearchingHp on the provided heap "list", increases that heap's length and returns a pointer to the decreased heap. Returns ERROR if provided pointer is NULL. Returns the provided pointer if the provided position belong to the primary heap.*/
 SearchingHp* increaseSecondaryHeapLength (SearchingHp *hp, int position);
+/*Takes a pointer to SearchingHp *hp and a integer position. Searches the provided positions SearchingHp on the provided heap "list", decreases that heap's length and returns a pointer to the decreased heap. Returns ERROR if provided pointer is NULL. Returns the provided pointer if the provided position belong to the primary heap.*/
+SearchingHp* decreaseSecondaryHeapLength (SearchingHp *hp, int position);
 
 #endif /* defined(__Calendar__Searching_Hp__) */

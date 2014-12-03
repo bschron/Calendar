@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		86116B731A2E77DD006799B4 /* libcunit.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 86116B701A2E77DD006799B4 /* libcunit.1.dylib */; };
+		86116B741A2E77DD006799B4 /* libcunit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 86116B711A2E77DD006799B4 /* libcunit.a */; };
+		86116B751A2E77DD006799B4 /* libcunit.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 86116B721A2E77DD006799B4 /* libcunit.dylib */; };
 		861FFE741A10F1A0004BC3EE /* Output.c in Sources */ = {isa = PBXBuildFile; fileRef = 861FFE721A10F1A0004BC3EE /* Output.c */; };
 		861FFE771A114CE3004BC3EE /* User Interaction Module.c in Sources */ = {isa = PBXBuildFile; fileRef = 861FFE751A114CE3004BC3EE /* User Interaction Module.c */; };
 		862432FF1A0F8041004ADD65 /* File Management.c in Sources */ = {isa = PBXBuildFile; fileRef = 862432FD1A0F8041004ADD65 /* File Management.c */; };
@@ -42,6 +45,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		86116B701A2E77DD006799B4 /* libcunit.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcunit.1.dylib; path = "../../../../../usr/local/Cellar/cunit/2.1-2/lib/libcunit.1.dylib"; sourceTree = "<group>"; };
+		86116B711A2E77DD006799B4 /* libcunit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcunit.a; path = "../../../../../usr/local/Cellar/cunit/2.1-2/lib/libcunit.a"; sourceTree = "<group>"; };
+		86116B721A2E77DD006799B4 /* libcunit.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcunit.dylib; path = "../../../../../usr/local/Cellar/cunit/2.1-2/lib/libcunit.dylib"; sourceTree = "<group>"; };
 		861FFE721A10F1A0004BC3EE /* Output.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Output.c; sourceTree = "<group>"; };
 		861FFE731A10F1A0004BC3EE /* Output.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Output.h; sourceTree = "<group>"; };
 		861FFE751A114CE3004BC3EE /* User Interaction Module.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "User Interaction Module.c"; sourceTree = "<group>"; };
@@ -91,6 +97,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86116B731A2E77DD006799B4 /* libcunit.1.dylib in Frameworks */,
+				86116B741A2E77DD006799B4 /* libcunit.a in Frameworks */,
+				86116B751A2E77DD006799B4 /* libcunit.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,6 +109,9 @@
 		86279BB01A0ACFF200A5E6B5 = {
 			isa = PBXGroup;
 			children = (
+				86116B701A2E77DD006799B4 /* libcunit.1.dylib */,
+				86116B711A2E77DD006799B4 /* libcunit.a */,
+				86116B721A2E77DD006799B4 /* libcunit.dylib */,
 				86279BBB1A0ACFF200A5E6B5 /* Calendar */,
 				86279BBA1A0ACFF200A5E6B5 /* Products */,
 			);
@@ -328,6 +340,10 @@
 		86279BC11A0ACFF200A5E6B5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/usr/local/Cellar/cunit/2.1-2/lib",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -335,6 +351,10 @@
 		86279BC21A0ACFF200A5E6B5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/usr/local/Cellar/cunit/2.1-2/lib",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

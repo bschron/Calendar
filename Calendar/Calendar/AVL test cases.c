@@ -8,8 +8,103 @@
 
 #include "AVL test cases.h"
 
+Event *dataSet;
+EventBinarySearchTree *tree;
+int nOfTrees;
+
+int init_suite1 (void)
+{
+    dataSet = createRandomSetOfEvents(NULL, nOfTrees);
+    tree = insertDataToEventBinarySearchTree(NULL, NULL, dataSet, nOfTrees, insertEventBinarySearchTree);
+    
+    if (dataSet == NULL || tree == NULL)
+    {
+        return -1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+int clean_suite1 (void)
+{
+    freeAllEvents(&dataSet);
+    
+    if (dataSet == NULL)
+    {
+        return 0;
+    }
+    else
+    {
+        return -1;
+    }
+}
+
+void testINSERTION (void)
+{
+    int initial = 1;
+    if (tree != NULL && dataSet != NULL)
+    {
+        CU_ASSERT(0 != checkIfGotEveryEventFromList(tree, dataSet));
+        CU_ASSERT(initial == checkIfEveryNodeIsBalanced(initial, tree));
+    }
+}
+
+void testSEARCHING (void)
+{
+    int initial = 1;
+    if (tree != NULL && dataSet != NULL)
+    {
+        CU_ASSERT(initial == checkSearching(initial, &tree, dataSet));
+    }
+}
+
+void testREMOVAL (void)
+{
+    int initial = 1;
+    if (tree != NULL && dataSet != NULL)
+    {
+        CU_ASSERT(initial == checkRemoval(initial, dataSet, nOfTrees, insertEventBinarySearchTree));
+        CU_ASSERT(initial == checkRemovalBalance(initial, dataSet, nOfTrees, insertEventBinarySearchTree));
+    }
+}
+
 int avlTestCases (void)
 {
+    nOfTrees = 600;
+    CU_pSuite avlSuite = NULL;
+    
+    /* initialize the CUnit test registry */
+    if (CUE_SUCCESS != CU_initialize_registry())
+    {
+        return CU_get_error();
+    }
+    
+    /* add suite to the registry */
+    avlSuite = CU_add_suite("Suite 01", init_suite1, clean_suite1);
+    if (NULL == avlSuite)
+    {
+        CU_cleanup_registry();
+        return CU_get_error();
+    }
+    
+    /* add the tests to the suite */
+    if ((NULL == CU_add_test(avlSuite, "check if every aspect is ok after insertion", testINSERTION)) ||
+        NULL == CU_add_test(avlSuite, "check if searching is working as expected", testSEARCHING) ||
+        NULL == CU_add_test(avlSuite, "check if every aspect is ok after each removal", testREMOVAL))
+    {
+        CU_cleanup_registry();
+        return CU_get_error();
+    }
+    
+    /* Run all tests using the CUnit Basic interface */
+    CU_basic_set_mode(CU_BRM_VERBOSE);
+    
+    CU_basic_run_tests();
+    CU_cleanup_registry();
+    return CU_get_error();
+    /*
     int nOfEventsForTesting = 666;
     FILE *outputf = stdout;//output file
     EventBinarySearchTree *tree = NULL;
@@ -89,6 +184,7 @@ int avlTestCases (void)
     }
     
     return finalResult;
+     */
 }
 
 EventBinarySearchTree* insertDataToEventBinarySearchTree (EventBinarySearchTree *root, EventBinarySearchTree *parent, Event *data, int nOfData, void (*insert) (EventBinarySearchTree**, EventBinarySearchTree *, EventBinarySearchTree *))

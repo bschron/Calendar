@@ -81,7 +81,6 @@ int avlTestCases (void)
     
     system("clear");
     
-    nOfTrees = 600;
     CU_pSuite avlSuite = NULL;
     
     /* initialize the CUnit test registry */
@@ -113,87 +112,7 @@ int avlTestCases (void)
     CU_basic_run_tests();
     CU_cleanup_registry();
     return CU_get_error();
-    /*
-    int nOfEventsForTesting = 666;
-    FILE *outputf = stdout;//output file
-    EventBinarySearchTree *tree = NULL;
-    int finalResult = 1;
-    
-    for (nOfEventsForTesting = 1; nOfEventsForTesting <= 300; nOfEventsForTesting ++)
-    {
-        system("clear");
-        loadingIcon(&loadState, &loadDelay);
-        fprintf(outputf, "AVL test cases: %d\n", nOfEventsForTesting);
-        
-        //list of events for testing
-        Event *testCasesEvents = createRandomSetOfEvents(NULL, nOfEventsForTesting);
-        //insert testing events to AVL
-        tree = insertDataToEventBinarySearchTree(tree, NULL, testCasesEvents, nOfEventsForTesting, insertEventBinarySearchTree);
-        
-        //check if all elements are on the list
-        {
-            int result = checkIfGotEveryEventFromList(tree, testCasesEvents);
-            fprintf(outputf, "Inserting - %d\n", result);
-            if (result == 0)
-            {
-                finalResult--;
-            }
-        }
-        
-        //check if balancing is ok
-        {
-            int initial = 1;
-            int result = checkIfEveryNodeIsBalanced(initial, tree);
-            fprintf(outputf, "Balancing - %d\n", result/initial);
-            if (result != initial)
-            {
-                finalResult--;
-            }
-        }
-        //check if searching is ok
-        {
-            int initial = 1;
-            int result = checkSearching(initial, &tree, testCasesEvents);
-            fprintf(outputf, "Searching - %d\n", result/initial);
-            if (result != initial)
-            {
-                finalResult--;
-            }
-        }
-        //check if removing is ok
-        {
-            int initial = 1;
-            int result = checkRemoval(initial, testCasesEvents, nOfEventsForTesting, insertEventBinarySearchTree);
-            fprintf(outputf, "Removing - %d\n", result/initial);
-            if (result != initial)
-            {
-                finalResult--;
-            }
-        }
-        //check removal balance
-        {
-            int initial = 1;
-            int result = checkRemovalBalance(initial, testCasesEvents, nOfEventsForTesting, insertEventBinarySearchTree);
-            fprintf(outputf, "Removal Balance - %d\n", result/initial);
-            if (result != initial)
-            {
-                finalResult--;
-            }
-        }
-        //free
-        freeAllEvents(&testCasesEvents);
-        freeAllEventBinarySearchTree(&tree);
-    }
-    
-    fprintf(outputf, "\n\nFinal Result: %d\n", finalResult);
-    
-    if (finalResult)
-    {
-        confirmSucess();
-    }
-    
-    return finalResult;
-     */
+
 }
 
 EventBinarySearchTree* insertDataToEventBinarySearchTree (EventBinarySearchTree *root, EventBinarySearchTree *parent, Event *data, int nOfData, void (*insert) (EventBinarySearchTree**, EventBinarySearchTree *, EventBinarySearchTree *))

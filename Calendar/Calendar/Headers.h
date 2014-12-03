@@ -41,7 +41,7 @@
 #include <mach/mach_time.h>
 #include <time.h>
 #include <sys/time.h>
-#include "/usr/local/Cellar/cunit/2.1-2/include/CUnit/Basic.h"
+#include "cunit/2.1-2/include/CUnit/Basic.h"
 
 #include "Structs.h"
 

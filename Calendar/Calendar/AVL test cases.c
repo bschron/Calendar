@@ -72,6 +72,15 @@ void testREMOVAL (void)
 
 int avlTestCases (void)
 {
+    system("clear");
+    do
+    {
+        printf("How many items do you want to insert to the tree?\n");
+        nOfTrees = getNumber();
+    } while (nOfTrees <= 0);
+    
+    system("clear");
+    
     nOfTrees = 600;
     CU_pSuite avlSuite = NULL;
     

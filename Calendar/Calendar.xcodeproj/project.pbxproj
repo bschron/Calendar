@@ -32,6 +32,16 @@
 		86F1EF821A1A8746002FD500 /* Testing.c in Sources */ = {isa = PBXBuildFile; fileRef = 86F1EF801A1A8746002FD500 /* Testing.c */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		8690C0061A2E95DB00344620 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8690C0021A2E95DB00344620 /* AVL C Unit testing.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8690BFF81A2E95DB00344620;
+			remoteInfo = "AVL C Unit testing";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		86279BB71A0ACFF200A5E6B5 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -126,6 +136,7 @@
 		864741921A0FFB3A001ECAD7 /* Date and Time.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Date and Time.h"; sourceTree = "<group>"; };
 		8654A9351A1D11D90057A69A /* Object List.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "Object List.c"; sourceTree = "<group>"; };
 		8654A9361A1D11D90057A69A /* Object List.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Object List.h"; sourceTree = "<group>"; };
+		8690C0021A2E95DB00344620 /* AVL C Unit testing.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "AVL C Unit testing.xcodeproj"; path = "AVL C Unit testing/AVL C Unit testing.xcodeproj"; sourceTree = "<group>"; };
 		86C7306C1A2007A900D2C025 /* Priority Queue Test Cases.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "Priority Queue Test Cases.c"; sourceTree = "<group>"; };
 		86C7306D1A2007A900D2C025 /* Priority Queue Test Cases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Priority Queue Test Cases.h"; sourceTree = "<group>"; };
 		86D7A4481A0B8DFD009C67EF /* Lists Management.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "Lists Management.c"; sourceTree = "<group>"; };
@@ -368,9 +379,18 @@
 			path = Calendar;
 			sourceTree = "<group>";
 		};
+		8690C0031A2E95DB00344620 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8690C0071A2E95DB00344620 /* AVL C Unit testing */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		86D7A4521A0CC442009C67EF /* Testing */ = {
 			isa = PBXGroup;
 			children = (
+				8690C0021A2E95DB00344620 /* AVL C Unit testing.xcodeproj */,
 				86D7A4571A0CC6C9009C67EF /* Event Binary Search Tree Tests.c */,
 				86D7A45A1A0CC73F009C67EF /* Searching Heap tests.c */,
 				86F1EF801A1A8746002FD500 /* Testing.c */,
@@ -427,12 +447,28 @@
 			mainGroup = 86279BB01A0ACFF200A5E6B5;
 			productRefGroup = 86279BBA1A0ACFF200A5E6B5 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 8690C0031A2E95DB00344620 /* Products */;
+					ProjectRef = 8690C0021A2E95DB00344620 /* AVL C Unit testing.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				86279BB81A0ACFF200A5E6B5 /* Calendar */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		8690C0071A2E95DB00344620 /* AVL C Unit testing */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = "AVL C Unit testing";
+			remoteRef = 8690C0061A2E95DB00344620 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
 		86279BB51A0ACFF200A5E6B5 /* Sources */ = {
